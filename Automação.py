@@ -55,19 +55,6 @@ def Verificar_Diretorio():
                 print(f"PDF processado: {arquivo.replace('.pdf', '')}")
                 cod_for += 1
 
-        if codF != cod_for:
-            op = input('Deseja copiar os arquivos de fornecedores? [S/N]').upper().strip()
-            if op == 'S':
-                PAUSE = 0.5
-                click(x=48, y=283)
-                click(x=552, y=195)
-                click(x=573, y=289)
-                click(x=741, y=453)
-                click(x=741, y=473)
-                click(x=1005, y=705)
-                sleep(3)
-                click(x=1105, y=707)
-
         diretorio_clientes = r"C:\Users\gabriel.souza\Desktop\AUTOMACAO\Clientes"
         arquivos_clientes = listdir(diretorio_clientes)
         
@@ -92,19 +79,6 @@ def Verificar_Diretorio():
                 remove(caminho_completo)
                 print(f"PDF processado: {arquivo.replace('.pdf', '')}")
                 cod_cli += 1
-        
-        if codC != cod_cli:
-            op = input('Deseja copiar os arquivos de Clientes? [S/N]').upper()
-            if op == 'S':
-                PAUSE = 0.5
-                click(x=48, y=283)
-                click(x=552, y=195)
-                click(x=573, y=289)
-                click(x=741, y=453)
-                click(x=741, y=473)
-                click(x=1005, y=705)
-                sleep(3)
-                click(x=1105, y=707)
         
         # Aguardando um tempo antes de verificar novamente
         sleep(10)  # verifica a cada 10 segundos
@@ -139,175 +113,190 @@ def Analisador(caminho_pdf):
 
 def Robo(dados, clifor, insc_est):
 
-    situacao = dados["Situação"]
-    if situacao.upper() == 'ATIVA':
+    cli_for = clifor
+    inscricao_estadual = insc_est        
+    nome_empresarial = Formatar_Nome(dados["Nome Empresarial"].strip())
+    if Formatar_Nome(dados["Nome Fantasia"].strip()) == False:
+        nome_fantasia = nome_empresarial.replace('Ltda', '').replace('Sa', '').strip()
+    else:
+        nome_fantasia = Formatar_Nome(dados["Nome Fantasia"].strip())
+    cnpj_cpf = dados['Número de Inscrição'].strip()        
+    cep = dados["Cep"].replace('-', '').replace('.', '').strip()
+    tipo_rua = Tipo_Rua(dados["Logradouro"].title().strip())[0]
+    nome_rua = Tipo_Rua(dados["Logradouro"].title().strip())[1]
+    numero = dados["Número"].strip()
+    complemento = dados["Complemento"].title().strip()  
+    tipo_bairro = Tipo_Bairro(dados["Bairro/Distrito"].title().strip())[0]
+    nome_bairro = Tipo_Bairro(dados["Bairro/Distrito"].title().strip())[1]
+    uf = dados["Uf"].upper().strip()  
+    municipio = dados["Município"].title().strip()                 
+    telefone = dados["Telefone"].replace('(', '').replace(')', '').replace('-', '').replace(' ', '').strip()  # Remover formatação do telefone
+    celular1 = telefone
+    celular2 = ''
+    if '/' in telefone:
+        celular1, celular2 = telefone.split('/')
+    email = dados["Endereço Eletrônico"].strip()  
+    
+    # Velocidade que o programa executa        
+    PAUSE = 0.3
 
-        cli_for = clifor
-        inscricao_estadual = insc_est        
-        nome_empresarial = Formatar_Nome(dados["Nome Empresarial"].strip())
-        if Formatar_Nome(dados["Nome Fantasia"].strip()) == False:
-            nome_fantasia = nome_empresarial.replace('Ltda', '').replace('Sa', '').strip()
-        else:
-            nome_fantasia = Formatar_Nome(dados["Nome Fantasia"].strip())
-        cnpj_cpf = dados['Número de Inscrição'].strip()        
-        cep = dados["Cep"].replace('-', '').replace('.', '').strip()
-        tipo_rua = Tipo_Rua(dados["Logradouro"].title().strip())[0]
-        nome_rua = Tipo_Rua(dados["Logradouro"].title().strip())[1]
-        numero = dados["Número"].strip()
-        complemento = dados["Complemento"].title().strip()  
-        tipo_bairro = Tipo_Bairro(dados["Bairro/Distrito"].title().strip())[0]
-        nome_bairro = Tipo_Bairro(dados["Bairro/Distrito"].title().strip())[1]
-        uf = dados["Uf"].upper().strip()  
-        municipio = dados["Município"].title().strip()                 
-        telefone = dados["Telefone"].replace('(', '').replace(')', '').replace('-', '').replace(' ', '').strip()  # Remover formatação do telefone
-        celular1 = telefone
-        celular2 = ''
-        if '/' in telefone:
-            celular1, celular2 = telefone.split('/')
-        email = dados["Endereço Eletrônico"].strip()  
-        
-        # Velocidade que o programa executa        
-        PAUSE = 0.3
+    # Espera a menu inicial do RM
+    while True:
+        try:
+            if locateOnScreen(r'C:\Users\gabriel.souza\Desktop\AUTOMACAO\Imagens\1.png', confidence=0.95):
+                sleep(0.3)
+                # Abrir aba de clientes/fornecedores
+                click(x=797, y=71)
+                break 
+        except ImageNotFoundException:
+            print("Abra o Menu de Clientes/Fornecedores!")
+            sleep(1)
 
-        # Espera a aba de clientes/fornecedores
-        while True:
-            try:
-                if locateOnScreen(r'C:\Users\gabriel.souza\Desktop\AUTOMACAO\Imagens\1.png', confidence=0.8):
-                    sleep(0.3)
-                    # Abrir cadastro
-                    click(x=13, y=198)
-                    break 
-            except ImageNotFoundException:
-                print("Abra o Menu de Clientes/Fornecedores!")
-                sleep(1)
+    # Espera a filtro abrir
+    while True:
+        try:
+            if locateOnScreen(r'C:\Users\gabriel.souza\Desktop\AUTOMACAO\Imagens\2.png', confidence=0.95):
+                sleep(0.3)
+                # Fecha o filtro
+                click(x=1123, y=771)
+                break 
+        except ImageNotFoundException:
+            print("Abra o Menu de Clientes/Fornecedores!")
+            sleep(1)
 
-        # Espera abrir o menu de cadastro
-        while True:
-            try:
-                if locateOnScreen(r'C:\Users\gabriel.souza\Desktop\AUTOMACAO\Imagens\2.png', confidence=0.8):
-                    sleep(0.3)
-                    # Escreve o código fornecedor/cliente
-                    press('tab')
-                    write(cli_for)
-                    break 
-            except ImageNotFoundException:
-                print("Aguardando Menu de Cadastros Abrir!")
-                sleep(1)
+    # Espera a aba de clientes/fornecedores
+    while True:
+        try:
+            if locateOnScreen(r'C:\Users\gabriel.souza\Desktop\AUTOMACAO\Imagens\3.png', confidence=0.9):
+                sleep(0.3)
+                # Abrir cadastro
+                click(x=13, y=198)
+                break 
+        except ImageNotFoundException:
+            print("Abra o Menu de Clientes/Fornecedores!")
+            sleep(1)
 
-        # Escreve o nome fantasia
-        if '*' not in nome_fantasia:
-            press('tab', presses=2)
-            write(nome_fantasia)
+    # Espera abrir o menu de cadastro
+    while True:
+        try:
+            if locateOnScreen(r'C:\Users\gabriel.souza\Desktop\AUTOMACAO\Imagens\4.png', confidence=0.9):
+                sleep(0.3)
+                # Escreve o código fornecedor/cliente
+                press('tab')
+                write(cli_for)
+                break 
+        except ImageNotFoundException:
+            print("Aguardando Menu de Cadastros Abrir!")
+            sleep(1)
 
-        else:
-            press('tab', presses=2)
-            write(nome_empresarial)
- 
-        # Escreve o nome empresarial
-        press('tab')
-        write(nome_empresarial)
-        
-        # Seleciona a clasificação e Categoria
-        if match(r'^[F]\d{5}$', cli_for): 
-            click(x=709, y=427) # Fornecedor
+    PAUSE = 3
 
-        elif match(r'^[C]\d{5}$', cli_for): 
-            click(x=710, y=415) # Cliente
-
-        if match(r'^\d{2}\.\d{3}\.\d{3}/\d{4}-\d{2}$', cnpj_cpf): 
-            click(x=909, y=439) # Jurídica
-
-        elif match(r'^\d{3}\.\d{3}\.\d{3}-\d{2}$', cnpj_cpf):
-            click(x=911, y=415) # Física
-
-
-        # Escreve o CPF/CNPJ
-        press('tab')
-        write(cnpj_cpf)
-
-        # Escreve a inscrição estadual se não for vazio
-        if inscricao_estadual != '':
-            press('tab', presses=3)
-            if inscricao_estadual.isdigit():
-                write(str(inscricao_estadual))
-            click(x=537, y=489)
-            click(x=735, y=619)
-            if inscricao_estadual.upper() == 'ISENTO':
-                click(x=746, y=652)
-            else:
-                click(x=739, y=639)  
-            click(x=535, y=275)
-
-        # Escreve o CEP
-        click(x=712, y=631)
-        write(str(cep))      
-        press('tab')
-
-        # Espera o menu abrir
-        sleep(3)
-
-        # Fecha o menu
-        click(x=1373, y=736)
-        
-        # Escreve o tipo e nome da rua       
-        click(x=1373, y=736)
-        press('tab')
-        write(tipo_rua)
+    # Escreve o nome fantasia
+    if '*' not in nome_fantasia:
         press('tab', presses=2)
-        write(nome_rua)
-        press('tab')
-
-        # Escreve o número
-        if any(char.isdigit() for char in numero):           
-            write(numero)
-            press('tab', presses=3)
-        else:
-            press('tab', presses=3)
-
-        # Escreve o complemento
-        if '*' not in complemento:
-            write(complemento)
-            press('tab')
-        else:
-            press('tab')
-
-        # Escreve o tipo e nome do bairro 
-        write(tipo_bairro)
-        press('tab', presses=2)
-        write(nome_bairro)
-
-        # Escreve a UF
-        press('tab', presses=4)
-        write(uf)
-                
-        # Escreve o município
-        click(x=1175, y=710)
-        write(municipio)
-        click(x=807, y=768)
-
-        # Escreve o telefone
-        if celular1 != '':
-            write(celular1)
-            press('tab')
-        else:
-            press('tab')
-
-        # Escreve o celular
-        if celular2 != '':
-            write(celular2)
-            press('tab', presses=3)
-        else:
-            press('tab', presses=3)
-
-        # Escreve o e-mail
-        if '@' in email:
-            write(email)
-
-        # Salva o cadastro
-        click(x=1230, y=884)
+        write(nome_fantasia)
 
     else:
-        return 'O cnpj não está ativo' 
+        press('tab', presses=2)
+        write(nome_empresarial)
+
+    # Escreve o nome empresarial
+    press('tab')
+    write(nome_empresarial)
+    
+    # Seleciona a clasificação e Categoria
+    if 'C' in cli_for: 
+        click(x=710, y=415) # Cliente    
+    
+    if 'F' in cli_for:
+        click(x=709, y=427) # Fornecedor
+
+    click(x=908, y=440) # Jurídica
+
+    # Escreve o CPF/CNPJ
+    press('tab')
+    write(cnpj_cpf)
+
+    # Escreve a inscrição estadual se não for vazio
+    if inscricao_estadual != '':
+        press('tab', presses=3)
+        if inscricao_estadual.isdigit():
+            write(str(inscricao_estadual))
+        click(x=537, y=489)
+        click(x=735, y=619)
+        if inscricao_estadual.upper() == 'ISENTO':
+            click(x=746, y=652)
+        else:
+            click(x=739, y=639)  
+        click(x=535, y=275)
+
+    # Escreve o CEP
+    click(x=712, y=631)
+    write(str(cep))      
+    press('tab')
+
+    # Espera o menu abrir
+    sleep(3)
+
+    # Fecha o menu
+    click(x=1373, y=736)
+    
+    # Escreve o tipo e nome da rua       
+    click(x=1373, y=736)
+    press('tab')
+    write(tipo_rua)
+    press('tab', presses=2)
+    write(nome_rua)
+    press('tab')
+
+    # Escreve o número
+    if any(char.isdigit() for char in numero):           
+        write(numero)
+        press('tab', presses=3)
+    else:
+        press('tab', presses=3)
+
+    # Escreve o complemento
+    if '*' not in complemento:
+        write(complemento)
+        press('tab')
+    else:
+        press('tab')
+
+    # Escreve o tipo e nome do bairro 
+    write(tipo_bairro)
+    press('tab', presses=2)
+    write(nome_bairro)
+
+    # Escreve a UF
+    press('tab', presses=4)
+    write(uf)
+            
+    # Escreve o município
+    click(x=1175, y=710)
+    write(municipio)
+    click(x=807, y=768)
+
+    # Escreve o telefone
+    if celular1 != '':
+        write(celular1)
+        press('tab')
+    else:
+        press('tab')
+
+    # Escreve o celular
+    if celular2 != '':
+        write(celular2)
+        press('tab', presses=3)
+    else:
+        press('tab', presses=3)
+
+    # Escreve o e-mail
+    if '@' in email:
+        write(email)
+
+    # Salva o cadastro
+    #click(x=1230, y=884)
 
 def Formatar_Nome(texto):
     # Dicionário com as abreviações conforme o PDF
