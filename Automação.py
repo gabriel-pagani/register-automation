@@ -135,6 +135,8 @@ def Robo(dados, clifor, insc_est):
     celular2 = ''
     if '/' in telefone:
         celular1, celular2 = telefone.split('/')
+    if all(char == '0' for char in celular2):
+        celular2 = ''
     email = dados["Endereço Eletrônico"].strip()  
     
     # Velocidade que o programa executa        
@@ -149,19 +151,19 @@ def Robo(dados, clifor, insc_est):
                 click(x=797, y=71)
                 break 
         except ImageNotFoundException:
-            print("Abra o Menu de Clientes/Fornecedores!")
+            print("Abra a Tela de Início do RM!")
             sleep(1)
 
     # Espera a filtro abrir
     while True:
         try:
-            if locateOnScreen(r'C:\Users\gabriel.souza\Desktop\AUTOMACAO\Imagens\2.png', confidence=0.95):
+            if locateOnScreen(r'C:\Users\gabriel.souza\Desktop\AUTOMACAO\Imagens\2.png', confidence=0.9):
                 sleep(0.3)
                 # Fecha o filtro
                 click(x=1123, y=771)
                 break 
         except ImageNotFoundException:
-            print("Abra o Menu de Clientes/Fornecedores!")
+            print("Aguardando menu de Filtros Abrir!")
             sleep(1)
 
     # Espera a aba de clientes/fornecedores
@@ -173,7 +175,7 @@ def Robo(dados, clifor, insc_est):
                 click(x=13, y=198)
                 break 
         except ImageNotFoundException:
-            print("Abra o Menu de Clientes/Fornecedores!")
+            print("Aguardado Menu de Clientes/Fornecedores abrir!")
             sleep(1)
 
     # Espera abrir o menu de cadastro
@@ -296,7 +298,19 @@ def Robo(dados, clifor, insc_est):
         write(email)
 
     # Salva o cadastro
-    #click(x=1230, y=884)
+    click(x=1230, y=884)
+
+    # Espera o cadastro terminar
+    while True:
+        try:
+            if locateOnScreen(r'C:\Users\gabriel.souza\Desktop\AUTOMACAO\Imagens\5.png', confidence=0.9):
+                sleep(0.3)
+                # Fecha a aba de fornecedor/cliente
+                click(x=176, y=168)
+                break 
+        except ImageNotFoundException:
+            print("Aguardando o Fechamento da aba de fornecedor/cliente!")
+            sleep(1)
 
 def Formatar_Nome(texto):
     # Dicionário com as abreviações conforme o PDF
