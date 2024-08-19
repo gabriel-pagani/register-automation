@@ -137,6 +137,8 @@ def Robo(dados, clifor, insc_est):
         celular1, celular2 = telefone.split('/')
     if all(char == '0' for char in celular2):
         celular2 = ''
+    if celular2 == celular1:
+        celular2 = ''
     email = dados["Endereço Eletrônico"].strip()  
     
     # Velocidade que o programa executa        
