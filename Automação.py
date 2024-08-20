@@ -142,7 +142,7 @@ def Robo(dados, clifor, insc_est):
     email = dados["Endereço Eletrônico"].strip()  
     
     # Velocidade que o programa executa        
-    PAUSE = 0.3
+    PAUSE = 0.2
 
     # Espera a menu inicial do RM
     while True:
@@ -192,8 +192,6 @@ def Robo(dados, clifor, insc_est):
         except ImageNotFoundException:
             print("Aguardando Menu de Cadastros Abrir!")
             sleep(1)
-
-    PAUSE = 3
 
     # Escreve o nome fantasia
     if '*' not in nome_fantasia:
