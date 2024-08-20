@@ -215,4 +215,5 @@ abreviacoes = {
         'DE': 'de',
         'DA': 'da',
         'DO': 'do',
+        'EM': 'em'
         }
