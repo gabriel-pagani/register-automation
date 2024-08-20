@@ -135,9 +135,7 @@ def Robo(dados, clifor, insc_est):
     celular2 = ''
     if '/' in telefone:
         celular1, celular2 = telefone.split('/')
-    if all(char == '0' for char in celular2):
-        celular2 = ''
-    if celular2 == celular1:
+    if all(char == '0' for char in celular2) or celular2 == celular1:
         celular2 = ''
     email = dados["Endereço Eletrônico"].strip()  
     
