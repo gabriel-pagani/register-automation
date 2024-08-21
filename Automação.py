@@ -22,9 +22,7 @@ def Input_Codigo_Cli():
 def Verificar_Diretorio():
 
     cod_for = Input_Codigo_For()
-    codF = cod_for
     cod_cli = Input_Codigo_Cli()
-    codC = cod_cli
 
     while True:
         print('Procurando arquivos...')
@@ -140,7 +138,7 @@ def Robo(dados, clifor, insc_est):
     email = dados["Endereço Eletrônico"].strip()  
     
     # Velocidade que o programa executa        
-    PAUSE = 0.2
+    PAUSE = 0.3
 
     # Espera a menu inicial do RM
     while True:
