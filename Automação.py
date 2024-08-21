@@ -356,10 +356,46 @@ def Tipo_Bairro(texto):
     
     elif bairro[0].upper() == 'ZONA':
         return ['Zona', sub('Zona ', '', texto)]
+    
+    elif bairro[0].upper() == 'PARQUE':
+        return ['Parque', sub('Parque ', '', texto)]
+    
+    elif bairro[0].upper() == 'RESIDENCIAL':
+        return ['Residencial', sub('Residencial ', '', texto)]
+    
+    elif bairro[0].upper() == 'SITIO':
+        return ['Sitio', sub('Sitio ', '', texto)]
+    
+    elif bairro[0].upper() == 'NUCLEO':
+        return ['Nucleo', sub('Nucleo ', '', texto)]
+    
+    elif bairro[0].upper() == 'LOTEAMENTO':
+        return ['Loteamento', sub('Loteamento ', '', texto)]
+    
+    elif bairro[0].upper() == 'HORTO':
+        return ['Horto', sub('Horto ', '', texto)]
+    
+    elif bairro[0].upper() == 'GLEBA':
+        return ['Gleba', sub('Gleba ', '', texto)]
+
+    elif bairro[0].upper() == 'FAZENDA':
+        return ['Fazenda', sub('Fazenda ', '', texto)]
+
+    elif bairro[0].upper() == 'DISTRITO':
+        return ['Distrito', sub('Distrito ', '', texto)]
+
+    elif bairro[0].upper() == 'CONJUNTO':
+        return ['Conjunto', sub('Conjunto ', '', texto)]
+    
+    elif bairro[0].upper() == 'CHACARA':
+        return ['Chacara', sub('Chacara ', '', texto)]
+
+    elif bairro[0].upper() == 'BOSQUE':
+        return ['Bosque', sub('Bosque ', '', texto)]
+
     else:
         return ['Bairro', sub('Bairro ', '', texto)]
     ...
     # Adicionar mais parâmetros conforme necessário
-
 
 Verificar_Diretorio()
