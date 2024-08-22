@@ -23,9 +23,9 @@ def Verificar_Diretorio():
 
     cod_for = Input_Codigo_For()
     cod_cli = Input_Codigo_Cli()
-
+    tempo_decorrido = 0
     while True:
-        print('Procurando arquivos...')
+        print(f'Procurando arquivos... (Tempo Decorrido: {tempo_decorrido}s)')
         
         # Lista todos os arquivos no diretório
         diretorio_fornecedores = r"C:\Users\gabriel.souza\Desktop\AUTOMACAO\Fornecedores"
@@ -80,6 +80,7 @@ def Verificar_Diretorio():
         
         # Aguardando um tempo antes de verificar novamente
         sleep(10)  # verifica a cada 10 segundos
+        tempo_decorrido += 10
 
 def Analisador(caminho_pdf):
     documento = open(caminho_pdf)
