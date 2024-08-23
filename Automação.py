@@ -24,8 +24,10 @@ def Verificar_Diretorio():
     cod_for = Input_Codigo_For()
     cod_cli = Input_Codigo_Cli()
     tempo_decorrido = 0
+
     while True:
         print(f'Procurando arquivos... (Tempo Decorrido: {tempo_decorrido}s)')
+        tempo_decorrido += 10
         
         # Lista todos os arquivos no diretório
         diretorio_fornecedores = r"C:\Users\gabriel.souza\Desktop\AUTOMACAO\Fornecedores"
@@ -52,6 +54,7 @@ def Verificar_Diretorio():
                 remove(caminho_completo)
                 print(f"PDF processado: {arquivo.replace('.pdf', '')}")
                 cod_for += 1
+                tempo_decorrido = 0
 
         diretorio_clientes = r"C:\Users\gabriel.souza\Desktop\AUTOMACAO\Clientes"
         arquivos_clientes = listdir(diretorio_clientes)
@@ -77,10 +80,11 @@ def Verificar_Diretorio():
                 remove(caminho_completo)
                 print(f"PDF processado: {arquivo.replace('.pdf', '')}")
                 cod_cli += 1
+                tempo_decorrido = 0
         
         # Aguardando um tempo antes de verificar novamente
         sleep(10)  # verifica a cada 10 segundos
-        tempo_decorrido += 10
+
 
 def Analisador(caminho_pdf):
     documento = open(caminho_pdf)
@@ -134,7 +138,9 @@ def Robo(dados, clifor, insc_est):
     celular2 = ''
     if '/' in telefone:
         celular1, celular2 = telefone.split('/')
-    if all(char == '0' for char in celular2) or celular2 == celular1:
+    if all(char == '0' for char in celular2):
+        celular2 = ''
+    if celular2 == celular1:
         celular2 = ''
     email = dados["Endereço Eletrônico"].strip()  
     
