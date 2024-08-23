@@ -1,5 +1,5 @@
 # Criar o Execultável
-pyinstaller --onefile Automação.py Interface.py Dicionario.py
+pyinstaller --onefile --nocosole Interface.py Automação.py Dicionario.py
 --add-data "Escreva o Caminho Para a Imagem\1.png;imagens"
 --add-data "Escreva o Caminho Para a Imagem\2.png;imagens"
 --add-data "Escreva o Caminho Para a Imagem\3.png;imagens"
