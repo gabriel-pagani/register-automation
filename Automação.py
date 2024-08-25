@@ -5,24 +5,10 @@ from time import sleep
 from fitz import open
 from Dicionario import abreviacoes
 
-def Input_Codigo_For():
-    while True:
-        Cli_For = input('Digite o ÚLTIMO código de Fornecedor: ')
-        if match(r'^\d{5}$', Cli_For):
-            return int(Cli_For)
-        print('Código inválido. Tente novamente.')
+def Verificar_Diretorio(Forn, Clie):
 
-def Input_Codigo_Cli():
-    while True:
-        Cli_For = input('Digite o ÚLTIMO código de Cliente: ')
-        if match(r'^\d{5}$', Cli_For):
-            return int(Cli_For)
-        print('Código inválido. Tente novamente.')
-
-def Verificar_Diretorio():
-
-    cod_for = Input_Codigo_For()
-    cod_cli = Input_Codigo_Cli()
+    cod_for = Forn
+    cod_cli = Clie
     tempo_decorrido = 0
 
     while True:
