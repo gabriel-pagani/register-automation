@@ -308,9 +308,6 @@ def Formatar_Nome(texto):
     if '*' in texto:
         return False
 
-    # Ordena as chaves pelo tamanho para evitar substituições parciais
-    abrv = dict(sorted(abrv.items(), key=lambda item: len(item[0]), reverse=True))
-
     for key, value in abrv.items():
         # Usar regex para garantir que apenas palavras inteiras sejam substituídas
         texto = sub(r'\b{}\b'.format(escape(key)), value, texto)
