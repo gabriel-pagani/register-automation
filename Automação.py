@@ -387,5 +387,3 @@ def Tipo_Bairro(texto):
         return ['Bairro', sub('Bairro ', '', texto)]
     ...
     # Adicionar mais parâmetros conforme necessário
-
-Verificar_Diretorio()
