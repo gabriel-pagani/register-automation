@@ -7,4 +7,4 @@ pyinstaller --onefile Interface.py Automação.py Dicionario.py
 --add-data "Caminho\5.png;imagens"
 
 # Instalar todas os Frameworks Necessários
-pip install pyautogui pyscreeze Pillow opencv-python-headless flet PyMuPDF 
+pip install pyautogui opencv-python-headless flet PyMuPDF 
