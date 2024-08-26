@@ -3,7 +3,6 @@ from Automação import Verificar_Diretorio
 
 def main(page: ft.page):
     page.title = "Menu Principal"
-    page.window.Theme = ft.ThemeMode.LIGHT,
     page.window.width = 400
     page.window.height = 400
     page.window.center()
@@ -33,13 +32,15 @@ def main(page: ft.page):
         else:
             txt2.error_text = None
         
+        page.update()
+
         if ((txt1.value != '' and txt1.value.isnumeric() == True and len(txt1.value) == 5) and 
               (txt2.value != '' and txt2.value.isnumeric() == True and len(txt2.value) == 5)):
             
+            page.window.close()
+            
             Verificar_Diretorio(int(txt1.value), int(txt2.value))      
         
-        page.update()
-
     txt1 = ft.TextField(label="Último Código Fornecedor", width=300)
     txt2 = ft.TextField(label="Último Código Cliente", width=300)
 
@@ -55,12 +56,13 @@ def main(page: ft.page):
         on_click=btn_clicked
     )
 
+
     container = ft.Container(
         content=ft.Column(
             controls=[
                 txt1,
                 txt2,
-                btn1,                                                                 
+                btn1                                                                     
             ],
             width=300,
             alignment=ft.MainAxisAlignment.CENTER,
@@ -74,4 +76,4 @@ def main(page: ft.page):
 
     page.add(container)
 
-ft.app(target=main)
+ft.app(target=main, assets_dir="assets")
