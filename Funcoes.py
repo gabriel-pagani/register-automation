@@ -12,7 +12,7 @@ def Verificar_Diretorio(Forn, Clie, Output):
     tempo_decorrido = 0
 
     while True:
-        Output.value = f'Procurando arquivos... (Tempo Decorrido: {tempo_decorrido}s)'
+        Output.value += f'Procurando arquivos... (Tempo Decorrido: {tempo_decorrido}s)\n'
         Output.update()
         tempo_decorrido += 10
         
@@ -24,7 +24,7 @@ def Verificar_Diretorio(Forn, Clie, Output):
         for arquivo in arquivos_fornecedores:
             if arquivo.endswith('.pdf'):
                 caminho_completo = path.join(diretorio_fornecedores, arquivo)
-                Output.value = f"PDF encontrado: {arquivo.replace('.pdf', '')}"
+                Output.value += f"PDF encontrado: {arquivo.replace('.pdf', '')}\n"
                 Output.update()
 
                 # Analisa o PDF e extrai os dados
@@ -40,7 +40,7 @@ def Verificar_Diretorio(Forn, Clie, Output):
         
                 # Remove ou move o arquivo após o processamento (opcional)
                 remove(caminho_completo)
-                Output.value = f"PDF processado: {arquivo.replace('.pdf', '')}"
+                Output.value += f"PDF processado: {arquivo.replace('.pdf', '')}\n"
                 Output.update()
                 cod_for += 1
                 tempo_decorrido = 0
@@ -52,7 +52,7 @@ def Verificar_Diretorio(Forn, Clie, Output):
         for arquivo in arquivos_clientes:
             if arquivo.endswith('.pdf'):
                 caminho_completo = path.join(diretorio_clientes, arquivo)
-                Output.value = f"PDF encontrado: {arquivo.replace('.pdf', '')}"
+                Output.value += f"PDF encontrado: {arquivo.replace('.pdf', '')}\n"
                 Output.update()
 
                 # Analisa o PDF e extrai os dados
@@ -68,7 +68,7 @@ def Verificar_Diretorio(Forn, Clie, Output):
                 
                 # Remove ou move o arquivo após o processamento (opcional)
                 remove(caminho_completo)
-                Output.value = f"PDF processado: {arquivo.replace('.pdf', '')}"
+                Output.value += f"PDF processado: {arquivo.replace('.pdf', '')}\n"
                 cod_cli += 1
                 tempo_decorrido = 0
         
@@ -145,7 +145,7 @@ def Robo(dados, clifor, insc_est, Output):
                 click(x=797, y=71)
                 break 
         except ImageNotFoundException:
-            Output.value = "Abra a Tela de Início do RM!"
+            Output.value += "Abra a Tela de Início do RM!\n"
             Output.update()
             sleep(1)
 
@@ -158,7 +158,7 @@ def Robo(dados, clifor, insc_est, Output):
                 click(x=1123, y=771)
                 break 
         except ImageNotFoundException:
-            Output.value = "Aguardando menu de Filtros Abrir!"
+            Output.value += "Aguardando menu de Filtros Abrir!\n"
             Output.update()
             sleep(1)
 
@@ -171,7 +171,7 @@ def Robo(dados, clifor, insc_est, Output):
                 click(x=13, y=198)
                 break 
         except ImageNotFoundException:
-            Output.value = "Aguardado Menu de Clientes/Fornecedores abrir!"
+            Output.value += "Aguardado Menu de Clientes/Fornecedores abrir!\n"
             Output.update()
             sleep(1)
 
@@ -185,7 +185,7 @@ def Robo(dados, clifor, insc_est, Output):
                 write(cli_for)
                 break 
         except ImageNotFoundException:
-            Output.value = "Aguardando Menu de Cadastros Abrir!"
+            Output.value += "Aguardando Menu de Cadastros Abrir!\n"
             Output.update()
             sleep(1)
 
@@ -305,7 +305,7 @@ def Robo(dados, clifor, insc_est, Output):
                 click(x=176, y=168)
                 break 
         except ImageNotFoundException:
-            Output.value = "Aguardando o Fechamento da aba de fornecedor/cliente!"
+            Output.value += "Aguardando o Fechamento da aba de fornecedor/cliente!\n"
             Output.update()
             sleep(1)
 
