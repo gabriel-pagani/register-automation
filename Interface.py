@@ -16,20 +16,27 @@ def main(page: ft.page):
         
         if txt1.value == '':
             txt1.error_text = "Campo Obrigatório"
+            page.window.height = 600
         elif txt1.value.isnumeric() == False:
             txt1.error_text = "Digite Somente números"
+            page.window.height = 600
         elif len(txt1.value) != 5:
-            txt1.error_text = "O Código deve ter 5 digitos"	
+            txt1.error_text = "O Código deve ter 5 digitos"
+            page.window.height = 600
         else:
             txt1.error_text = None
 
         if txt2.value == '':
             txt2.error_text = "Campo Obrigatório"
+            page.window.height = 600
         elif txt2.value.isnumeric() == False:
             txt2.error_text = "Digite Somente números"
+            page.window.height = 600
         elif len(txt2.value) != 5:
             txt2.error_text = "O Código deve ter 5 digitos"
+            page.window.height = 600
         else:
+            page.window.height = 580
             txt2.error_text = None
         
         page.update()
@@ -38,7 +45,7 @@ def main(page: ft.page):
               (txt2.value != '' and txt2.value.isnumeric() == True and len(txt2.value) == 5)):
             
             btn1.disabled = True
-            btn1.tooltip = "Botão é Desabilitado Quando o Programa é Inicializado"
+            btn1.tooltip = "Programa Já Está Em Execução"
             btn1.update()
             
             Verificar_Diretorio(int(txt1.value), int(txt2.value), txt3)      
