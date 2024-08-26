@@ -327,7 +327,7 @@ def Formatar_Nome(texto):
     # Remove números da string
     texto = sub(r'\b\d+\b', '', texto)
 
-    return texto.replace('.', '').replace(',', '').replace('-', '').replace('&', 'e').replace('P/', 'Para').replace('/', '').replace('  ', ' ').replace('  ', ' ').strip() 
+    return texto.replace('.', ' ').replace(',', ' ').replace('-', ' ').replace('/', ' ').replace('&', 'e').replace('P/', 'Para').replace('  ', ' ').replace('  ', ' ').strip() 
 
 def Tipo_Rua(texto):
     rua = texto.strip().split()
