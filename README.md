@@ -1,6 +1,6 @@
 # Criar o Execultável
 pyinstaller --onefile --noconsole
-Interface.py Automação.py Dicionario.py
+Interface.py Funcoes.py Dicionario.py
 --add-data "Caminho\1.png;imagens"
 --add-data "Caminho\2.png;imagens"
 --add-data "Caminho\3.png;imagens"
