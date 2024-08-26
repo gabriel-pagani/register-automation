@@ -4,7 +4,7 @@ from Funcoes import Verificar_Diretorio
 def main(page: ft.page):
     page.title = "Automação"
     page.window.width = 600
-    page.window.height = 590
+    page.window.height = 580
     page.window.center()
     page.window.to_front()
     page.window.resizable = False
