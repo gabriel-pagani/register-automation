@@ -24,6 +24,7 @@ def main(page: ft.page):
             txt1.error_text = "O Código deve ter 5 digitos"
             page.window.height = 600
         else:
+            page.window.height = 580
             txt1.error_text = None
 
         if txt2.value == '':
