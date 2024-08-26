@@ -2,9 +2,9 @@ import flet as ft
 from Funcoes import Verificar_Diretorio
 
 def main(page: ft.page):
-    page.title = "Menu Principal"
+    page.title = "Automação"
     page.window.width = 600
-    page.window.height = 310
+    page.window.height = 590
     page.window.center()
     page.window.to_front()
     page.window.resizable = False
@@ -45,7 +45,7 @@ def main(page: ft.page):
         
     txt1 = ft.TextField(label="Último Código Fornecedor", width=240)
     txt2 = ft.TextField(label="Último Código Cliente", width=240)
-    txt3 = ft.TextField(label="Output",value='', width=500, read_only=True, bgcolor=ft.colors.GREY_300)
+    txt3 = ft.TextField(label="Output", width=500, read_only=True, bgcolor=ft.colors.GREY_300, multiline=True, min_lines=12, max_lines=12)
 
     btn1 = ft.ElevatedButton(
         text="Iniciar",
