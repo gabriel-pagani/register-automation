@@ -3,8 +3,8 @@ from Automação import Verificar_Diretorio
 
 def main(page: ft.page):
     page.title = "Menu Principal"
-    page.window.width = 400
-    page.window.height = 400
+    page.window.width = 600
+    page.window.height = 310
     page.window.center()
     page.window.to_front()
     page.window.resizable = False
@@ -37,16 +37,19 @@ def main(page: ft.page):
         if ((txt1.value != '' and txt1.value.isnumeric() == True and len(txt1.value) == 5) and 
               (txt2.value != '' and txt2.value.isnumeric() == True and len(txt2.value) == 5)):
             
-            page.window.close()
+            btn1.disabled = True
+            btn1.tooltip = "Botão é Desabilitado Quando o Programa é Inicializado"
+            btn1.update()
             
-            Verificar_Diretorio(int(txt1.value), int(txt2.value))      
+            Verificar_Diretorio(int(txt1.value), int(txt2.value), txt3)      
         
-    txt1 = ft.TextField(label="Último Código Fornecedor", width=300)
-    txt2 = ft.TextField(label="Último Código Cliente", width=300)
+    txt1 = ft.TextField(label="Último Código Fornecedor", width=240)
+    txt2 = ft.TextField(label="Último Código Cliente", width=240)
+    txt3 = ft.TextField(label="Output",value='', width=500, read_only=True, bgcolor=ft.colors.GREY_300)
 
     btn1 = ft.ElevatedButton(
         text="Iniciar",
-        width=300,
+        width=500,
         height=50,
         bgcolor=ft.colors.GREEN_500,
         color=ft.colors.WHITE,
@@ -56,21 +59,22 @@ def main(page: ft.page):
         on_click=btn_clicked
     )
 
+    linha = ft.Row(controls=[txt1, txt2], spacing=20, alignment=ft.MainAxisAlignment.CENTER)
 
     container = ft.Container(
         content=ft.Column(
             controls=[
-                txt1,
-                txt2,
-                btn1                                                                     
+                linha,
+                btn1,
+                txt3                                                                   
             ],
-            width=300,
+            width=500,
             alignment=ft.MainAxisAlignment.CENTER,
             spacing=20,
             horizontal_alignment=ft.CrossAxisAlignment.CENTER
         ),
         expand=True,
-        width=500,
+        width=600,
         alignment=ft.alignment.center
     )
 
