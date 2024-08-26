@@ -1,12 +1,5 @@
 # Criar o Execultável
-pyinstaller --onefile --noconsole
-Interface.py Funcoes.py Dicionario.py
---add-data "Caminho\1.png;imagens"
---add-data "Caminho\2.png;imagens"
---add-data "Caminho\3.png;imagens"
---add-data "Caminho\4.png;imagens"
---add-data "Caminho\5.png;imagens"
---add-data "Caminho\icone.ico"
+pyinstaller --onefile --noconsole --add-data "C:\AUTOMACAO\Imagens\1.png;imagens" --add-data "C:\AUTOMACAO\Imagens\2.png;imagens" --add-data "C:\AUTOMACAO\Imagens\3.png;imagens" --add-data "C:\AUTOMACAO\Imagens\4.png;imagens" --add-data "C:\AUTOMACAO\Imagens\5.png;imagens" --icon "C:\AUTOMACAO\Imagens\icone.ico" .\Códigos\Interface.py .\Códigos\Funcoes.py .\Códigos\Dicionario.py
 
 # Instalar todas os Frameworks Necessários
 pip install pyautogui opencv-python-headless flet PyMuPDF 
