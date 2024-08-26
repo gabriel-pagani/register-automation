@@ -1,5 +1,5 @@
 import flet as ft
-from Automação import Verificar_Diretorio
+from Funcoes import Verificar_Diretorio
 
 def main(page: ft.page):
     page.title = "Menu Principal"
