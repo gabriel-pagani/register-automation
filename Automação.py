@@ -5,14 +5,15 @@ from time import sleep
 from fitz import open
 from Dicionario import abreviacoes
 
-def Verificar_Diretorio(Forn, Clie):
+def Verificar_Diretorio(Forn, Clie, Output):
 
     cod_for = Forn
-    cod_cli = Clie
+    cod_cli = Clie   
     tempo_decorrido = 0
 
     while True:
-        print(f'Procurando arquivos... (Tempo Decorrido: {tempo_decorrido}s)')
+        Output.value = f'Procurando arquivos... (Tempo Decorrido: {tempo_decorrido}s)'
+        Output.update()
         tempo_decorrido += 10
         
         # Lista todos os arquivos no diretório
@@ -23,7 +24,8 @@ def Verificar_Diretorio(Forn, Clie):
         for arquivo in arquivos_fornecedores:
             if arquivo.endswith('.pdf'):
                 caminho_completo = path.join(diretorio_fornecedores, arquivo)
-                print(f"PDF encontrado: {arquivo.replace('.pdf', '')}")
+                Output.value = f"PDF encontrado: {arquivo.replace('.pdf', '')}"
+                Output.update()
 
                 # Analisa o PDF e extrai os dados
                 dados_extraidos = Analisador(caminho_completo)
@@ -34,11 +36,12 @@ def Verificar_Diretorio(Forn, Clie):
                     inscricao_estadual = ''
 
                 # Realiza o cadastro usando o Robo
-                Robo(dados_extraidos, 'F' + str(cod_for + 1), inscricao_estadual)
+                Robo(dados_extraidos, 'F' + str(cod_for + 1), inscricao_estadual, Output)
         
                 # Remove ou move o arquivo após o processamento (opcional)
                 remove(caminho_completo)
-                print(f"PDF processado: {arquivo.replace('.pdf', '')}")
+                Output.value = f"PDF processado: {arquivo.replace('.pdf', '')}"
+                Output.update()
                 cod_for += 1
                 tempo_decorrido = 0
 
@@ -49,7 +52,8 @@ def Verificar_Diretorio(Forn, Clie):
         for arquivo in arquivos_clientes:
             if arquivo.endswith('.pdf'):
                 caminho_completo = path.join(diretorio_clientes, arquivo)
-                print(f"PDF encontrado: {arquivo.replace('.pdf', '')}")
+                Output.value = f"PDF encontrado: {arquivo.replace('.pdf', '')}"
+                Output.update()
 
                 # Analisa o PDF e extrai os dados
                 dados_extraidos = Analisador(caminho_completo)
@@ -60,17 +64,16 @@ def Verificar_Diretorio(Forn, Clie):
                     inscricao_estadual = ''
 
                 # Realiza o cadastro usando o Robo
-                Robo(dados_extraidos, 'C' + str(cod_cli + 1), inscricao_estadual)
+                Robo(dados_extraidos, 'C' + str(cod_cli + 1), inscricao_estadual, Output)
                 
                 # Remove ou move o arquivo após o processamento (opcional)
                 remove(caminho_completo)
-                print(f"PDF processado: {arquivo.replace('.pdf', '')}")
+                Output.value = f"PDF processado: {arquivo.replace('.pdf', '')}"
                 cod_cli += 1
                 tempo_decorrido = 0
         
         # Aguardando um tempo antes de verificar novamente
         sleep(10)  # verifica a cada 10 segundos
-
 
 def Analisador(caminho_pdf):
     documento = open(caminho_pdf)
@@ -100,7 +103,7 @@ def Analisador(caminho_pdf):
 
     return dados_extraidos
 
-def Robo(dados, clifor, insc_est):
+def Robo(dados, clifor, insc_est, Output):
 
     cli_for = clifor
     inscricao_estadual = insc_est        
@@ -142,7 +145,8 @@ def Robo(dados, clifor, insc_est):
                 click(x=797, y=71)
                 break 
         except ImageNotFoundException:
-            print("Abra a Tela de Início do RM!")
+            Output.value = "Abra a Tela de Início do RM!"
+            Output.update()
             sleep(1)
 
     # Espera a filtro abrir
@@ -154,7 +158,8 @@ def Robo(dados, clifor, insc_est):
                 click(x=1123, y=771)
                 break 
         except ImageNotFoundException:
-            print("Aguardando menu de Filtros Abrir!")
+            Output.value = "Aguardando menu de Filtros Abrir!"
+            Output.update()
             sleep(1)
 
     # Espera a aba de clientes/fornecedores
@@ -166,7 +171,8 @@ def Robo(dados, clifor, insc_est):
                 click(x=13, y=198)
                 break 
         except ImageNotFoundException:
-            print("Aguardado Menu de Clientes/Fornecedores abrir!")
+            Output.value = "Aguardado Menu de Clientes/Fornecedores abrir!"
+            Output.update()
             sleep(1)
 
     # Espera abrir o menu de cadastro
@@ -179,7 +185,8 @@ def Robo(dados, clifor, insc_est):
                 write(cli_for)
                 break 
         except ImageNotFoundException:
-            print("Aguardando Menu de Cadastros Abrir!")
+            Output.value = "Aguardando Menu de Cadastros Abrir!"
+            Output.update()
             sleep(1)
 
     # Escreve o nome fantasia
@@ -196,10 +203,10 @@ def Robo(dados, clifor, insc_est):
     write(nome_empresarial)
     
     # Seleciona a clasificação e Categoria
-    if 'C' in cli_for: 
+    if 'C' in cli_for.upper(): 
         click(x=710, y=415) # Cliente    
     
-    if 'F' in cli_for:
+    if 'F' in cli_for.upper():
         click(x=709, y=427) # Fornecedor
 
     click(x=908, y=440) # Jurídica
@@ -298,7 +305,8 @@ def Robo(dados, clifor, insc_est):
                 click(x=176, y=168)
                 break 
         except ImageNotFoundException:
-            print("Aguardando o Fechamento da aba de fornecedor/cliente!")
+            Output.value = "Aguardando o Fechamento da aba de fornecedor/cliente!"
+            Output.update()
             sleep(1)
 
 def Formatar_Nome(texto):
@@ -319,7 +327,7 @@ def Formatar_Nome(texto):
     # Remove números da string
     texto = sub(r'\b\d+\b', '', texto)
 
-    return texto.replace('.', ' ').replace(',', ' ').replace('-', ' ').replace('&', 'e').replace('P/', 'Para').replace('/', ' ').replace('  ', ' ').replace('  ', ' ').strip() 
+    return texto.replace('.', '').replace(',', '').replace('-', '').replace('&', 'e').replace('P/', 'Para').replace('/', '').replace('  ', ' ').replace('  ', ' ').strip() 
 
 def Tipo_Rua(texto):
     rua = texto.strip().split()
@@ -382,6 +390,9 @@ def Tipo_Bairro(texto):
 
     elif bairro[0].upper() == 'BOSQUE':
         return ['Bosque', sub('Bosque ', '', texto)]
+    
+    elif bairro[0].upper() == 'SRV':
+        return ['Servidao', sub('Servidao ', '', texto)]
 
     else:
         return ['Bairro', sub('Bairro ', '', texto)]
