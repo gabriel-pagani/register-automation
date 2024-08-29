@@ -358,6 +358,7 @@ def Verificar_Diretorio(Forn, Clie, Output):
         tempo_decorrido += 10
         
         # Lista todos os arquivos no diretório
+        caminho_pasta = r'C:\AUTOMACAO\Clifor'
         diretorio = listdir(r"C:\AUTOMACAO\Clifor")
         
         # Verifica se há arquivos PDF
@@ -365,7 +366,7 @@ def Verificar_Diretorio(Forn, Clie, Output):
             
             if arquivo.endswith('.pdf') and (arquivo.upper().startswith('C') or arquivo.upper().startswith('F')):
                 
-                caminho_completo = path.join(diretorio, arquivo)
+                caminho_completo = path.join(caminho_pasta, arquivo)
                 Output.value += f"PDF encontrado: {arquivo.lower().replace('.pdf', '')}\n"
                 Output.update()
 
