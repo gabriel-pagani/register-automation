@@ -52,7 +52,7 @@ def main(page: ft.page):
 
             page.update()
             
-            Verificar_Diretorio(int(txt1.value), int(txt2.value), txt3)      
+            Verificar_Diretorio(int(txt1.value), int(txt2.value), txt3, txt1, txt2)      
         
     txt1 = ft.TextField(label="Último Código Fornecedor", width=240)
     txt2 = ft.TextField(label="Último Código Cliente", width=240)
