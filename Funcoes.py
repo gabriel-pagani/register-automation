@@ -345,7 +345,7 @@ def Robo(dados_formatados, Clifor, Insc_est, Output):
             Output.update()
             sleep(1)
 
-def Verificar_Diretorio(Forn, Clie, Output):
+def Verificar_Diretorio(Forn, Clie, Output, ForText, CliText):
 
     cod_for = Forn
     cod_cli = Clie   
@@ -382,9 +382,13 @@ def Verificar_Diretorio(Forn, Clie, Output):
                 if arquivo.upper().startswith('F'):
                     Robo(dados, 'F' + str(cod_for + 1), inscricao_estadual, Output)
                     cod_for += 1
+                    ForText.value = cod_for
+                    ForText.update()
                 elif arquivo.upper().startswith('C'):
                     Robo(dados, 'C' + str(cod_cli + 1), inscricao_estadual, Output)
                     cod_cli += 1
+                    CliText.value = cod_cli
+                    CliText.update()                   
                               
                 # Remove o arquivo após o processamento
                 remove(caminho_completo)
@@ -393,5 +397,4 @@ def Verificar_Diretorio(Forn, Clie, Output):
                 
                 tempo_decorrido = 0
         
-        # Aguardando um tempo antes de verificar novamente
         sleep(10)
