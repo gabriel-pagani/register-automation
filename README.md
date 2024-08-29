@@ -6,7 +6,7 @@ pyinstaller --onefile --noconsole
 --add-data "C:\AUTOMACAO\Imagens\4.png;imagens" 
 --add-data "C:\AUTOMACAO\Imagens\5.png;imagens" 
 --icon "C:\AUTOMACAO\Imagens\Flet.ico" 
-.\Códigos\Interface.py .\Códigos\Funcoes.py .\Códigos\Dicionario.py
+Interface.py Funcoes.py Dicionario.py
 
 # Instalar todas os Frameworks Necessários
 pip install pyautogui opencv-python-headless flet PyMuPDF 
