@@ -110,7 +110,7 @@ def Formatador_De_Bairro(texto):
         return ['Bosque', sub('BOSQUE ', '', texto)]
     
     elif bairro[0].upper() == 'SRV':
-        return ['Servidao', sub('SERVIDAO ', '', texto)]
+        return ['Servidao', sub('SRV ', '', texto)]
 
     else:
         return ['Bairro', sub('BAIRRO ', '', texto)]
