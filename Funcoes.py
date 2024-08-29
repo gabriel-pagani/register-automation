@@ -120,16 +120,16 @@ def Formatador_De_Bairro(texto):
 def Formatador_De_Dados(dados_extraidos):
     
     dados_formatados = {}
-
+    
+    # Nome Empresarial
+    dados_formatados['Nome Empresarial'] = Formatador_De_Nome(dados_extraidos['Nome Empresarial']).strip()
+    
     # Nome Fantasia
     if '*' in dados_extraidos['Nome Fantasia'] or dados_extraidos['Nome Fantasia'] == dados_extraidos['Nome Empresarial']:
         dados_formatados['Nome Fantasia'] = dados_formatados['Nome Empresarial'].replace('Ltda', '').replace('Sa', '').strip()  
     else:
         dados_formatados['Nome Fantasia'] = Formatador_De_Nome(dados_extraidos['Nome Fantasia'])
-    
-    # Nome Empresarial
-    dados_formatados['Nome Empresarial'] = Formatador_De_Nome(dados_extraidos['Nome Empresarial']).strip()
-    
+        
     # CNPJ
     dados_formatados['Cnpj'] = dados_extraidos['Cnpj'].strip()
     
