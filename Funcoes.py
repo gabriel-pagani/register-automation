@@ -64,7 +64,7 @@ def Formatador_Da_Rua(texto):
 
 def Formatador_De_Bairro(texto):
     bairro = texto.strip().split()
-    if bairro[0].upper() == 'JARDIM' or bairro[0].upper() == 'JDR.':
+    if bairro[0].upper() == 'JARDIM':
         return ['Jardim', sub('JARDIM ', '', texto)]
     
     elif bairro[0].upper() == 'VILA':
