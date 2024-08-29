@@ -3,7 +3,7 @@ from Funcoes import Verificar_Diretorio
 
 def main(page: ft.page):
     page.title = "Automação"
-    page.window.width = 600
+    page.window.width = 605
     page.window.height = 580
     page.window.center()
     page.window.to_front()
@@ -16,26 +16,26 @@ def main(page: ft.page):
         
         if txt1.value == '':
             txt1.error_text = "Campo Obrigatório"
-            page.window.height = 600
+            page.window.height = 605
         elif txt1.value.isnumeric() == False:
             txt1.error_text = "Digite Somente números"
-            page.window.height = 600
+            page.window.height = 605
         elif len(txt1.value) != 5:
             txt1.error_text = "O Código deve ter 5 digitos"
-            page.window.height = 600
+            page.window.height = 605
         else:
             page.window.height = 580
             txt1.error_text = None
 
         if txt2.value == '':
             txt2.error_text = "Campo Obrigatório"
-            page.window.height = 600
+            page.window.height = 605
         elif txt2.value.isnumeric() == False:
             txt2.error_text = "Digite Somente números"
-            page.window.height = 600
+            page.window.height = 605
         elif len(txt2.value) != 5:
             txt2.error_text = "O Código deve ter 5 digitos"
-            page.window.height = 600
+            page.window.height = 605
         else:
             page.window.height = 580
             txt2.error_text = None
@@ -45,9 +45,12 @@ def main(page: ft.page):
         if ((txt1.value != '' and txt1.value.isnumeric() == True and len(txt1.value) == 5) and 
               (txt2.value != '' and txt2.value.isnumeric() == True and len(txt2.value) == 5)):
             
+            btn1.tooltip = "Programa em Execução"
             btn1.disabled = True
-            btn1.tooltip = "Programa Já Está Em Execução"
-            btn1.update()
+            txt1.disabled = True
+            txt2.disabled = True
+
+            page.update()
             
             Verificar_Diretorio(int(txt1.value), int(txt2.value), txt3)      
         
