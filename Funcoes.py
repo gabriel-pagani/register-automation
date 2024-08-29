@@ -50,13 +50,13 @@ def Formatador_De_Nome(texto):
 def Formatador_Da_Rua(texto):
     rua = texto.strip().split()
     if rua[0].upper() == 'AV':
-        return ['Avenida', sub('Av ', '', texto)]
+        return ['Avenida', sub('AV ', '', texto)]
     elif rua[0].upper() == 'ROD':
-        return ['Rodovia', sub('Rod ', '', texto)]
+        return ['Rodovia', sub('ROD ', '', texto)]
     elif rua[0].upper() == 'EST':
-        return ['Estrada', sub('Est ', '', texto)]
+        return ['Estrada', sub('EST ', '', texto)]
     elif rua[0].upper() == 'AL':
-        return ['Alameda', sub('Al ', '', texto)]
+        return ['Alameda', sub('AL ', '', texto)]
     else:
         return ['Rua', sub('R ', '', texto)]
     ...
@@ -65,55 +65,55 @@ def Formatador_Da_Rua(texto):
 def Formatador_De_Bairro(texto):
     bairro = texto.strip().split()
     if bairro[0].upper() == 'JARDIM' or bairro[0].upper() == 'JDR.':
-        return ['Jardim', sub('Jardim ', '', texto)]
+        return ['Jardim', sub('JARDIM ', '', texto)]
     
     elif bairro[0].upper() == 'VILA':
-        return ['Vila', sub('Vila ', '', texto)]
+        return ['Vila', sub('VILA ', '', texto)]
     
     elif bairro[0].upper() == 'ZONA':
-        return ['Zona', sub('Zona ', '', texto)]
+        return ['Zona', sub('ZONA ', '', texto)]
     
     elif bairro[0].upper() == 'PARQUE':
-        return ['Parque', sub('Parque ', '', texto)]
+        return ['Parque', sub('PARQUE ', '', texto)]
     
     elif bairro[0].upper() == 'RESIDENCIAL':
-        return ['Residencial', sub('Residencial ', '', texto)]
+        return ['Residencial', sub('RESIDENCIAL ', '', texto)]
     
     elif bairro[0].upper() == 'SITIO':
-        return ['Sitio', sub('Sitio ', '', texto)]
+        return ['Sitio', sub('SITIO ', '', texto)]
     
     elif bairro[0].upper() == 'NUCLEO':
-        return ['Nucleo', sub('Nucleo ', '', texto)]
+        return ['Nucleo', sub('NUCLEO ', '', texto)]
     
     elif bairro[0].upper() == 'LOTEAMENTO':
-        return ['Loteamento', sub('Loteamento ', '', texto)]
+        return ['Loteamento', sub('LOTEAMENTO ', '', texto)]
     
     elif bairro[0].upper() == 'HORTO':
-        return ['Horto', sub('Horto ', '', texto)]
+        return ['Horto', sub('HORTO ', '', texto)]
     
     elif bairro[0].upper() == 'GLEBA':
-        return ['Gleba', sub('Gleba ', '', texto)]
+        return ['Gleba', sub('GLEBA ', '', texto)]
 
     elif bairro[0].upper() == 'FAZENDA':
-        return ['Fazenda', sub('Fazenda ', '', texto)]
+        return ['Fazenda', sub('FAZENDA ', '', texto)]
 
     elif bairro[0].upper() == 'DISTRITO':
-        return ['Distrito', sub('Distrito ', '', texto)]
+        return ['Distrito', sub('DISTRITO ', '', texto)]
 
     elif bairro[0].upper() == 'CONJUNTO':
-        return ['Conjunto', sub('Conjunto ', '', texto)]
+        return ['Conjunto', sub('CONJUNTO ', '', texto)]
     
     elif bairro[0].upper() == 'CHACARA':
-        return ['Chacara', sub('Chacara ', '', texto)]
+        return ['Chacara', sub('CHACARA ', '', texto)]
 
     elif bairro[0].upper() == 'BOSQUE':
-        return ['Bosque', sub('Bosque ', '', texto)]
+        return ['Bosque', sub('BOSQUE ', '', texto)]
     
     elif bairro[0].upper() == 'SRV':
-        return ['Servidao', sub('Servidao ', '', texto)]
+        return ['Servidao', sub('SERVIDAO ', '', texto)]
 
     else:
-        return ['Bairro', sub('Bairro ', '', texto)]
+        return ['Bairro', sub('BAIRRO ', '', texto)]
     ...
     # Adicionar mais parâmetros conforme necessário
 
@@ -129,7 +129,7 @@ def Formatador_De_Dados(dados_extraidos):
         dados_formatados['Nome Fantasia'] = dados_formatados['Nome Empresarial'].replace('Ltda', '').replace('Sa', '').strip()  
     else:
         dados_formatados['Nome Fantasia'] = Formatador_De_Nome(dados_extraidos['Nome Fantasia'])
-        
+  
     # CNPJ
     dados_formatados['Cnpj'] = dados_extraidos['Cnpj'].strip()
     
