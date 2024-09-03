@@ -24,7 +24,6 @@ def main(page: ft.page):
             txt1.error_text = "O Código deve ter 5 digitos"
             page.window.height = 605
         else:
-            page.window.height = 580
             txt1.error_text = None
 
         if txt2.value == '':
@@ -36,8 +35,7 @@ def main(page: ft.page):
         elif len(txt2.value) != 5:
             txt2.error_text = "O Código deve ter 5 digitos"
             page.window.height = 605
-        else:
-            page.window.height = 580
+        else:           
             txt2.error_text = None
         
         page.update()
@@ -45,6 +43,7 @@ def main(page: ft.page):
         if ((txt1.value != '' and txt1.value.isnumeric() == True and len(txt1.value) == 5) and 
               (txt2.value != '' and txt2.value.isnumeric() == True and len(txt2.value) == 5)):
             
+            page.window.height = 580
             btn1.tooltip = "Programa em Execução"
             btn1.disabled = True
             txt1.disabled = True
