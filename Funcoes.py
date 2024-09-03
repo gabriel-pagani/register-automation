@@ -201,7 +201,7 @@ def Robo(dados_formatados, Clifor, Insc_est, Output):
         except ImageNotFoundException:
             Output.value += "Abra a Tela de Início do RM!\n"
             Output.update()
-            sleep(1)
+            sleep(5)
 
     # Espera a filtro abrir
     while True:
@@ -214,7 +214,7 @@ def Robo(dados_formatados, Clifor, Insc_est, Output):
         except ImageNotFoundException:
             Output.value += "Aguardando menu de Filtros Abrir!\n"
             Output.update()
-            sleep(1)
+            sleep(5)
 
     # Espera a aba de clientes/fornecedores
     while True:
@@ -227,7 +227,7 @@ def Robo(dados_formatados, Clifor, Insc_est, Output):
         except ImageNotFoundException:
             Output.value += "Aguardado Menu de Clientes/Fornecedores abrir!\n"
             Output.update()
-            sleep(1)
+            sleep(5)
 
     # Espera abrir o menu de cadastro
     while True:
@@ -241,7 +241,7 @@ def Robo(dados_formatados, Clifor, Insc_est, Output):
         except ImageNotFoundException:
             Output.value += "Aguardando Menu de Cadastros Abrir!\n"
             Output.update()
-            sleep(1)
+            sleep(5)
 
     # Escreve o nome fantasia
     press('tab', presses=2)
@@ -343,7 +343,7 @@ def Robo(dados_formatados, Clifor, Insc_est, Output):
         except ImageNotFoundException:
             Output.value += "Aguardando o Fechamento da aba de fornecedor/cliente!\n"
             Output.update()
-            sleep(1)
+            sleep(5)
 
 def Verificar_Diretorio(Forn, Clie, Output, ForText, CliText):
 
@@ -352,10 +352,9 @@ def Verificar_Diretorio(Forn, Clie, Output, ForText, CliText):
     tempo_decorrido = 0
 
     while True:
-        Output.value += f'Procurando arquivos... (Tempo Decorrido: {tempo_decorrido}s)\n'
-        Output.auto_scrolling = True
+        Output.value = f'Procurando arquivos... (Tempo Decorrido: {tempo_decorrido}s)\n'
         Output.update()
-        tempo_decorrido += 10
+        tempo_decorrido += 1
         
         # Lista todos os arquivos no diretório
         caminho_pasta = r'C:\AUTOMACAO\Clifor'
@@ -367,7 +366,7 @@ def Verificar_Diretorio(Forn, Clie, Output, ForText, CliText):
             if arquivo.endswith('.pdf') and (arquivo.upper().startswith('C') or arquivo.upper().startswith('F')):
                 
                 caminho_completo = path.join(caminho_pasta, arquivo)
-                Output.value += f"PDF encontrado: {arquivo.lower().replace('.pdf', '')}\n"
+                Output.value += f"PDF encontrado: {arquivo.lower().replace('.pdf', '').upper()}\n"
                 Output.update()
 
                 # Analisa o PDF e extrai os dados
@@ -392,9 +391,9 @@ def Verificar_Diretorio(Forn, Clie, Output, ForText, CliText):
                               
                 # Remove o arquivo após o processamento
                 remove(caminho_completo)
-                Output.value += f"PDF processado: {arquivo.replace('.pdf', '')}\n"
+                Output.value += f"PDF processado: {arquivo.replace('.pdf', '').upper()}\n"
                 Output.update()
                 
                 tempo_decorrido = 0
         
-        sleep(10)
+        sleep(1)
