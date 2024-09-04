@@ -201,7 +201,7 @@ def Robo(dados_formatados, Clifor, Insc_est, Output):
         except ImageNotFoundException:
             Output.value += "Abra a Tela de Início do RM!\n"
             Output.update()
-            sleep(5)
+            sleep(1)
 
     # Espera a filtro abrir
     while True:
@@ -214,7 +214,7 @@ def Robo(dados_formatados, Clifor, Insc_est, Output):
         except ImageNotFoundException:
             Output.value += "Aguardando menu de Filtros Abrir!\n"
             Output.update()
-            sleep(5)
+            sleep(1)
 
     # Espera a aba de clientes/fornecedores
     while True:
@@ -227,7 +227,7 @@ def Robo(dados_formatados, Clifor, Insc_est, Output):
         except ImageNotFoundException:
             Output.value += "Aguardado Menu de Clientes/Fornecedores abrir!\n"
             Output.update()
-            sleep(5)
+            sleep(1)
 
     # Espera abrir o menu de cadastro
     while True:
@@ -241,7 +241,7 @@ def Robo(dados_formatados, Clifor, Insc_est, Output):
         except ImageNotFoundException:
             Output.value += "Aguardando Menu de Cadastros Abrir!\n"
             Output.update()
-            sleep(5)
+            sleep(1)
 
     # Escreve o nome fantasia
     press('tab', presses=2)
@@ -343,7 +343,7 @@ def Robo(dados_formatados, Clifor, Insc_est, Output):
         except ImageNotFoundException:
             Output.value += "Aguardando o Fechamento da aba de fornecedor/cliente!\n"
             Output.update()
-            sleep(5)
+            sleep(1)
 
 def Verificar_Diretorio(Forn, Clie, Output, ForText, CliText):
 
@@ -397,3 +397,4 @@ def Verificar_Diretorio(Forn, Clie, Output, ForText, CliText):
                 tempo_decorrido = 0
         
         sleep(1)
+        
