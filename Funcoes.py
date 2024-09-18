@@ -186,7 +186,8 @@ def Formatador_De_Dados(dados_extraidos):
     return dados_formatados
 
 def Robo(dados_formatados, Clifor, Insc_est, Output):                    
-        
+    # Segundo testes o tempo médio para fazer um cadastro é de 17s
+
     # Velocidade que o programa executa        
     PAUSE = 0.5
 
@@ -397,4 +398,3 @@ def Verificar_Diretorio(Forn, Clie, Output, ForText, CliText):
                 tempo_decorrido = 0
         
         sleep(1)
-        
