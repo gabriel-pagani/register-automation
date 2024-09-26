@@ -3,7 +3,7 @@ from re import search, sub, escape
 from os import listdir, remove, path
 from time import sleep
 from fitz import open
-from Dicionario import abreviacoes
+from Abreviacoes import abreviacoes
 
 def Extrator_De_Dados(caminho_pdf):
     documento = open(caminho_pdf)
@@ -272,7 +272,7 @@ def Robo(dados_formatados, Clifor, Insc_est, Output):
             write(str(Insc_est))
         click(x=537, y=489)
         click(x=735, y=619)
-        if Insc_est.upper() == 'ISENTO':
+        if 'ISENTO' in Insc_est.upper():
             click(x=746, y=652)
         else:
             click(x=739, y=639)  
@@ -375,16 +375,16 @@ def Verificar_Diretorio(Forn, Clie, Output, ForText, CliText):
                 
                 # Recebe a inscrição estadual
                 inscricao_estadual = arquivo.replace('.pdf', '').replace('C', '').replace('F', '')
-                if 'X'in inscricao_estadual.upper():
+                if 'X' in inscricao_estadual.upper():
                     inscricao_estadual = ''
 
                 # Realiza o cadastro usando o Robo
-                if arquivo.upper().startswith('F'):
+                if 'F' in arquivo.upper():
                     Robo(dados, 'F' + str(cod_for + 1), inscricao_estadual, Output)
                     cod_for += 1
                     ForText.value = cod_for
                     ForText.update()
-                elif arquivo.upper().startswith('C'):
+                elif 'C' in arquivo.upper():
                     Robo(dados, 'C' + str(cod_cli + 1), inscricao_estadual, Output)
                     cod_cli += 1
                     CliText.value = cod_cli
