@@ -48,10 +48,11 @@ def main(page: ft.page):
             btn1.disabled = True
             txt1.disabled = True
             txt2.disabled = True
+            swt.disabled = True
 
             page.update()
             
-            Verificar_Diretorio(int(txt1.value), int(txt2.value), txt3, txt1, txt2)      
+            Verificar_Diretorio(int(txt1.value), int(txt2.value), txt3, txt1, txt2, swt.value)      
         
     txt1 = ft.TextField(label="Último Código Fornecedor", width=240)
     txt2 = ft.TextField(label="Último Código Cliente", width=240)
@@ -59,23 +60,26 @@ def main(page: ft.page):
 
     btn1 = ft.ElevatedButton(
         text="Iniciar",
-        width=500,
+        width=435,
         height=50,
-        bgcolor=ft.colors.GREEN_500,
+        bgcolor=ft.colors.BLUE_900,
         color=ft.colors.WHITE,
         style=ft.ButtonStyle(
             shape=ft.RoundedRectangleBorder(radius=5)
         ),
         on_click=btn_clicked
     )
+    swt = ft.Switch(value=True, tooltip='Salvamento Automático', height=50)
 
     linha = ft.Row(controls=[txt1, txt2], spacing=20, alignment=ft.MainAxisAlignment.CENTER)
+
+    linha2 = ft.Row(controls=[btn1, swt], spacing=10, alignment=ft.MainAxisAlignment.CENTER)
 
     container = ft.Container(
         content=ft.Column(
             controls=[
                 linha,
-                btn1,
+                linha2,
                 txt3                                                                   
             ],
             width=500,
