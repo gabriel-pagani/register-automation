@@ -44,11 +44,14 @@ def main(page: ft.page):
               (txt2.value != '' and txt2.value.isnumeric() == True and len(txt2.value) == 5)):
             
             page.window.height = 580
-            btn1.tooltip = "Programa em Execução"
             btn1.disabled = True
+            btn1.tooltip = "Programa em Execução"
             txt1.disabled = True
+            txt1.tooltip = 'Programa em Execução'
             txt2.disabled = True
+            txt2.tooltip = 'Programa em Execução'
             swt.disabled = True
+            swt.tooltip = 'Programa em Execução'
 
             page.update()
             
@@ -56,23 +59,13 @@ def main(page: ft.page):
         
     txt1 = ft.TextField(label="Último Código Fornecedor", width=240)
     txt2 = ft.TextField(label="Último Código Cliente", width=240)
-    txt3 = ft.TextField(label="Output", width=500, read_only=True, bgcolor=ft.colors.GREY_300, multiline=True, min_lines=12, max_lines=12)
+    txt3 = ft.TextField(value=" ", label="Output", width=500, read_only=True, bgcolor=ft.colors.GREY_200, multiline=True, min_lines=12, max_lines=12)
 
-    btn1 = ft.ElevatedButton(
-        text="Iniciar",
-        width=435,
-        height=50,
-        bgcolor=ft.colors.BLUE_900,
-        color=ft.colors.WHITE,
-        style=ft.ButtonStyle(
-            shape=ft.RoundedRectangleBorder(radius=5)
-        ),
-        on_click=btn_clicked
-    )
-    swt = ft.Switch(value=True, tooltip='Salvamento Automático', height=50)
+    btn1 = ft.ElevatedButton(tooltip='Inicia o Programa',text="Iniciar",width=435,height=50,bgcolor=ft.colors.BLUE_900,color=ft.colors.WHITE,style=ft.ButtonStyle(shape=ft.RoundedRectangleBorder(radius=5)),on_click=btn_clicked)
+    
+    swt = ft.Switch(value=True, tooltip='Habilita/Desabilita o Autosave')
 
     linha = ft.Row(controls=[txt1, txt2], spacing=20, alignment=ft.MainAxisAlignment.CENTER)
-
     linha2 = ft.Row(controls=[btn1, swt], spacing=10, alignment=ft.MainAxisAlignment.CENTER)
 
     container = ft.Container(
