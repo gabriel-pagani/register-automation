@@ -185,7 +185,7 @@ def Formatador_De_Dados(dados_extraidos):
 
     return dados_formatados
 
-def Robo(dados_formatados, Clifor, Insc_est, Output):                    
+def Robo(dados_formatados, Clifor, Insc_est, Output, Autosave):                    
     # Segundo testes o tempo médio para fazer um cadastro é de 17s
 
     # Velocidade que o programa executa        
@@ -330,8 +330,9 @@ def Robo(dados_formatados, Clifor, Insc_est, Output):
     # Escreve o e-mail
     write(dados_formatados['Email'])
 
-    # Salva o cadastro
-    click(x=1230, y=884)
+    if Autosave:
+        # Salva o cadastro
+        click(x=1230, y=884)
 
     # Espera o cadastro terminar
     while True:
@@ -346,11 +347,12 @@ def Robo(dados_formatados, Clifor, Insc_est, Output):
             Output.update()
             sleep(1)
 
-def Verificar_Diretorio(Forn, Clie, Output, ForText, CliText):
+def Verificar_Diretorio(Forn, Clie, Output, ForText, CliText, Autosave):
 
     cod_for = Forn
     cod_cli = Clie   
     tempo_decorrido = 0
+    autosave = Autosave
 
     while True:
         Output.value = f'Procurando arquivos... (Tempo Decorrido: {tempo_decorrido}s)\n'
@@ -379,13 +381,13 @@ def Verificar_Diretorio(Forn, Clie, Output, ForText, CliText):
                     inscricao_estadual = ''
 
                 # Realiza o cadastro usando o Robo
-                if 'F' in arquivo.upper():
-                    Robo(dados, 'F' + str(cod_for + 1), inscricao_estadual, Output)
+                if 'F' in arquivo.upper().replace('.PDF', ''):
+                    Robo(dados, 'F' + str(cod_for + 1), inscricao_estadual, Output, autosave)
                     cod_for += 1
                     ForText.value = cod_for
                     ForText.update()
-                elif 'C' in arquivo.upper():
-                    Robo(dados, 'C' + str(cod_cli + 1), inscricao_estadual, Output)
+                elif 'C' in arquivo.upper().replace('.PDF', ''):
+                    Robo(dados, 'C' + str(cod_cli + 1), inscricao_estadual, Output, autosave)
                     cod_cli += 1
                     CliText.value = cod_cli
                     CliText.update()                   
@@ -393,8 +395,6 @@ def Verificar_Diretorio(Forn, Clie, Output, ForText, CliText):
                 # Remove o arquivo após o processamento
                 remove(caminho_completo)
                 Output.value += f"PDF processado: {arquivo.replace('.pdf', '').upper()}\n"
-                Output.update()
-                
-                tempo_decorrido = 0
-        
+                Output.update()    
+                tempo_decorrido = 0        
         sleep(1)
