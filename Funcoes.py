@@ -333,6 +333,8 @@ def Robo(dados_formatados, Clifor, Insc_est, Output, Autosave):
     if Autosave:
         # Salva o cadastro
         click(x=1230, y=884)
+    else:
+        Output.value += "Salve ou Cancele o Cadastro!\n"
 
     # Espera o cadastro terminar
     while True:
