@@ -66,7 +66,7 @@ def main(page: ft.page):
     btn1 = ft.ElevatedButton(tooltip='Inicia o Programar',text="Iniciar",width=435,height=50,bgcolor=ft.colors.BLUE_900,color=ft.colors.WHITE,style=ft.ButtonStyle(shape=ft.RoundedRectangleBorder(radius=5)),on_click=btn_clicked)
     btn2 = ft.ElevatedButton(tooltip='Finaliza o Programar',text="Encerrar",width=500,height=50,bgcolor=ft.colors.BLUE_900,color=ft.colors.WHITE,style=ft.ButtonStyle(shape=ft.RoundedRectangleBorder(radius=5)),on_click=Close, disabled=True)
     
-    swt = ft.Switch(value=True, tooltip='Habilita/Desabilita o Salvamento Automático', active_track_color=ft.colors.BLUE_900)
+    swt = ft.Switch(value=True, tooltip='Habilita/Desabilita o Salvamento Automático')
 
     linha = ft.Row(controls=[txt1, txt2], spacing=20, alignment=ft.MainAxisAlignment.CENTER)
     linha2 = ft.Row(controls=[btn1, swt], spacing=10, alignment=ft.MainAxisAlignment.CENTER)
