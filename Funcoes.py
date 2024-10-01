@@ -45,7 +45,7 @@ def Formatador_De_Nome(texto):
     # Remove números da string
     texto_cap = sub(r'\b\d+\b', '', texto_cap)
 
-    return texto_cap.strip()
+    return texto_cap.strip().replace('.', '').replace('-', '').replace(',', '').replace('/', '').replace('&', '').replace('  ', ' ')
 
 def Formatador_Da_Rua(texto):
     rua = texto.strip().split()
@@ -122,11 +122,11 @@ def Formatador_De_Dados(dados_extraidos):
     dados_formatados = {}
     
     # Nome Empresarial
-    dados_formatados['Nome Empresarial'] = Formatador_De_Nome(dados_extraidos['Nome Empresarial']).strip()
+    dados_formatados['Nome Empresarial'] = Formatador_De_Nome(dados_extraidos['Nome Empresarial'])
     
     # Nome Fantasia
     if '*' in dados_extraidos['Nome Fantasia'] or dados_extraidos['Nome Fantasia'] == dados_extraidos['Nome Empresarial']:
-        dados_formatados['Nome Fantasia'] = dados_formatados['Nome Empresarial'].replace('Ltda', '').replace('Sa', '').strip()  
+        dados_formatados['Nome Fantasia'] = dados_formatados['Nome Empresarial'].replace('Ltda', '').replace('Sa', '')
     else:
         dados_formatados['Nome Fantasia'] = Formatador_De_Nome(dados_extraidos['Nome Fantasia'])
   
@@ -368,7 +368,7 @@ def Verificar_Diretorio(Forn, Clie, Output, ForText, CliText, Autosave):
         # Verifica se há arquivos PDF
         for arquivo in diretorio:
             
-            if arquivo.endswith('.pdf') and (arquivo.upper().startswith('C') or arquivo.upper().startswith('F')):
+            if arquivo.upper().endswith('.PDF') and (arquivo.upper().startswith('C') or arquivo.upper().startswith('F')):
                 
                 caminho_completo = path.join(caminho_pasta, arquivo)
                 Output.value += f"PDF encontrado: {arquivo.lower().replace('.pdf', '').upper()}\n"
