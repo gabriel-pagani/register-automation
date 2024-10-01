@@ -46,10 +46,9 @@ def main(page: ft.page):
             page.window.height = 580
             btn1.disabled = True
             btn1.tooltip = "Programa em Execução"
+            btn2.disabled = False
             txt1.disabled = True
-            txt1.tooltip = 'Programa em Execução'
             txt2.disabled = True
-            txt2.tooltip = 'Programa em Execução'
             swt.disabled = True
             swt.tooltip = 'Programa em Execução'
 
@@ -57,16 +56,20 @@ def main(page: ft.page):
             
             Verificar_Diretorio(int(txt1.value), int(txt2.value), txt3, txt1, txt2, swt.value)      
         
+    def Close(e):
+        page.window.close()
+
     txt1 = ft.TextField(label="Último Código Fornecedor", width=240)
     txt2 = ft.TextField(label="Último Código Cliente", width=240)
     txt3 = ft.TextField(value=" ", label="Output", width=500, read_only=True, bgcolor=ft.colors.GREY_200, multiline=True, min_lines=12, max_lines=12)
 
-    btn1 = ft.ElevatedButton(tooltip='Inicia o Programa',text="Iniciar",width=435,height=50,bgcolor=ft.colors.BLUE_900,color=ft.colors.WHITE,style=ft.ButtonStyle(shape=ft.RoundedRectangleBorder(radius=5)),on_click=btn_clicked)
+    btn1 = ft.ElevatedButton(tooltip='Inicia o Programar',text="Iniciar",width=210,height=50,bgcolor=ft.colors.BLUE_900,color=ft.colors.WHITE,style=ft.ButtonStyle(shape=ft.RoundedRectangleBorder(radius=5)),on_click=btn_clicked)
+    btn2 = ft.ElevatedButton(tooltip='Finaliza o Programar',text="Encerrar",width=210,height=50,bgcolor=ft.colors.BLUE_900,color=ft.colors.WHITE,style=ft.ButtonStyle(shape=ft.RoundedRectangleBorder(radius=5)),on_click=Close, disabled=True)
     
     swt = ft.Switch(value=True, tooltip='Habilita/Desabilita o Autosave')
 
     linha = ft.Row(controls=[txt1, txt2], spacing=20, alignment=ft.MainAxisAlignment.CENTER)
-    linha2 = ft.Row(controls=[btn1, swt], spacing=10, alignment=ft.MainAxisAlignment.CENTER)
+    linha2 = ft.Row(controls=[btn1, swt, btn2], spacing=10, alignment=ft.MainAxisAlignment.CENTER)
 
     container = ft.Container(
         content=ft.Column(
