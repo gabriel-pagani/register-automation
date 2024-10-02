@@ -45,7 +45,7 @@ def Formatador_De_Nome(texto):
     # Remove números da string
     texto_cap = sub(r'\b\d+\b', '', texto_cap)
 
-    return texto_cap.strip().replace('.', '').replace('-', '').replace(',', '').replace('/', '').replace('&', '').replace('  ', ' ')
+    return texto_cap.strip().replace('.', '').replace('-', '').replace(',', '').replace('/', '').replace('&', 'e').replace('  ', ' ')
 
 def Formatador_Da_Rua(texto):
     rua = texto.strip().split()
