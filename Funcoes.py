@@ -118,7 +118,6 @@ def Formatador_De_Bairro(texto):
     # Adicionar mais parâmetros conforme necessário
 
 def Formatador_De_Dados(dados_extraidos):
-    
     dados_formatados = {}
     
     # Nome Empresarial
@@ -186,7 +185,6 @@ def Formatador_De_Dados(dados_extraidos):
     return dados_formatados
 
 def Robo(dados_formatados, Clifor, Insc_est, Output, Autosave):                    
-    # Segundo testes o tempo médio para fazer um cadastro é de 17s
 
     # Velocidade que o programa executa        
     PAUSE = 0.5
