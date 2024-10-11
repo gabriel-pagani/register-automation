@@ -1,6 +1,5 @@
 import flet as ft
 from Funcoes import Verificar_Diretorio
-import threading
 from threading import Thread
 
 running = True  # Variável global de controle
