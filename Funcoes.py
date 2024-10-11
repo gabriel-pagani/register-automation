@@ -388,14 +388,14 @@ def Robo(dados_formatados, Clifor, Insc_est, Output, Autosave):
             Output.update()
             sleep(0.5)
 
-def Verificar_Diretorio(Forn, Clie, Output, ForText, CliText, Autosave):
+def Verificar_Diretorio(Forn, Clie, Output, ForText, CliText, Autosave, Is_running):
 
     cod_for = Forn
     cod_cli = Clie   
     tempo_decorrido = 0
     autosave = Autosave
 
-    while True:
+    while Is_running():
         Output.value = f'Procurando arquivos... (Tempo Decorrido: {tempo_decorrido}s)'
         Output.update()
         tempo_decorrido += 1
@@ -439,5 +439,10 @@ def Verificar_Diretorio(Forn, Clie, Output, ForText, CliText, Autosave):
                 Output.value = f"PDF processado: {arquivo.replace('.pdf', '').upper()}"
                 Output.update()
                 sleep(2)    
-                tempo_decorrido = 0        
+                tempo_decorrido = 0 
+
         sleep(1)
+    
+    # A função termina quando is_running() retorna False
+    Output.value = f"Processo reiniciado!" 
+    Output.update()
