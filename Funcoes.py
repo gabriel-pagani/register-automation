@@ -193,18 +193,20 @@ def Robo(dados_formatados, Clifor, Insc_est, Output, Autosave):
     while True:
         try:
             if locateOnScreen(r'C:\AUTOMACAO\Imagens\1.png', confidence=0.95):
+                Output.value = " "
+                Output.update()
                 sleep(0.3)
                 # Abrir aba de clientes/fornecedores
                 click(x=797, y=71)
                 break 
         except ImageNotFoundException:
-            Output.value = "Abra a Tela de Início do RM.\n"
+            Output.value = "Abra a Tela de Início do RM."
             Output.update()
             sleep(0.5)
-            Output.value = "Abra a Tela de Início do RM..\n"
+            Output.value = "Abra a Tela de Início do RM.."
             Output.update()
             sleep(0.5)
-            Output.value = "Abra a Tela de Início do RM...\n"
+            Output.value = "Abra a Tela de Início do RM..."
             Output.update()
             sleep(0.5)
 
@@ -212,18 +214,20 @@ def Robo(dados_formatados, Clifor, Insc_est, Output, Autosave):
     while True:
         try:
             if locateOnScreen(r'C:\AUTOMACAO\Imagens\2.png', confidence=0.9):
+                Output.value = " "
+                Output.update()
                 sleep(0.3)
                 # Fecha o filtro
                 click(x=1123, y=771)
                 break 
         except ImageNotFoundException:
-            Output.value = "Aguardando menu de Filtros Abrir.\n"
+            Output.value = "Aguardando menu de Filtros Abrir."
             Output.update()
             sleep(0.5)
-            Output.value = "Aguardando menu de Filtros Abrir..\n"
+            Output.value = "Aguardando menu de Filtros Abrir.."
             Output.update()
             sleep(0.5)
-            Output.value = "Aguardando menu de Filtros Abrir...\n"
+            Output.value = "Aguardando menu de Filtros Abrir..."
             Output.update()
             sleep(0.5)
 
@@ -231,18 +235,20 @@ def Robo(dados_formatados, Clifor, Insc_est, Output, Autosave):
     while True:
         try:
             if locateOnScreen(r'C:\AUTOMACAO\Imagens\3.png', confidence=0.9):
+                Output.value = " "
+                Output.update()
                 sleep(0.3)
                 # Abrir cadastro
                 click(x=13, y=198)
                 break 
         except ImageNotFoundException:
-            Output.value = "Aguardado Menu de Clientes/Fornecedores abrir.\n"
+            Output.value = "Aguardado Menu de Clientes/Fornecedores abrir."
             Output.update()
             sleep(0.5)
-            Output.value = "Aguardado Menu de Clientes/Fornecedores abrir..\n"
+            Output.value = "Aguardado Menu de Clientes/Fornecedores abrir.."
             Output.update()
             sleep(0.5)
-            Output.value = "Aguardado Menu de Clientes/Fornecedores abrir...\n"
+            Output.value = "Aguardado Menu de Clientes/Fornecedores abrir..."
             Output.update()
             sleep(0.5)
 
@@ -250,19 +256,21 @@ def Robo(dados_formatados, Clifor, Insc_est, Output, Autosave):
     while True:
         try:
             if locateOnScreen(r'C:\AUTOMACAO\Imagens\4.png', confidence=0.9):
+                Output.value = " "
+                Output.update()
                 sleep(0.3)
                 # Escreve o código fornecedor/cliente
                 press('tab')
                 write(Clifor)
                 break 
         except ImageNotFoundException:
-            Output.value = "Aguardando Menu de Cadastros Abrir.\n"
+            Output.value = "Aguardando Menu de Cadastros Abrir."
             Output.update()
             sleep(0.5)
-            Output.value = "Aguardando Menu de Cadastros Abrir..\n"
+            Output.value = "Aguardando Menu de Cadastros Abrir.."
             Output.update()
             sleep(0.5)
-            Output.value = "Aguardando Menu de Cadastros Abrir...\n"
+            Output.value = "Aguardando Menu de Cadastros Abrir..."
             Output.update()
             sleep(0.5)
 
@@ -356,25 +364,27 @@ def Robo(dados_formatados, Clifor, Insc_est, Output, Autosave):
         # Salva o cadastro
         click(x=1230, y=884)
     else:
-        Output.value = "Salve ou Cancele o Cadastro!\n"
+        Output.value = "Salve ou Cancele o Cadastro!"
 
     # Espera o cadastro terminar
     while True:
         try:
             if locateOnScreen(r'C:\AUTOMACAO\Imagens\5.png', confidence=0.9):
+                Output.value = " "
+                Output.update()
                 sleep(0.3)
                 # Fecha a aba de fornecedor/cliente
                 click(x=176, y=168)
                 break 
         except ImageNotFoundException:
-            Output.value = "Aguardando o Fechamento da aba de fornecedor/cliente.\n"
+            Output.value = "Aguardando o Fechamento da aba de fornecedor/cliente."
             Output.update()
             sleep(0.5)
             Output.update()
-            Output.value = "Aguardando o Fechamento da aba de fornecedor/cliente..\n"
+            Output.value = "Aguardando o Fechamento da aba de fornecedor/cliente.."
             Output.update()
             sleep(0.5)
-            Output.value = "Aguardando o Fechamento da aba de fornecedor/cliente...\n"
+            Output.value = "Aguardando o Fechamento da aba de fornecedor/cliente..."
             Output.update()
             sleep(0.5)
 
@@ -386,7 +396,7 @@ def Verificar_Diretorio(Forn, Clie, Output, ForText, CliText, Autosave):
     autosave = Autosave
 
     while True:
-        Output.value = f'Procurando arquivos... (Tempo Decorrido: {tempo_decorrido}s)\n'
+        Output.value = f'Procurando arquivos... (Tempo Decorrido: {tempo_decorrido}s)'
         Output.update()
         tempo_decorrido += 1
         
@@ -400,7 +410,7 @@ def Verificar_Diretorio(Forn, Clie, Output, ForText, CliText, Autosave):
             if arquivo.upper().endswith('.PDF') and (arquivo.upper().startswith('C') or arquivo.upper().startswith('F')):
                 
                 caminho_completo = path.join(caminho_pasta, arquivo)
-                Output.value = f"PDF encontrado: {arquivo.lower().replace('.pdf', '').upper()}\n"
+                Output.value = f"PDF encontrado: {arquivo.lower().replace('.pdf', '').upper()}"
                 Output.update()
                 sleep(2)
 
@@ -426,7 +436,7 @@ def Verificar_Diretorio(Forn, Clie, Output, ForText, CliText, Autosave):
                               
                 # Remove o arquivo após o processamento
                 remove(caminho_completo)
-                Output.value = f"PDF processado: {arquivo.replace('.pdf', '').upper()}\n"
+                Output.value = f"PDF processado: {arquivo.replace('.pdf', '').upper()}"
                 Output.update()
                 sleep(2)    
                 tempo_decorrido = 0        
