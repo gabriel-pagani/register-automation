@@ -198,9 +198,15 @@ def Robo(dados_formatados, Clifor, Insc_est, Output, Autosave):
                 click(x=797, y=71)
                 break 
         except ImageNotFoundException:
-            Output.value += "Abra a Tela de Início do RM!\n"
+            Output.value = "Abra a Tela de Início do RM.\n"
             Output.update()
-            sleep(1)
+            sleep(0.5)
+            Output.value = "Abra a Tela de Início do RM..\n"
+            Output.update()
+            sleep(0.5)
+            Output.value = "Abra a Tela de Início do RM...\n"
+            Output.update()
+            sleep(0.5)
 
     # Espera a filtro abrir
     while True:
@@ -211,9 +217,15 @@ def Robo(dados_formatados, Clifor, Insc_est, Output, Autosave):
                 click(x=1123, y=771)
                 break 
         except ImageNotFoundException:
-            Output.value += "Aguardando menu de Filtros Abrir!\n"
+            Output.value = "Aguardando menu de Filtros Abrir.\n"
             Output.update()
-            sleep(1)
+            sleep(0.5)
+            Output.value = "Aguardando menu de Filtros Abrir..\n"
+            Output.update()
+            sleep(0.5)
+            Output.value = "Aguardando menu de Filtros Abrir...\n"
+            Output.update()
+            sleep(0.5)
 
     # Espera a aba de clientes/fornecedores
     while True:
@@ -224,9 +236,15 @@ def Robo(dados_formatados, Clifor, Insc_est, Output, Autosave):
                 click(x=13, y=198)
                 break 
         except ImageNotFoundException:
-            Output.value += "Aguardado Menu de Clientes/Fornecedores abrir!\n"
+            Output.value = "Aguardado Menu de Clientes/Fornecedores abrir.\n"
             Output.update()
-            sleep(1)
+            sleep(0.5)
+            Output.value = "Aguardado Menu de Clientes/Fornecedores abrir..\n"
+            Output.update()
+            sleep(0.5)
+            Output.value = "Aguardado Menu de Clientes/Fornecedores abrir...\n"
+            Output.update()
+            sleep(0.5)
 
     # Espera abrir o menu de cadastro
     while True:
@@ -238,9 +256,15 @@ def Robo(dados_formatados, Clifor, Insc_est, Output, Autosave):
                 write(Clifor)
                 break 
         except ImageNotFoundException:
-            Output.value += "Aguardando Menu de Cadastros Abrir!\n"
+            Output.value = "Aguardando Menu de Cadastros Abrir.\n"
             Output.update()
-            sleep(1)
+            sleep(0.5)
+            Output.value = "Aguardando Menu de Cadastros Abrir..\n"
+            Output.update()
+            sleep(0.5)
+            Output.value = "Aguardando Menu de Cadastros Abrir...\n"
+            Output.update()
+            sleep(0.5)
 
     # Escreve o nome fantasia
     press('tab', presses=2)
@@ -332,7 +356,7 @@ def Robo(dados_formatados, Clifor, Insc_est, Output, Autosave):
         # Salva o cadastro
         click(x=1230, y=884)
     else:
-        Output.value += "Salve ou Cancele o Cadastro!\n"
+        Output.value = "Salve ou Cancele o Cadastro!\n"
 
     # Espera o cadastro terminar
     while True:
@@ -343,9 +367,16 @@ def Robo(dados_formatados, Clifor, Insc_est, Output, Autosave):
                 click(x=176, y=168)
                 break 
         except ImageNotFoundException:
-            Output.value += "Aguardando o Fechamento da aba de fornecedor/cliente!\n"
+            Output.value = "Aguardando o Fechamento da aba de fornecedor/cliente.\n"
             Output.update()
-            sleep(1)
+            sleep(0.5)
+            Output.update()
+            Output.value = "Aguardando o Fechamento da aba de fornecedor/cliente..\n"
+            Output.update()
+            sleep(0.5)
+            Output.value = "Aguardando o Fechamento da aba de fornecedor/cliente...\n"
+            Output.update()
+            sleep(0.5)
 
 def Verificar_Diretorio(Forn, Clie, Output, ForText, CliText, Autosave):
 
@@ -369,8 +400,9 @@ def Verificar_Diretorio(Forn, Clie, Output, ForText, CliText, Autosave):
             if arquivo.upper().endswith('.PDF') and (arquivo.upper().startswith('C') or arquivo.upper().startswith('F')):
                 
                 caminho_completo = path.join(caminho_pasta, arquivo)
-                Output.value += f"PDF encontrado: {arquivo.lower().replace('.pdf', '').upper()}\n"
+                Output.value = f"PDF encontrado: {arquivo.lower().replace('.pdf', '').upper()}\n"
                 Output.update()
+                sleep(2)
 
                 # Analisa o PDF e extrai os dados
                 dados = Formatador_De_Dados(Extrator_De_Dados(caminho_completo))
@@ -394,7 +426,8 @@ def Verificar_Diretorio(Forn, Clie, Output, ForText, CliText, Autosave):
                               
                 # Remove o arquivo após o processamento
                 remove(caminho_completo)
-                Output.value += f"PDF processado: {arquivo.replace('.pdf', '').upper()}\n"
-                Output.update()    
+                Output.value = f"PDF processado: {arquivo.replace('.pdf', '').upper()}\n"
+                Output.update()
+                sleep(2)    
                 tempo_decorrido = 0        
         sleep(1)
