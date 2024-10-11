@@ -5,8 +5,8 @@ def main(page: ft.page):
     page.title = "Automação"
     page.window.width = 605
     page.window.height = 390
-    #page.window.center()
-    #page.window.to_front()
+    page.window.center()
+    page.window.to_front()
     page.window.resizable = False
     page.window.maximizable = False
     page.bgcolor = ft.colors.WHITE
