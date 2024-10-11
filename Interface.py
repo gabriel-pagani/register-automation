@@ -1,5 +1,11 @@
 import flet as ft
 from Funcoes import Verificar_Diretorio
+import threading
+from threading import Thread
+
+running = True  # Variável global de controle
+verificacao_thread = None  # Variável para controlar a thread
+
 
 def main(page: ft.page):
     page.title = "Automação"
@@ -12,7 +18,12 @@ def main(page: ft.page):
     page.bgcolor = ft.colors.WHITE
     page.update()
 
+    global running, verificacao_thread
+
     def btn_clicked(e):
+
+        global running, verificacao_thread
+        running = True
         
         if txt1.value == '':
             txt1.error_text = "Campo Obrigatório"
@@ -54,17 +65,41 @@ def main(page: ft.page):
             swt.tooltip = 'Programa em Execução'
             page.update()
             
-            Verificar_Diretorio(int(txt1.value), int(txt2.value), txt3, txt1, txt2, swt.value)      
+             # Cria uma nova thread para executar a função
+            verificacao_thread = Thread(target=Verificar_Diretorio, args=(int(txt1.value), int(txt2.value), txt3, txt1, txt2, swt.value, lambda: running))
+            verificacao_thread.start()      
         
-    def Close(e):
-        page.window.close()
+    def Restart(e):
+        global running, verificacao_thread
+        running = False
+        txt1.disabled = False
+        txt2.disabled = False
+        btn1.disabled = False
+        swt.disabled = False
+        txt1.error_text = None
+        txt2.error_text = None
+        txt1.value = ''
+        txt2.value = ''
+        txt3.value = ' '
+        swt.value = True
+        txt1.tooltip = None
+        txt2.tooltip = None
+        btn1.tooltip = 'Inicia o Programa'
+        swt.tooltip = 'Habilita/Desabilita o Salvamento Automático'
+        btn2.disabled = True
+        page.window.height = 390
+        page.update()
+        
+        # Espera a thread finalizar (se houver uma em execução)
+        if verificacao_thread is not None:
+            verificacao_thread.join()
 
     txt1 = ft.TextField(label="Último Código Fornecedor", width=240)
     txt2 = ft.TextField(label="Último Código Cliente", width=240)
     txt3 = ft.TextField(value=" ", label="Output", width=500, read_only=True, bgcolor=ft.colors.GREY_200)
 
     btn1 = ft.ElevatedButton(tooltip='Inicia o Programar',text="Iniciar",width=435,height=50,bgcolor=ft.colors.BLUE_900,color=ft.colors.WHITE,style=ft.ButtonStyle(shape=ft.RoundedRectangleBorder(radius=5)),on_click=btn_clicked)
-    btn2 = ft.ElevatedButton(tooltip='Finaliza o Programar',text="Encerrar",width=500,height=50,bgcolor=ft.colors.BLUE_900,color=ft.colors.WHITE,style=ft.ButtonStyle(shape=ft.RoundedRectangleBorder(radius=5)),on_click=Close, disabled=True)
+    btn2 = ft.ElevatedButton(tooltip='Reinicia o Programar',text="Reiniciar",width=500,height=50,bgcolor=ft.colors.BLUE_900,color=ft.colors.WHITE,style=ft.ButtonStyle(shape=ft.RoundedRectangleBorder(radius=5)),on_click=Restart, disabled=True)
     
     swt = ft.Switch(value=True, tooltip='Habilita/Desabilita o Salvamento Automático')
 
