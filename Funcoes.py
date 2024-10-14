@@ -390,6 +390,8 @@ def Robo(dados_formatados, Clifor, Insc_est, Output, Autosave, Is_running):
             sleep(0.5)
 
     if not Is_running():
+        Output.value = "Processo Interrompido!"
+        Output.update()
         return  # Sai da função imediatamente se parar for solicitado
 
 def Verificar_Diretorio(Forn, Clie, Output, ForText, CliText, Autosave, Is_running):
