@@ -5,7 +5,6 @@ from threading import Thread
 running = True  # Variável global de controle
 verificacao_thread = None  # Variável para controlar a thread
 
-
 def main(page: ft.page):
     page.title = "Automação"
     page.window.width = 605
@@ -53,14 +52,19 @@ def main(page: ft.page):
         if ((txt1.value != '' and txt1.value.isnumeric() == True and len(txt1.value) == 5) and 
               (txt2.value != '' and txt2.value.isnumeric() == True and len(txt2.value) == 5)):          
             page.window.height = 390 
+            
             txt1.disabled = True
-            txt2.disabled = True
-            btn1.disabled = True
-            swt.disabled = True
-            btn2.disabled = False
             txt1.tooltip = "Programa em Execução"
+                       
+            txt2.disabled = True
             txt2.tooltip = "Programa em Execução"
+
+            btn1.disabled = True
             btn1.tooltip = "Programa em Execução"
+            
+            btn2.disabled = False
+            
+            swt.active_track_color = ft.colors.GREY_300
             swt.tooltip = 'Programa em Execução'
             page.update()
             
@@ -71,21 +75,29 @@ def main(page: ft.page):
     def Restart(e):
         global running, verificacao_thread
         running = False
-        txt1.disabled = False
-        txt2.disabled = False
-        btn1.disabled = False
-        swt.disabled = False
-        txt1.error_text = None
-        txt2.error_text = None
-        txt1.value = ''
-        txt2.value = ''
-        txt3.value = ' '
+        
+        swt.disabled = False      
         swt.value = True
-        txt1.tooltip = None
-        txt2.tooltip = None
-        btn1.tooltip = 'Inicia o Programa'
+        swt.active_track_color = ft.colors.GREEN
         swt.tooltip = 'Habilita/Desabilita o Salvamento Automático'
+        
+        txt1.error_text = None
+        txt1.tooltip = None
+        txt1.disabled = False
+        txt1.value = ''
+        
+        txt2.error_text = None
+        txt2.tooltip = None
+        txt2.disabled = False
+        txt2.value = ''
+        
+        txt3.value = ' '
+        
+        btn1.disabled = False
+        btn1.tooltip = 'Inicia o Programa'
+        
         btn2.disabled = True
+        
         page.window.height = 390
         page.update()
         
@@ -100,7 +112,7 @@ def main(page: ft.page):
     btn1 = ft.ElevatedButton(tooltip='Inicia o Programar',text="Iniciar",width=435,height=50,bgcolor=ft.colors.BLUE_900,color=ft.colors.WHITE,style=ft.ButtonStyle(shape=ft.RoundedRectangleBorder(radius=5)),on_click=btn_clicked)
     btn2 = ft.ElevatedButton(tooltip='Reinicia o Programar',text="Reiniciar",width=500,height=50,bgcolor=ft.colors.BLUE_900,color=ft.colors.WHITE,style=ft.ButtonStyle(shape=ft.RoundedRectangleBorder(radius=5)),on_click=Restart, disabled=True)
     
-    swt = ft.Switch(value=True, tooltip='Habilita/Desabilita o Salvamento Automático')
+    swt = ft.Switch(value=True, tooltip='Habilita/Desabilita o Salvamento Automático', active_track_color=ft.colors.GREEN)
 
     linha = ft.Row(controls=[txt1, txt2], spacing=20, alignment=ft.MainAxisAlignment.CENTER)
     linha2 = ft.Row(controls=[btn1, swt], spacing=10, alignment=ft.MainAxisAlignment.CENTER)
