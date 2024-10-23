@@ -125,9 +125,9 @@ def Formatador_De_Dados(dados_extraidos):
     
     # Nome Fantasia
     if '*' in dados_extraidos['Nome Fantasia'] or dados_extraidos['Nome Fantasia'] == dados_extraidos['Nome Empresarial']:
-        dados_formatados['Nome Fantasia'] = dados_formatados['Nome Empresarial'].replace('Ltda ', '').replace('Sa ', '')
+        dados_formatados['Nome Fantasia'] = dados_formatados['Nome Empresarial'].replace('Ltda ', '').replace('Sa ', '').replace(' Ltda', '').replace(' Sa', ' ')
     else:
-        dados_formatados['Nome Fantasia'] = Formatador_De_Nome(dados_extraidos['Nome Fantasia']).replace('Ltda ', '').replace('Sa ', ' ')
+        dados_formatados['Nome Fantasia'] = Formatador_De_Nome(dados_extraidos['Nome Fantasia']).replace('Ltda ', '').replace('Sa ', ' ').replace(' Ltda', '').replace(' Sa', ' ')
   
     # CNPJ
     dados_formatados['Cnpj'] = dados_extraidos['Cnpj'].strip()
