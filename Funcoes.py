@@ -139,6 +139,7 @@ def Formatador_De_Dados(dados_extraidos):
         dados_formatados['Nome Fantasia'] = dados_formatados['Nome Empresarial'].replace('Ltda ', '').replace('Sa ', '').replace(' Ltda', '').replace(' Sa', ' ')
     else:
         dados_formatados['Nome Fantasia'] = Formatador_De_Nome(dados_extraidos['Nome Fantasia']).replace('Ltda ', '').replace('Sa ', ' ').replace(' Ltda', '').replace(' Sa', ' ')
+    
     # CNPJ
     dados_formatados['Cnpj'] = dados_extraidos['Cnpj'].strip()
     
@@ -354,13 +355,16 @@ def Robo(dados_formatados, Clifor, Insc_est, Output, Autosave, Is_running):
         # Escreve a UF
         press('tab', presses=4)
         write(dados_formatados['Uf'])
-                
+        
         # Escreve o município
-        click(x=1175, y=710)
+        if dados_formatados['Municipio'].isdigit():
+            click(x=955, y=711)
+        else:
+            click(x=1175, y=710)
         write(dados_formatados['Municipio'])
-        click(x=807, y=768)
-
+        
         # Escreve o telefone
+        click(x=807, y=768)
         write(dados_formatados['Celular1'])
         press('tab')
 
