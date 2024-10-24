@@ -4,6 +4,7 @@ from os import listdir, remove, path
 from time import sleep
 from fitz import open
 from Abreviacoes import abreviacoes
+from Municipios import municipios
 
 def Extrator_De_Dados(caminho_pdf):
     documento = open(caminho_pdf)
@@ -46,6 +47,16 @@ def Formatador_De_Nome(texto):
     texto_cap = sub(r'\b\d+\b', '', texto_cap)
 
     return texto_cap.strip().replace('.', '').replace('-', '').replace(',', '').replace('/', '').replace('&', 'e').replace('  ', ' ')
+
+def Formatador_De_Municipio(texto):
+    mum = municipios
+    texto_cap = texto.upper()
+
+    for key, value in mum.items():
+        # Usar regex para garantir que apenas palavras inteiras sejam substituídas
+        texto_cap = sub(r'\b{}\b'.format(escape(key)), value, texto_cap)
+    
+    return texto_cap.strip()
 
 def Formatador_Da_Rua(texto):
     rua = texto.strip().split()
@@ -128,7 +139,6 @@ def Formatador_De_Dados(dados_extraidos):
         dados_formatados['Nome Fantasia'] = dados_formatados['Nome Empresarial'].replace('Ltda ', '').replace('Sa ', '').replace(' Ltda', '').replace(' Sa', ' ')
     else:
         dados_formatados['Nome Fantasia'] = Formatador_De_Nome(dados_extraidos['Nome Fantasia']).replace('Ltda ', '').replace('Sa ', ' ').replace(' Ltda', '').replace(' Sa', ' ')
-  
     # CNPJ
     dados_formatados['Cnpj'] = dados_extraidos['Cnpj'].strip()
     
@@ -163,7 +173,7 @@ def Formatador_De_Dados(dados_extraidos):
     dados_formatados['Uf'] = dados_extraidos['Uf'].upper().strip()
     
     # Municipio
-    dados_formatados['Municipio'] = dados_extraidos['Municipio'].title().strip()
+    dados_formatados['Municipio'] = Formatador_De_Municipio(dados_extraidos['Municipio'])
     
     # Celular
     telefone = dados_extraidos['Telefone'].replace('(', '').replace(')', '').replace('-', '').replace(' ', '').strip()
