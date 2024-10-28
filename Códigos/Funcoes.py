@@ -427,7 +427,7 @@ def Verificar_Diretorio(Forn, Clie, Output, ForText, CliText, Autosave, Is_runni
         # Verifica se há arquivos PDF
         for arquivo in diretorio:
             
-            if arquivo.upper().endswith('.PDF') and (arquivo.upper().startswith('C') or arquivo.upper().startswith('F')):
+            if arquivo.upper().endswith('.PDF') and (arquivo.upper().startswith('C') or arquivo.upper().startswith('F')) and Is_running() == True:
                 
                 caminho_completo = path.join(caminho_pasta, arquivo)
                 Output.value = f"PDF encontrado: {arquivo.lower().replace('.pdf', '').upper()}"
