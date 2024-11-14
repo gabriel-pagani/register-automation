@@ -1,5 +1,5 @@
 from pyautogui import click, press, locateOnScreen, position, write, ImageNotFoundException, PAUSE
-from re import search, sub, escape
+from re import search, sub, escape, IGNORECASE
 from os import listdir, remove, path
 from time import sleep
 from fitz import open
@@ -54,7 +54,7 @@ def Formatador_De_Municipio(texto):
 
     for key, value in mum.items():
         # Usar regex para garantir que apenas palavras inteiras sejam substituídas
-        texto_cap = sub(r'\b{}\b'.format(escape(key)), value, texto_cap)
+        texto_cap = sub(r'\b{}\b'.format(escape(key.upper())), value.upper(), texto_cap)
     
     return texto_cap.strip()
 
@@ -128,6 +128,12 @@ def Formatador_De_Bairro(texto):
     ...
     # Adicionar mais parâmetros conforme necessário
 
+def remover_sufixos(nome):
+    # Substitui "Ltda" e "Sa" apenas se forem palavras inteiras
+    nome = sub(r'\bLtda\b', '', nome, flags=IGNORECASE)
+    nome = sub(r'\bSa\b', '', nome, flags=IGNORECASE)
+    return nome.strip()
+
 def Formatador_De_Dados(dados_extraidos):
     dados_formatados = {}
     
@@ -136,9 +142,9 @@ def Formatador_De_Dados(dados_extraidos):
     
     # Nome Fantasia
     if '*' in dados_extraidos['Nome Fantasia'] or dados_extraidos['Nome Fantasia'] == dados_extraidos['Nome Empresarial']:
-        dados_formatados['Nome Fantasia'] = dados_formatados['Nome Empresarial'].replace('Ltda ', '').replace('Sa ', '').replace(' Ltda', '').replace(' Sa', ' ')
+        dados_formatados['Nome Fantasia'] = remover_sufixos(dados_formatados['Nome Empresarial'])
     else:
-        dados_formatados['Nome Fantasia'] = Formatador_De_Nome(dados_extraidos['Nome Fantasia']).replace('Ltda ', '').replace('Sa ', ' ').replace(' Ltda', '').replace(' Sa', ' ')
+        dados_formatados['Nome Fantasia'] = remover_sufixos(Formatador_De_Nome(dados_extraidos['Nome Fantasia']))
     
     # CNPJ
     dados_formatados['Cnpj'] = dados_extraidos['Cnpj'].strip()
