@@ -294,11 +294,11 @@ def Robo(dados_formatados, Clifor, Insc_est, Output, Autosave, Is_running):
     if Is_running():
         # Escreve o nome fantasia
         press('tab', presses=2)
-        write(dados_formatados['Nome Fantasia'])
+        write(dados_formatados['Nome Fantasia'].strip())
 
         # Escreve o nome empresarial
         press('tab')
-        write(dados_formatados['Nome Empresarial'])
+        write(dados_formatados['Nome Empresarial'].strip())
         
         # Seleciona a clasificação e Categoria
         if 'C' in Clifor.upper(): 
