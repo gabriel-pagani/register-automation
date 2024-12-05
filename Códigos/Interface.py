@@ -66,6 +66,7 @@ def main(page: ft.page):
             btn2.disabled = False
 
             swt.active_track_color = ft.colors.GREY_300
+            swt.disabled = True
             swt.tooltip = 'Programa em Execução'
             page.update()
 
