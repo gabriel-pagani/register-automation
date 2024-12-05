@@ -1,4 +1,4 @@
-from pyautogui import click, press, locateOnScreen, position, write, ImageNotFoundException, PAUSE, hotkey
+from pyautogui import click, press, locateOnScreen, write, ImageNotFoundException, PAUSE, hotkey
 from re import search, sub, escape, IGNORECASE
 from os import listdir, remove, path
 from time import sleep
