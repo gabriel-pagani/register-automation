@@ -120,6 +120,7 @@ abreviacoes = {
     'Logistica': 'Log',
     'Loteadora': 'Lot',
     'Manutencao': 'Manut',
+    'Maquinas': 'Maq',
     'Maquina': 'Maq',
     'Materiais': 'Mat',
     'Material': 'Mat',
@@ -212,8 +213,8 @@ abreviacoes = {
     'Da': 'da',
     'Do': 'do',
     'Em': 'em',
-    'E': 'e',
-    'A': 'a',
-    'O': 'o',
+    ' E ': ' e ',
+    ' A ': ' a ',
+    ' O ': ' o ',
     'P/': 'Para',
-    }
+}
