@@ -6,7 +6,7 @@ running = True  # Variável global de controle
 verificacao_thread = None  # Variável para controlar a thread
 
 
-def main(page: ft.page):
+def main(page: ft.Page):
     page.title = "Automação"
     page.window.width = 605
     page.window.height = 390
@@ -14,7 +14,7 @@ def main(page: ft.page):
     page.window.to_front()
     page.window.resizable = False
     page.window.maximizable = False
-    page.bgcolor = ft.colors.WHITE
+    page.bgcolor = ft.Colors.WHITE
     page.update()
 
     global running, verificacao_thread
@@ -30,8 +30,8 @@ def main(page: ft.page):
         elif txt1.value.isnumeric() == False:
             txt1.error_text = "Digite Somente números"
             page.window.height = 415
-        elif len(txt1.value) != 5:
-            txt1.error_text = "O Código deve ter 5 digitos"
+        elif len(txt1.value) > 5:
+            txt1.error_text = "O Código deve ter até 5 digitos"
             page.window.height = 415
         else:
             txt1.error_text = None
@@ -42,16 +42,16 @@ def main(page: ft.page):
         elif txt2.value.isnumeric() == False:
             txt2.error_text = "Digite Somente números"
             page.window.height = 415
-        elif len(txt2.value) != 5:
-            txt2.error_text = "O Código deve ter 5 digitos"
+        elif len(txt2.value) > 5:
+            txt2.error_text = "O Código deve ter até 5 digitos"
             page.window.height = 415
         else:
             txt2.error_text = None
 
         page.update()
 
-        if ((txt1.value != '' and txt1.value.isnumeric() == True and len(txt1.value) == 5) and
-                (txt2.value != '' and txt2.value.isnumeric() == True and len(txt2.value) == 5)):
+        if ((txt1.value != '' and txt1.value.isnumeric() == True and len(txt1.value) <= 5) and
+                (txt2.value != '' and txt2.value.isnumeric() == True and len(txt2.value) <= 5)):
             page.window.height = 390
 
             txt1.disabled = True
@@ -60,12 +60,14 @@ def main(page: ft.page):
             txt2.disabled = True
             txt2.tooltip = "Programa em Execução"
 
+            btn1.bgcolor = ft.Colors.GREY_300
             btn1.disabled = True
             btn1.tooltip = "Programa em Execução"
 
+            btn2.bgcolor = ft.Colors.BLUE_900
             btn2.disabled = False
 
-            swt.active_track_color = ft.colors.GREY_300
+            swt.active_track_color = ft.Colors.GREY_300
             swt.disabled = True
             swt.tooltip = 'Programa em Execução'
             page.update()
@@ -81,7 +83,7 @@ def main(page: ft.page):
 
         swt.disabled = False
         swt.value = True
-        swt.active_track_color = ft.colors.GREEN
+        swt.active_track_color = ft.Colors.GREEN
         swt.tooltip = 'Habilita/Desabilita o Salvamento Automático'
 
         txt1.error_text = None
@@ -96,9 +98,11 @@ def main(page: ft.page):
 
         txt3.value = ' '
 
+        btn1.bgcolor = ft.Colors.BLUE_900
         btn1.disabled = False
         btn1.tooltip = 'Inicia o Programa'
 
+        btn2.bgcolor = ft.Colors.GREY_300
         btn2.disabled = True
 
         page.window.height = 390
@@ -111,15 +115,15 @@ def main(page: ft.page):
     txt1 = ft.TextField(label="Último Código Fornecedor", width=240)
     txt2 = ft.TextField(label="Último Código Cliente", width=240)
     txt3 = ft.TextField(value=" ", label="Output", width=500,
-                        read_only=True, bgcolor=ft.colors.GREY_200)
+                        read_only=True, bgcolor=ft.Colors.GREY_200)
 
-    btn1 = ft.ElevatedButton(tooltip='Inicia o Programar', text="Iniciar", width=435, height=50, bgcolor=ft.colors.BLUE_900,
-                             color=ft.colors.WHITE, style=ft.ButtonStyle(shape=ft.RoundedRectangleBorder(radius=5)), on_click=btn_clicked)
-    btn2 = ft.ElevatedButton(tooltip='Reinicia o Programar', text="Reiniciar", width=500, height=50, bgcolor=ft.colors.BLUE_900,
-                             color=ft.colors.WHITE, style=ft.ButtonStyle(shape=ft.RoundedRectangleBorder(radius=5)), on_click=Restart, disabled=True)
+    btn1 = ft.ElevatedButton(tooltip='Inicia o Programar', text="Iniciar", width=435, height=50, bgcolor=ft.Colors.BLUE_900,
+                             color=ft.Colors.WHITE, style=ft.ButtonStyle(shape=ft.RoundedRectangleBorder(radius=5)), on_click=btn_clicked)
+    btn2 = ft.ElevatedButton(tooltip='Reinicia o Programar', text="Reiniciar", width=500, height=50, bgcolor=ft.Colors.GREY_300,
+                             color=ft.Colors.WHITE, style=ft.ButtonStyle(shape=ft.RoundedRectangleBorder(radius=5)), on_click=Restart, disabled=True)
 
     swt = ft.Switch(value=True, tooltip='Habilita/Desabilita o Salvamento Automático',
-                    active_track_color=ft.colors.GREEN)
+                    active_track_color=ft.Colors.GREEN)
 
     linha = ft.Row(controls=[txt1, txt2], spacing=20,
                    alignment=ft.MainAxisAlignment.CENTER)
