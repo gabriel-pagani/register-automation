@@ -1,4 +1,4 @@
-from pyautogui import click, press, locateOnScreen, write, ImageNotFoundException, PAUSE, hotkey
+from pyautogui import click, press, locateOnScreen, position, write, ImageNotFoundException, PAUSE, hotkey
 from re import search, sub, escape, IGNORECASE
 from os import listdir, remove, path
 from time import sleep
@@ -25,6 +25,7 @@ def Extrator_De_Dados(caminho_pdf):
         "Uf": r"UF\n([^\n]+)",
         "Email": r"ENDEREÇO ELETRÔNICO\n([^\n]+)",
         "Telefone": r"TELEFONE\n([^\n]+)",
+        "Situacao": r"SITUAÇÃO CADASTRAL\n([^\n]+)"
     }
 
     dados_extraidos = {}
@@ -40,7 +41,7 @@ def Extrator_De_Dados(caminho_pdf):
 def Formatador_De_Nome(texto):
     # Dicionário com as abreviações conforme o PDF
     abrv = abreviacoes
-    texto_cap = texto.title()
+    texto_cap = texto.title().strip()
 
     for key, value in abrv.items():
         # Usar regex para garantir que apenas palavras inteiras sejam substituídas
@@ -220,10 +221,18 @@ def Formatador_De_Dados(dados_extraidos):
     else:
         dados_formatados['Email'] = dados_extraidos['Email'].strip()
 
+    # Situação
+    dados_formatados['Situacao'] = dados_extraidos['Situacao'].strip()
+
     return dados_formatados
 
 
 def Robo(dados_formatados, Clifor, Insc_est, Output, Autosave, Is_running):
+
+    if 'ATIVA' not in dados_formatados['Situacao']:
+        Output.value = "Situação Cadastral Inválida!"
+        Output.update()
+        return
 
     # Velocidade que o programa executa
     PAUSE = 0.5
@@ -231,7 +240,7 @@ def Robo(dados_formatados, Clifor, Insc_est, Output, Autosave, Is_running):
     # Espera a menu inicial do RM
     while Is_running():
         try:
-            if locateOnScreen(r'C:\Users\gabriel.souza\Desktop\AUTOMACAO\Imagens\1.png', confidence=0.95):
+            if locateOnScreen(r'C:\Users\gabriel.souza\AUTOMACAO\Imagens\1.png', confidence=0.95):
                 Output.value = " "
                 Output.update()
                 sleep(0.3)
@@ -252,7 +261,7 @@ def Robo(dados_formatados, Clifor, Insc_est, Output, Autosave, Is_running):
     # Espera a filtro abrir
     while Is_running():
         try:
-            if locateOnScreen(r'C:\Users\gabriel.souza\Desktop\AUTOMACAO\Imagens\2.png', confidence=0.9):
+            if locateOnScreen(r'C:\Users\gabriel.souza\AUTOMACAO\Imagens\2.png', confidence=0.9):
                 Output.value = " "
                 Output.update()
                 sleep(0.3)
@@ -273,7 +282,7 @@ def Robo(dados_formatados, Clifor, Insc_est, Output, Autosave, Is_running):
     # Espera a aba de clientes/fornecedores
     while Is_running():
         try:
-            if locateOnScreen(r'C:\Users\gabriel.souza\Desktop\AUTOMACAO\Imagens\3.png', confidence=0.9):
+            if locateOnScreen(r'C:\Users\gabriel.souza\AUTOMACAO\Imagens\3.png', confidence=0.9):
                 Output.value = " "
                 Output.update()
                 sleep(0.3)
@@ -294,7 +303,7 @@ def Robo(dados_formatados, Clifor, Insc_est, Output, Autosave, Is_running):
     # Espera abrir o menu de cadastro
     while Is_running():
         try:
-            if locateOnScreen(r'C:\Users\gabriel.souza\Desktop\AUTOMACAO\Imagens\4.png', confidence=0.9):
+            if locateOnScreen(r'C:\Users\gabriel.souza\AUTOMACAO\Imagens\4.png', confidence=0.9):
                 Output.value = " "
                 Output.update()
                 sleep(0.3)
@@ -340,13 +349,14 @@ def Robo(dados_formatados, Clifor, Insc_est, Output, Autosave, Is_running):
             press('tab', presses=3)
             if Insc_est.isdigit():
                 write(str(Insc_est))
-            click(x=537, y=489)
-            click(x=735, y=619)
+            click(x=542, y=483)
+            # click(x=543, y=456)  # Coligada 10
+            click(x=751, y=622)
             if 'ISENTO' in Insc_est.upper():
-                click(x=746, y=652)
+                click(x=750, y=651)
             else:
-                click(x=739, y=639)
-            click(x=535, y=275)
+                click(x=750, y=637)
+            click(x=546, y=274)
 
         # Escreve o CEP
         click(x=712, y=631)
@@ -413,7 +423,7 @@ def Robo(dados_formatados, Clifor, Insc_est, Output, Autosave, Is_running):
     # Espera o cadastro terminar
     while Is_running():
         try:
-            if locateOnScreen(r'C:\Users\gabriel.souza\Desktop\AUTOMACAO\Imagens\5.png', confidence=0.9):
+            if locateOnScreen(r'C:\Users\gabriel.souza\AUTOMACAO\Imagens\5.png', confidence=0.9):
                 Output.value = " "
                 Output.update()
                 sleep(0.3)
@@ -440,69 +450,72 @@ def Robo(dados_formatados, Clifor, Insc_est, Output, Autosave, Is_running):
 
 def Verificar_Diretorio(Forn, Clie, Output, ForText, CliText, Autosave, Is_running):
 
-    cod_for = Forn
-    cod_cli = Clie
-    tempo_decorrido = 0
-    autosave = Autosave
+    try:
+        cod_for = Forn
+        cod_cli = Clie
+        tempo_decorrido = 0
+        autosave = Autosave
 
-    while Is_running():
-        Output.value = f'Procurando arquivos... (Tempo Decorrido: {
-            tempo_decorrido}s)'
-        Output.update()
-        tempo_decorrido += 1
+        while Is_running():
+            Output.value = f'Procurando arquivos... (Tempo Decorrido: {
+                tempo_decorrido}s)'
+            Output.update()
+            tempo_decorrido += 1
 
-        # Lista todos os arquivos no diretório
-        caminho_pasta = r'C:\Users\gabriel.souza\Desktop\AUTOMACAO\Clifor'
-        diretorio = listdir(r'C:\Users\gabriel.souza\Desktop\AUTOMACAO\Clifor')
+            # Lista todos os arquivos no diretório
+            caminho_pasta = r'C:\Users\gabriel.souza\AUTOMACAO\Clifor'
+            diretorio = listdir(r'C:\Users\gabriel.souza\AUTOMACAO\Clifor')
 
-        # Verifica se há arquivos PDF
-        for arquivo in diretorio:
+            # Verifica se há arquivos PDF
+            for arquivo in diretorio:
 
-            if arquivo.upper().endswith('.PDF') and (arquivo.upper().startswith('C') or arquivo.upper().startswith('F')) and Is_running() == True:
+                if arquivo.upper().endswith('.PDF') and (arquivo.upper().startswith('C') or arquivo.upper().startswith('F')) and Is_running() == True:
 
-                caminho_completo = path.join(caminho_pasta, arquivo)
-                Output.value = f"PDF encontrado: {
-                    arquivo.lower().replace('.pdf', '').upper()}"
-                Output.update()
-                sleep(2)
-
-                # Analisa o PDF e extrai os dados
-                dados = Formatador_De_Dados(
-                    Extrator_De_Dados(caminho_completo))
-
-                # Recebe a inscrição estadual
-                inscricao_estadual = arquivo.replace(
-                    '.pdf', '').replace('C', '').replace('F', '')
-                if 'X' in inscricao_estadual.upper():
-                    inscricao_estadual = ''
-
-                # Realiza o cadastro usando o Robo
-                if 'F' in arquivo.upper().replace('.PDF', '') and Is_running() == True:
-                    Robo(dados, 'F' + str(cod_for + 1),
-                         inscricao_estadual, Output, autosave, Is_running)
-                    if Is_running() == True:
-                        cod_for += 1
-                        ForText.value = cod_for
-                        ForText.update()
-                elif 'C' in arquivo.upper().replace('.PDF', '') and Is_running() == True:
-                    Robo(dados, 'C' + str(cod_cli + 1),
-                         inscricao_estadual, Output, autosave, Is_running)
-                    if Is_running() == True:
-                        cod_cli += 1
-                        CliText.value = cod_cli
-                        CliText.update()
-
-                if Is_running() == True:
-                    # Remove o arquivo após o processamento
-                    remove(caminho_completo)
-                    Output.value = f"PDF processado: {
-                        arquivo.replace('.pdf', '').upper()}"
+                    caminho_completo = path.join(caminho_pasta, arquivo)
+                    Output.value = f"PDF encontrado: {
+                        arquivo.lower().replace('.pdf', '').upper()}"
                     Output.update()
                     sleep(2)
-                    tempo_decorrido = 0
 
-        sleep(1)
+                    # Analisa o PDF e extrai os dados
+                    dados = Formatador_De_Dados(
+                        Extrator_De_Dados(caminho_completo))
 
-    # A função termina quando is_running() retorna False
-    Output.value = f"Processo Reiniciado!"
-    Output.update()
+                    # Recebe a inscrição estadual
+                    inscricao_estadual = arquivo.replace(
+                        '.pdf', '').replace('C', '').replace('F', '')
+                    if 'X' in inscricao_estadual.upper():
+                        inscricao_estadual = ''
+
+                    # Realiza o cadastro usando o Robo
+                    if 'F' in arquivo.upper().replace('.PDF', '') and Is_running() == True:
+                        Robo(dados, 'F' + str(cod_for + 1),
+                             inscricao_estadual, Output, autosave, Is_running)
+                        if Is_running() == True:
+                            cod_for += 1
+                            ForText.value = cod_for
+                            ForText.update()
+                    elif 'C' in arquivo.upper().replace('.PDF', '') and Is_running() == True:
+                        Robo(dados, 'C' + str(cod_cli + 1),
+                             inscricao_estadual, Output, autosave, Is_running)
+                        if Is_running() == True:
+                            cod_cli += 1
+                            CliText.value = cod_cli
+                            CliText.update()
+
+                    if Is_running() == True:
+                        # Remove o arquivo após o processamento
+                        remove(caminho_completo)
+                        Output.value = f"PDF processado: {
+                            arquivo.replace('.pdf', '').upper()}"
+                        Output.update()
+                        sleep(2)
+                        tempo_decorrido = 0
+
+            sleep(1)
+
+        # A função termina quando is_running() retorna False
+        Output.value = f"Processo Reiniciado!"
+        Output.update()
+    except RuntimeError:
+        print("Programa Fechado!")
