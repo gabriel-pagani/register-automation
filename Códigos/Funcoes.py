@@ -58,11 +58,10 @@ def Formatador_De_Municipio(texto):
     texto_cap = texto.upper()
 
     for key, value in mum.items():
-        # Usar regex para garantir que apenas palavras inteiras sejam substituídas
-        texto_cap = sub(r'\b{}\b'.format(escape(key.upper())),
-                        value.upper(), texto_cap)
+        if texto_cap == key:
+            texto_cap = value
 
-    return texto_cap.strip().capitalize()
+    return texto_cap.strip().title()
 
 
 def Formatador_Da_Rua(texto):
@@ -229,8 +228,8 @@ def Formatador_De_Dados(dados_extraidos):
 
 def Robo(dados_formatados, Clifor, Insc_est, Output, Autosave, Is_running):
 
-    if 'ATIVA' not in dados_formatados['Situacao']:
-        Output.value = "Situação Cadastral Inválida!"
+    if dados_formatados['Situacao'] != 'ATIVA':
+        Output.value += "Situação Cadastral Inválida!\n"
         Output.update()
         return
 
@@ -241,70 +240,45 @@ def Robo(dados_formatados, Clifor, Insc_est, Output, Autosave, Is_running):
     while Is_running():
         try:
             if locateOnScreen(r'C:\Users\gabriel.souza\AUTOMACAO\Imagens\1.png', confidence=0.95):
-                Output.value = " "
                 Output.update()
                 sleep(0.3)
                 # Abrir aba de clientes/fornecedores
                 click(x=797, y=71)
                 break
         except ImageNotFoundException:
-            Output.value = "Abra a Tela de Início do RM."
+            Output.value += "Abra a Tela de Início do RM!\n"
             Output.update()
-            sleep(0.5)
-            Output.value = "Abra a Tela de Início do RM.."
-            Output.update()
-            sleep(0.5)
-            Output.value = "Abra a Tela de Início do RM..."
-            Output.update()
-            sleep(0.5)
 
     # Espera a filtro abrir
     while Is_running():
         try:
             if locateOnScreen(r'C:\Users\gabriel.souza\AUTOMACAO\Imagens\2.png', confidence=0.9):
-                Output.value = " "
                 Output.update()
                 sleep(0.3)
                 # Fecha o filtro
                 click(x=1123, y=771)
                 break
         except ImageNotFoundException:
-            Output.value = "Aguardando menu de Filtros Abrir."
+            Output.value += "Aguardando menu de Filtros Abrir!\n"
             Output.update()
-            sleep(0.5)
-            Output.value = "Aguardando menu de Filtros Abrir.."
-            Output.update()
-            sleep(0.5)
-            Output.value = "Aguardando menu de Filtros Abrir..."
-            Output.update()
-            sleep(0.5)
 
     # Espera a aba de clientes/fornecedores
     while Is_running():
         try:
             if locateOnScreen(r'C:\Users\gabriel.souza\AUTOMACAO\Imagens\3.png', confidence=0.9):
-                Output.value = " "
                 Output.update()
                 sleep(0.3)
                 # Abrir cadastro
                 click(x=13, y=198)
                 break
         except ImageNotFoundException:
-            Output.value = "Aguardado Menu de Clientes/Fornecedores abrir."
+            Output.value += "Aguardado Menu de Clientes/Fornecedores abrir!\n"
             Output.update()
-            sleep(0.5)
-            Output.value = "Aguardado Menu de Clientes/Fornecedores abrir.."
-            Output.update()
-            sleep(0.5)
-            Output.value = "Aguardado Menu de Clientes/Fornecedores abrir..."
-            Output.update()
-            sleep(0.5)
 
     # Espera abrir o menu de cadastro
     while Is_running():
         try:
             if locateOnScreen(r'C:\Users\gabriel.souza\AUTOMACAO\Imagens\4.png', confidence=0.9):
-                Output.value = " "
                 Output.update()
                 sleep(0.3)
                 # Escreve o código fornecedor/cliente
@@ -312,15 +286,8 @@ def Robo(dados_formatados, Clifor, Insc_est, Output, Autosave, Is_running):
                 write(Clifor)
                 break
         except ImageNotFoundException:
-            Output.value = "Aguardando Menu de Cadastros Abrir."
+            Output.value += "Aguardando Menu de Cadastros Abrir!\n"
             Output.update()
-            sleep(0.5)
-            Output.value = "Aguardando Menu de Cadastros Abrir.."
-            Output.update()
-            sleep(0.5)
-            Output.value = "Aguardando Menu de Cadastros Abrir..."
-            Output.update()
-            sleep(0.5)
 
     if Is_running():
         # Escreve o nome fantasia
@@ -418,32 +385,23 @@ def Robo(dados_formatados, Clifor, Insc_est, Output, Autosave, Is_running):
             # Salva o cadastro
             click(x=1230, y=884)
         else:
-            Output.value = "Salve ou Cancele o Cadastro!"
+            Output.value += "Salve ou Cancele o Cadastro!\n"
 
     # Espera o cadastro terminar
     while Is_running():
         try:
             if locateOnScreen(r'C:\Users\gabriel.souza\AUTOMACAO\Imagens\5.png', confidence=0.9):
-                Output.value = " "
                 Output.update()
                 sleep(0.3)
                 # Fecha a aba de fornecedor/cliente
                 click(x=176, y=168)
                 break
         except ImageNotFoundException:
-            Output.value = "Aguardando o Fechamento da aba de fornecedor/cliente."
+            Output.value += "Aguardando o Fechamento da aba de fornecedor/cliente!\n"
             Output.update()
-            sleep(0.5)
-            Output.update()
-            Output.value = "Aguardando o Fechamento da aba de fornecedor/cliente.."
-            Output.update()
-            sleep(0.5)
-            Output.value = "Aguardando o Fechamento da aba de fornecedor/cliente..."
-            Output.update()
-            sleep(0.5)
 
     if not Is_running():
-        Output.value = "Processo Interrompido!"
+        Output.value += "Processo Interrompido!\n"
         Output.update()
         return  # Sai da função imediatamente se parar for solicitado
 
@@ -457,10 +415,11 @@ def Verificar_Diretorio(Forn, Clie, Output, ForText, CliText, Autosave, Is_runni
         autosave = Autosave
 
         while Is_running():
-            Output.value = f'Procurando arquivos... (Tempo Decorrido: {
-                tempo_decorrido}s)'
-            Output.update()
-            tempo_decorrido += 1
+            if tempo_decorrido % 10 == 0:
+                Output.value += f'Procurando arquivos... (Tempo Decorrido: {
+                    tempo_decorrido:.0f}s)\n'
+                Output.update()
+            tempo_decorrido += 0.5
 
             # Lista todos os arquivos no diretório
             caminho_pasta = r'C:\Users\gabriel.souza\AUTOMACAO\Clifor'
@@ -472,8 +431,8 @@ def Verificar_Diretorio(Forn, Clie, Output, ForText, CliText, Autosave, Is_runni
                 if arquivo.upper().endswith('.PDF') and (arquivo.upper().startswith('C') or arquivo.upper().startswith('F')) and Is_running() == True:
 
                     caminho_completo = path.join(caminho_pasta, arquivo)
-                    Output.value = f"PDF encontrado: {
-                        arquivo.lower().replace('.pdf', '').upper()}"
+                    Output.value += f"PDF encontrado: {
+                        arquivo.lower().replace('.pdf', '').upper()}\n"
                     Output.update()
                     sleep(2)
 
@@ -506,16 +465,16 @@ def Verificar_Diretorio(Forn, Clie, Output, ForText, CliText, Autosave, Is_runni
                     if Is_running() == True:
                         # Remove o arquivo após o processamento
                         remove(caminho_completo)
-                        Output.value = f"PDF processado: {
-                            arquivo.replace('.pdf', '').upper()}"
+                        Output.value += f"PDF processado: {
+                            arquivo.replace('.pdf', '').upper()}\n"
                         Output.update()
                         sleep(2)
                         tempo_decorrido = 0
 
-            sleep(1)
+            sleep(0.5)
 
         # A função termina quando is_running() retorna False
-        Output.value = f"Processo Reiniciado!"
+        Output.value += f"Processo Reiniciado!\n"
         Output.update()
     except RuntimeError:
         print("Programa Fechado!")

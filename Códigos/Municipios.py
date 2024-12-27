@@ -195,7 +195,7 @@ municipios = {
     'IPANGUACU': '04705',
     'JACANA': '05009',
     'POCO BRANCO': '10108',
-    'BENTO GONCALVES': '02105',
+    'BENTO GONCALVES': 'Bento Gonçalves',
     'CACAPAVA DO SUL': '02808',
     'CANGUCU': '04507',
     'ESPERANCA DO SUL': '07450',
