@@ -9,7 +9,7 @@ verificacao_thread = None  # Variável para controlar a thread
 def main(page: ft.Page):
     page.title = "Automação"
     page.window.width = 605
-    page.window.height = 475
+    page.window.height = 600
     page.window.center()
     page.window.to_front()
     page.window.resizable = False
@@ -19,32 +19,32 @@ def main(page: ft.Page):
 
     global running, verificacao_thread
 
-    def btn_clicked(e):
+    def Start(e):
 
         global running, verificacao_thread
         running = True
 
         if txt1.value == '':
             txt1.error_text = "Campo Obrigatório"
-            page.window.height = 500
+            page.window.height = 625
         elif txt1.value.isnumeric() == False:
             txt1.error_text = "Digite Somente números"
-            page.window.height = 500
+            page.window.height = 625
         elif len(txt1.value) > 5:
             txt1.error_text = "O Código deve ter até 5 digitos"
-            page.window.height = 500
+            page.window.height = 625
         else:
             txt1.error_text = None
 
         if txt2.value == '':
             txt2.error_text = "Campo Obrigatório"
-            page.window.height = 500
+            page.window.height = 625
         elif txt2.value.isnumeric() == False:
             txt2.error_text = "Digite Somente números"
-            page.window.height = 500
+            page.window.height = 625
         elif len(txt2.value) > 5:
             txt2.error_text = "O Código deve ter até 5 digitos"
-            page.window.height = 500
+            page.window.height = 625
         else:
             txt2.error_text = None
 
@@ -52,7 +52,7 @@ def main(page: ft.Page):
 
         if ((txt1.value != '' and txt1.value.isnumeric() == True and len(txt1.value) <= 5) and
                 (txt2.value != '' and txt2.value.isnumeric() == True and len(txt2.value) <= 5)):
-            page.window.height = 475
+            page.window.height = 600
 
             txt1.disabled = True
             txt1.tooltip = "Programa em Execução"
@@ -95,6 +95,8 @@ def main(page: ft.Page):
         txt2.disabled = False
         txt2.value = ''
 
+        txt3.value = ""
+
         btn1.bgcolor = ft.Colors.BLUE_900
         btn1.disabled = False
         btn1.tooltip = 'Inicia o Programa'
@@ -102,7 +104,7 @@ def main(page: ft.Page):
         btn2.bgcolor = ft.Colors.GREY_300
         btn2.disabled = True
 
-        page.window.height = 475
+        page.window.height = 600
         page.update()
 
         # Espera a thread finalizar (se houver uma em execução)
@@ -112,10 +114,10 @@ def main(page: ft.Page):
     txt1 = ft.TextField(label="Último Código Fornecedor", width=240)
     txt2 = ft.TextField(label="Último Código Cliente", width=240)
     txt3 = ft.TextField(value="", label="Output", width=500,
-                        read_only=True, bgcolor=ft.Colors.GREY_200, multiline=True, max_lines=5, min_lines=5)
+                        read_only=True, bgcolor=ft.Colors.GREY_200, multiline=True, max_lines=10, min_lines=10)
 
-    btn1 = ft.ElevatedButton(tooltip='Inicia o Programar', text="Iniciar", width=435, height=50, bgcolor=ft.Colors.BLUE_900,
-                             color=ft.Colors.WHITE, style=ft.ButtonStyle(shape=ft.RoundedRectangleBorder(radius=5)), on_click=btn_clicked)
+    btn1 = ft.ElevatedButton(tooltip='Inicia o Programar', text="Iniciar", width=430, height=50, bgcolor=ft.Colors.BLUE_900,
+                             color=ft.Colors.WHITE, style=ft.ButtonStyle(shape=ft.RoundedRectangleBorder(radius=5)), on_click=Start)
     btn2 = ft.ElevatedButton(tooltip='Reinicia o Programar', text="Reiniciar", width=500, height=50, bgcolor=ft.Colors.GREY_300,
                              color=ft.Colors.WHITE, style=ft.ButtonStyle(shape=ft.RoundedRectangleBorder(radius=5)), on_click=Restart, disabled=True)
 
