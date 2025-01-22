@@ -1,4 +1,6 @@
 import flet as ft
+import pyodbc
+from pyodbc import connect
 from Funcoes import Verificar_Diretorio
 from threading import Thread
 
@@ -19,45 +21,41 @@ def main(page: ft.Page):
 
     global running, verificacao_thread
 
+    def Search(e):
+        conn_str = (
+            "DRIVER=driver;"
+            "SERVER=XXX.XXX.XXX.XXX;"
+            "DATABASE=database;"
+            "UID=user;"
+            "PWD=senha;"
+        )
+        query = """
+        DECLARE @Codcoligada INT = 5;
+        SELECT
+        (SELECT TOP 1 CODCFO FROM FCFO WHERE CODCFO LIKE 'F%' and CODCOLIGADA = @Codcoligada ORDER BY DATACRIACAO DESC, CODCFO DESC) AS COD_FOR,
+        (SELECT TOP 1 CODCFO FROM FCFO WHERE CODCFO LIKE 'C%' and CODCOLIGADA = @Codcoligada ORDER BY DATACRIACAO DESC, CODCFO DESC) AS COD_CLI;
+        """
+        try:
+            with connect(conn_str) as conn:
+                cursor = conn.cursor()
+                cursor.execute(query)
+                row = cursor.fetchone()
+                txt1.value = row.COD_FOR
+                txt2.value = row.COD_CLI
+                page.update()
+        except pyodbc.Error as e:
+            txt3.value += f"Erro ao conectar ao banco de dados: {e}\n"
+            txt3.update()
+
     def Start(e):
 
         global running, verificacao_thread
         running = True
 
-        if txt1.value == '':
-            txt1.error_text = "Campo Obrigatório"
-            page.window.height = 625
-        elif txt1.value.isnumeric() == False:
-            txt1.error_text = "Digite Somente números"
-            page.window.height = 625
-        elif len(txt1.value) > 5:
-            txt1.error_text = "O Código deve ter até 5 digitos"
-            page.window.height = 625
-        else:
-            txt1.error_text = None
-
-        if txt2.value == '':
-            txt2.error_text = "Campo Obrigatório"
-            page.window.height = 625
-        elif txt2.value.isnumeric() == False:
-            txt2.error_text = "Digite Somente números"
-            page.window.height = 625
-        elif len(txt2.value) > 5:
-            txt2.error_text = "O Código deve ter até 5 digitos"
-            page.window.height = 625
-        else:
-            txt2.error_text = None
-
-        page.update()
-
-        if ((txt1.value != '' and txt1.value.isnumeric() == True and len(txt1.value) <= 5) and
-                (txt2.value != '' and txt2.value.isnumeric() == True and len(txt2.value) <= 5)):
+        if (txt1.value != '' and txt2.value != ''):
             page.window.height = 600
 
-            txt1.disabled = True
             txt1.tooltip = "Programa em Execução"
-
-            txt2.disabled = True
             txt2.tooltip = "Programa em Execução"
 
             btn1.bgcolor = ft.Colors.GREY_300
@@ -72,9 +70,13 @@ def main(page: ft.Page):
             swt.tooltip = 'Programa em Execução'
             page.update()
 
+            # Remove as letras do value do txt1 e txt2, deixando apenas os números
+            codfor = txt1.value[1:]
+            codcli = txt2.value[1:]
+
             # Cria uma nova thread para executar a função
             verificacao_thread = Thread(target=Verificar_Diretorio, args=(
-                int(txt1.value), int(txt2.value), txt3, txt1, txt2, swt.value, lambda: running))
+                int(codfor), int(codcli), txt3, txt1, txt2, swt.value, lambda: running))
             verificacao_thread.start()
 
     def Restart(e):
@@ -85,16 +87,8 @@ def main(page: ft.Page):
         swt.active_track_color = ft.Colors.GREEN
         swt.tooltip = 'Habilita/Desabilita o Salvamento Automático'
 
-        txt1.error_text = None
-        txt1.tooltip = None
-        txt1.disabled = False
-        txt1.value = ''
-
-        txt2.error_text = None
-        txt2.tooltip = None
-        txt2.disabled = False
-        txt2.value = ''
-
+        txt1.value = ""
+        txt2.value = ""
         txt3.value = ""
 
         btn1.bgcolor = ft.Colors.BLUE_900
@@ -111,9 +105,11 @@ def main(page: ft.Page):
         if verificacao_thread is not None:
             verificacao_thread.join()
 
-    txt1 = ft.TextField(label="Último Código Fornecedor", width=240)
-    txt2 = ft.TextField(label="Último Código Cliente", width=240)
-    txt3 = ft.TextField(value="", label="Output", width=500,
+    txt1 = ft.TextField(label="Código Fornecedor",
+                        width=205, bgcolor=ft.Colors.GREY_200, read_only=True)
+    txt2 = ft.TextField(label="Código Cliente",
+                        width=205, bgcolor=ft.Colors.GREY_200, read_only=True)
+    txt3 = ft.TextField(label="Output", width=500,
                         read_only=True, bgcolor=ft.Colors.GREY_200, multiline=True, max_lines=10, min_lines=10)
 
     btn1 = ft.ElevatedButton(tooltip='Inicia o Programar', text="Iniciar", width=430, height=50, bgcolor=ft.Colors.BLUE_900,
@@ -121,10 +117,13 @@ def main(page: ft.Page):
     btn2 = ft.ElevatedButton(tooltip='Reinicia o Programar', text="Reiniciar", width=500, height=50, bgcolor=ft.Colors.GREY_300,
                              color=ft.Colors.WHITE, style=ft.ButtonStyle(shape=ft.RoundedRectangleBorder(radius=5)), on_click=Restart, disabled=True)
 
+    iconbtn1 = ft.IconButton(icon=ft.Icons.SEARCH, height=50, width=50, icon_size=30, on_click=Search,
+                             tooltip='Busca os Códigos no Banco de Dados',)
+
     swt = ft.Switch(value=True, tooltip='Habilita/Desabilita o Salvamento Automático',
                     active_track_color=ft.Colors.GREEN)
 
-    linha = ft.Row(controls=[txt1, txt2], spacing=20,
+    linha = ft.Row(controls=[txt1, iconbtn1, txt2], spacing=20,
                    alignment=ft.MainAxisAlignment.CENTER)
     linha2 = ft.Row(controls=[btn1, swt], spacing=10,
                     alignment=ft.MainAxisAlignment.CENTER)

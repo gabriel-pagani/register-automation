@@ -452,14 +452,14 @@ def Verificar_Diretorio(Forn, Clie, Output, ForText, CliText, Autosave, Is_runni
                              inscricao_estadual, Output, autosave, Is_running)
                         if Is_running() == True:
                             cod_for += 1
-                            ForText.value = cod_for
+                            ForText.value = 'F' + str(cod_for)
                             ForText.update()
                     elif 'C' in arquivo.upper().replace('.PDF', '') and Is_running() == True:
                         Robo(dados, 'C' + str(cod_cli + 1),
                              inscricao_estadual, Output, autosave, Is_running)
                         if Is_running() == True:
                             cod_cli += 1
-                            CliText.value = cod_cli
+                            CliText.value = 'C' + str(cod_cli)
                             CliText.update()
 
                     if Is_running() == True:
