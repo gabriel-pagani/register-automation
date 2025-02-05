@@ -319,7 +319,7 @@ def Robo(dados_formatados, Clifor, Insc_est, Output, Autosave, Is_running):
             click(x=542, y=483)
             # click(x=543, y=456)  # Coligada 10
             click(x=751, y=622)
-            if 'ISENTO' in Insc_est.upper():
+            if 'I' in Insc_est.upper():
                 click(x=750, y=651)
             else:
                 click(x=750, y=637)
@@ -394,7 +394,7 @@ def Robo(dados_formatados, Clifor, Insc_est, Output, Autosave, Is_running):
                 Output.update()
                 sleep(0.3)
                 # Fecha a aba de fornecedor/cliente
-                click(x=176, y=168)
+                click(x=114, y=168)
                 break
         except ImageNotFoundException:
             Output.value += "Aguardando o Fechamento da aba de fornecedor/cliente!\n"

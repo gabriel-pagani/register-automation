@@ -23,10 +23,10 @@ def main(page: ft.Page):
 
     def Search(e):
         conn_str = (
-            "DRIVER=driver;"
-            "SERVER=XXX.XXX.XXX.XXX;"
-            "DATABASE=database;"
-            "UID=user;"
+            "DRIVER={driverservidor};"
+            "SERVER=ipservidor;"
+            "DATABASE=basededados;"
+            "UID=usuario;"
             "PWD=senha;"
         )
         query = """
