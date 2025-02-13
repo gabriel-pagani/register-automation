@@ -16,6 +16,7 @@ def main(page: ft.Page):
     page.window.to_front()
     page.window.resizable = False
     page.window.maximizable = False
+    page.theme_mode = ft.ThemeMode.LIGHT
     page.bgcolor = ft.Colors.WHITE
     page.update()
 
