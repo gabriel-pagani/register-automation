@@ -18,6 +18,7 @@ def main(page: ft.Page):
     page.window.maximizable = False
     page.theme_mode = ft.ThemeMode.LIGHT
     page.bgcolor = ft.Colors.WHITE
+    page.window.icon = r'C:\Users\gabriel.souza\AUTOMACAO\Imagens\logoRM.ico'
     page.update()
 
     global running, verificacao_thread
