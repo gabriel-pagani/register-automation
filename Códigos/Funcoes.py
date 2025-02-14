@@ -229,7 +229,7 @@ def Formatador_De_Dados(dados_extraidos):
 def Robo(dados_formatados, Clifor, Insc_est, Output, Autosave, Is_running):
 
     if dados_formatados['Situacao'] != 'ATIVA':
-        Output.value += "Situação Cadastral Inválida!\n"
+        Output.value = "Situação Cadastral Inválida!\n"
         Output.update()
         return
 
@@ -246,7 +246,7 @@ def Robo(dados_formatados, Clifor, Insc_est, Output, Autosave, Is_running):
                 click(x=797, y=71)
                 break
         except ImageNotFoundException:
-            Output.value += "Abra a Tela de Início do RM!\n"
+            Output.value = "Abra a Tela de Início do RM!\n"
             Output.update()
 
     # Espera a filtro abrir
@@ -259,7 +259,7 @@ def Robo(dados_formatados, Clifor, Insc_est, Output, Autosave, Is_running):
                 click(x=1123, y=771)
                 break
         except ImageNotFoundException:
-            Output.value += "Aguardando menu de Filtros Abrir!\n"
+            Output.value = "Aguardando menu de Filtros Abrir!\n"
             Output.update()
 
     # Espera a aba de clientes/fornecedores
@@ -272,7 +272,7 @@ def Robo(dados_formatados, Clifor, Insc_est, Output, Autosave, Is_running):
                 click(x=13, y=198)
                 break
         except ImageNotFoundException:
-            Output.value += "Aguardado Menu de Clientes/Fornecedores abrir!\n"
+            Output.value = "Aguardado Menu de Clientes/Fornecedores abrir!\n"
             Output.update()
 
     # Espera abrir o menu de cadastro
@@ -286,7 +286,7 @@ def Robo(dados_formatados, Clifor, Insc_est, Output, Autosave, Is_running):
                 write(Clifor)
                 break
         except ImageNotFoundException:
-            Output.value += "Aguardando Menu de Cadastros Abrir!\n"
+            Output.value = "Aguardando Menu de Cadastros Abrir!\n"
             Output.update()
 
     if Is_running():
@@ -385,7 +385,7 @@ def Robo(dados_formatados, Clifor, Insc_est, Output, Autosave, Is_running):
             # Salva o cadastro
             click(x=1230, y=884)
         else:
-            Output.value += "Salve ou Cancele o Cadastro!\n"
+            Output.value = "Salve ou Cancele o Cadastro!\n"
 
     # Espera o cadastro terminar
     while Is_running():
@@ -397,11 +397,11 @@ def Robo(dados_formatados, Clifor, Insc_est, Output, Autosave, Is_running):
                 click(x=114, y=168)
                 break
         except ImageNotFoundException:
-            Output.value += "Aguardando o Fechamento da aba de fornecedor/cliente!\n"
+            Output.value = "Aguardando o Fechamento da aba de fornecedor/cliente!\n"
             Output.update()
 
     if not Is_running():
-        Output.value += "Processo Interrompido!\n"
+        Output.value = "Processo Interrompido!\n"
         Output.update()
         return  # Sai da função imediatamente se parar for solicitado
 
@@ -416,7 +416,7 @@ def Verificar_Diretorio(Forn, Clie, Output, ForText, CliText, Autosave, Is_runni
 
         while Is_running():
             if tempo_decorrido % 10 == 0:
-                Output.value += f'Procurando arquivos... (Tempo Decorrido: {
+                Output.value = f'Procurando arquivos... (Tempo Decorrido: {
                     tempo_decorrido:.0f}s)\n'
                 Output.update()
             tempo_decorrido += 0.5
@@ -431,7 +431,7 @@ def Verificar_Diretorio(Forn, Clie, Output, ForText, CliText, Autosave, Is_runni
                 if arquivo.upper().endswith('.PDF') and (arquivo.upper().startswith('C') or arquivo.upper().startswith('F')) and Is_running() == True:
 
                     caminho_completo = path.join(caminho_pasta, arquivo)
-                    Output.value += f"PDF encontrado: {
+                    Output.value = f"PDF encontrado: {
                         arquivo.lower().replace('.pdf', '').upper()}\n"
                     Output.update()
                     sleep(2)
@@ -465,7 +465,7 @@ def Verificar_Diretorio(Forn, Clie, Output, ForText, CliText, Autosave, Is_runni
                     if Is_running() == True:
                         # Remove o arquivo após o processamento
                         remove(caminho_completo)
-                        Output.value += f"PDF processado: {
+                        Output.value = f"PDF processado: {
                             arquivo.replace('.pdf', '').upper()}\n"
                         Output.update()
                         sleep(2)
@@ -474,7 +474,7 @@ def Verificar_Diretorio(Forn, Clie, Output, ForText, CliText, Autosave, Is_runni
             sleep(0.5)
 
         # A função termina quando is_running() retorna False
-        Output.value += f"Processo Reiniciado!\n"
+        Output.value = f"Processo Reiniciado!\n"
         Output.update()
     except RuntimeError:
         print("Programa Fechado!")
