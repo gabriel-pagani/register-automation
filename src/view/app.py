@@ -35,8 +35,13 @@ class App:
 
         def start(e):
             if (supplier_code.value != '' and client_code.value != ''):
+                start_button.bgcolor = ft.Colors.GREY_300
+                start_button.disabled = True
+                switch.active_track_color = ft.Colors.GREY_300
+                switch.disabled = True
+
                 # Adicionar a automação aqui!
-                ...
+
             else:
                 supplier_code.error_text = "Campo em branco!"
                 client_code.error_text = "Campo em branco!"
