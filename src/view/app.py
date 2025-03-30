@@ -24,12 +24,12 @@ class App:
         # Components
         client_code = ft.TextField(
             label="Código Fornecedor",
-            width=240,
+            width=205,
             read_only=True,
         )
         supplier_code = ft.TextField(
             label="Código Cliente",
-            width=240,
+            width=205,
             read_only=True,
         )
         start_button = ft.ElevatedButton(
@@ -53,6 +53,13 @@ class App:
             ),
             disabled=True,
         )
+        search_button = ft.IconButton(
+            icon=ft.Icons.SEARCH,
+            height=50,
+            width=50,
+            icon_size=30,
+            tooltip='Busca os Códigos no Banco de Dados',
+        )
         switch = ft.Switch(
             value=True,
             tooltip='Habilita/Desabilita o Salvamento Automático',
@@ -63,6 +70,7 @@ class App:
         text_row = ft.Row(
             controls=[
                 supplier_code,
+                search_button,
                 client_code,
             ],
             spacing=20,
