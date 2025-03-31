@@ -37,9 +37,14 @@ class App:
         def start(e):
             if (supplier_code.value != '' and client_code.value != ''):
                 start_button.bgcolor = ft.Colors.GREY_300
+                start_button.tooltip = 'Automação em Execução'
                 start_button.disabled = True
                 switch.active_track_color = ft.Colors.GREY_300
+                switch.tooltip = 'Automação em Execução'
                 switch.disabled = True
+                search_button.tooltip = 'Automação em Execução'
+                search_button.disabled = True
+                self.page.update()
 
                 # Adicionar a automação aqui!
 
