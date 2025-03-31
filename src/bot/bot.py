@@ -13,89 +13,94 @@ class Register:
         self.enrollment = enrollment
 
     def start_registration(self):
-        # Abrir o menu de cadastro
-        smart_click(r'assets\images\botao_incluir_cadastro.png',
-                    flag_path=r'assets\images\filtrar.png')
-        smart_press(r'assets\images\botao_clientes_fornecedores.png', 'tab')
-        sleep(3)
+        if self.data['situacao'].upper() == 'ATIVA':
+            # Abrir o menu de cadastro
+            smart_click(r'assets\images\botao_incluir_cadastro.png',
+                        flag_path=r'assets\images\filtrar.png')
+            smart_press(
+                r'assets\images\botao_clientes_fornecedores.png', 'tab')
+            sleep(3)
 
-        # Preencher o menu de cadastro
-        write(self.code)
+            # Preencher o menu de cadastro
+            write(self.code)
 
-        press('tab', presses=2)
-        write(self.data['nome fantasia'])
+            press('tab', presses=2)
+            write(self.data['nome fantasia'])
 
-        press('tab')
-        write(self.data['nome empresarial'])
+            press('tab')
+            write(self.data['nome empresarial'])
 
-        if 'C' in self.code.upper():
-            smart_click(r'assets\images\botao_cliente.png')
-        elif 'F' in self.code.upper():
-            smart_click(r'assets\images\botao_fornecedor.png')
-        else:
-            error('Código clifor inválido')
-            return None
-
-        smart_click(r'assets\images\pessoa_juridica.png')
-
-        press('tab')
-        write(self.data['cnpj'])
-
-        if self.enrollment != '':
-            press('tab', presses=3)
-            if self.enrollment.isdigit():
-                write(str(self.enrollment))
-            click(x=542, y=483)
-            click(x=751, y=622)
-            if 'I' in self.enrollment.upper():
-                click(x=750, y=651)
+            if 'C' in self.code.upper():
+                smart_click(r'assets\images\botao_cliente.png')
+            elif 'F' in self.code.upper():
+                smart_click(r'assets\images\botao_fornecedor.png')
             else:
-                click(x=750, y=637)
+                error('Código clifor inválido')
+                return None
 
-            click(x=546, y=274)
+            smart_click(r'assets\images\pessoa_juridica.png')
 
-        click(x=712, y=631)
-        write(self.data['cep'])
-        press('tab')
+            press('tab')
+            write(self.data['cnpj'])
 
-        sleep(3)
-        click(x=1373, y=736)
-        press('tab')
-        write(self.data['tipo rua'])
-        press('tab', presses=2)
-        write(self.data['nome rua'])
+            if self.enrollment != '':
+                press('tab', presses=3)
+                if self.enrollment.isdigit():
+                    write(str(self.enrollment))
+                click(x=542, y=483)
+                click(x=751, y=622)
+                if 'I' in self.enrollment.upper():
+                    click(x=750, y=651)
+                else:
+                    click(x=750, y=637)
 
-        press('tab')
-        write(self.data['numero'])
+                click(x=546, y=274)
 
-        press('tab', presses=3)
-        write(self.data['complemento'])
+            click(x=712, y=631)
+            write(self.data['cep'])
+            press('tab')
 
-        press('tab')
-        write(self.data['tipo bairro'])
-        press('tab', presses=2)
-        write(self.data['nome bairro'])
+            sleep(3)
+            click(x=1373, y=736)
+            press('tab')
+            write(self.data['tipo rua'])
+            press('tab', presses=2)
+            write(self.data['nome rua'])
 
-        press('tab', presses=4)
-        write(self.data['uf'])
+            press('tab')
+            write(self.data['numero'])
 
-        if self.data['municipio'].isdigit():
-            click(x=955, y=711)
+            press('tab', presses=3)
+            write(self.data['complemento'])
+
+            press('tab')
+            write(self.data['tipo bairro'])
+            press('tab', presses=2)
+            write(self.data['nome bairro'])
+
+            press('tab', presses=4)
+            write(self.data['uf'])
+
+            if self.data['municipio'].isdigit():
+                click(x=955, y=711)
+            else:
+                click(x=1175, y=710)
+            copy(self.data['municipio'])
+            hotkey('ctrl', 'v')
+
+            click(x=807, y=768)
+            write(self.data['celular1'])
+            press('tab')
+
+            write(self.data['celular2'])
+            press('tab', presses=3)
+
+            write(self.data['email'])
+
+            smart_click(r'assets\images\botao_ok.png')
+
         else:
-            click(x=1175, y=710)
-        copy(self.data['municipio'])
-        hotkey('ctrl', 'v')
-
-        click(x=807, y=768)
-        write(self.data['celular1'])
-        press('tab')
-
-        write(self.data['celular2'])
-        press('tab', presses=3)
-
-        write(self.data['email'])
-
-        smart_click(r'assets\images\botao_ok.png')
+            return None
 
     def check_folder(self):
         pass
