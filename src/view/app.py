@@ -21,6 +21,7 @@ class App:
         self.page.window.maximizable = False
         self.page.theme_mode = ft.ThemeMode.LIGHT
         self.page.bgcolor = ft.Colors.WHITE
+        self.page.window.icon = r'\assets\icons\logoRM.ico'
         self.page.update()
 
     def show_interface(self) -> None:
