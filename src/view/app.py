@@ -39,11 +39,10 @@ class App:
                 start_button.bgcolor = ft.Colors.GREY_300
                 start_button.tooltip = 'Automação em Execução'
                 start_button.disabled = True
-                switch.active_track_color = ft.Colors.GREY_300
-                switch.tooltip = 'Automação em Execução'
-                switch.disabled = True
                 search_button.tooltip = 'Automação em Execução'
                 search_button.disabled = True
+                restart_button.bgcolor = ft.Colors.BLUE_900
+                restart_button.disabled = False
                 self.page.update()
 
                 # Adicionar a automação aqui!
@@ -52,25 +51,37 @@ class App:
                 supplier_code.error_text = "Campo em branco!"
                 client_code.error_text = "Campo em branco!"
                 self.page.update()
-                sleep(3)
+                sleep(2)
                 supplier_code.error_text = None
                 client_code.error_text = None
                 self.page.update()
+
+        def restart(e):
+            supplier_code.value = ''
+            client_code.value = ''
+            start_button.bgcolor = ft.Colors.BLUE_900
+            start_button.tooltip = ''
+            start_button.disabled = False
+            search_button.tooltip = ''
+            search_button.disabled = False
+            restart_button.bgcolor = ft.Colors.GREY_300
+            restart_button.disabled = True
+            self.page.update()
+
+            # Adicionar a lógica para reiniciar aqui!
 
         # Components
         client_code = ft.TextField(
             label="Código Cliente",
             width=205,
-            read_only=True,
         )
         supplier_code = ft.TextField(
             label="Código Fornecedor",
             width=205,
-            read_only=True,
         )
         start_button = ft.ElevatedButton(
             text="Iniciar",
-            width=430,
+            width=240,
             height=50,
             bgcolor=ft.Colors.BLUE_900,
             color=ft.Colors.WHITE,
@@ -81,7 +92,7 @@ class App:
         )
         restart_button = ft.ElevatedButton(
             text="Reiniciar",
-            width=210,
+            width=240,
             height=50,
             bgcolor=ft.Colors.GREY_300,
             color=ft.Colors.WHITE,
@@ -89,6 +100,7 @@ class App:
                 shape=ft.RoundedRectangleBorder(radius=5)
             ),
             disabled=True,
+            on_click=restart
         )
         search_button = ft.IconButton(
             icon=ft.Icons.SEARCH,
@@ -117,10 +129,10 @@ class App:
         button_row = ft.Row(
             controls=[
                 start_button,
-                switch,
-                # restart_button,
+                # switch,
+                restart_button,
             ],
-            spacing=10,
+            spacing=20,
             alignment=ft.MainAxisAlignment.CENTER,
         )
         container = ft.Container(
