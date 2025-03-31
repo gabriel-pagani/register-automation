@@ -1,5 +1,4 @@
 import flet as ft
-from time import sleep
 from logging import basicConfig, ERROR
 
 basicConfig(filename='main.log', level=ERROR,
