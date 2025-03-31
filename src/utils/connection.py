@@ -42,8 +42,6 @@ def server_request(query: str) -> dict:
 
             response['data'] = result
 
-            close_connection()
-
     except Exception as e:
         print(f"Request error: {e}")
 

@@ -1,5 +1,6 @@
 from flet import Page, app
 from src.view.app import App
+from src.utils.connection import close_connection
 
 
 def main(page: Page) -> None:
@@ -7,4 +8,7 @@ def main(page: Page) -> None:
 
 
 if __name__ == "__main__":
-    app(target=main, assets_dir='assets')
+    try:
+        app(target=main, assets_dir='assets')
+    finally:
+        close_connection()

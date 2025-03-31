@@ -32,6 +32,7 @@ class App:
             )
             supplier_code.value = response['data'][0]['COD_FOR']
             client_code.value = response['data'][0]['COD_CLI']
+            self.page.update()
 
         def start(e):
             if (supplier_code.value != '' and client_code.value != ''):
@@ -53,12 +54,12 @@ class App:
 
         # Components
         client_code = ft.TextField(
-            label="Código Fornecedor",
+            label="Código Cliente",
             width=205,
             read_only=True,
         )
         supplier_code = ft.TextField(
-            label="Código Cliente",
+            label="Código Fornecedor",
             width=205,
             read_only=True,
         )
