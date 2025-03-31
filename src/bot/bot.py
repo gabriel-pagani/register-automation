@@ -35,7 +35,6 @@ class Register:
             elif 'F' in self.code.upper():
                 smart_click(r'assets\images\botao_fornecedor.png')
             else:
-                error('Código clifor inválido')
                 return None
 
             smart_click(r'assets\images\pessoa_juridica.png')
@@ -90,11 +89,11 @@ class Register:
 
             click(x=807, y=768)
             write(self.data['celular1'])
+
             press('tab')
-
             write(self.data['celular2'])
-            press('tab', presses=3)
 
+            press('tab', presses=3)
             write(self.data['email'])
 
             smart_click(r'assets\images\botao_ok.png')
