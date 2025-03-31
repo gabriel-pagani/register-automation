@@ -1,11 +1,16 @@
 from pyautogui import *
 
 
-def smart_click(image_path: str):
+def smart_click(image_path: str, flag_path: str = None):
     while True:
         try:
-            click(image_path)
-            break
+            if flag_path:
+                if locateOnScreen(flag_path):
+                    click(image_path)
+                    break
+            else:
+                click(image_path)
+                break
         except ImageNotFoundException:
             None
 

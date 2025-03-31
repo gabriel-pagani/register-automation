@@ -1,6 +1,10 @@
 import flet as ft
 from time import sleep
 from src.utils.connection import server_request
+from logging import basicConfig, ERROR
+
+basicConfig(filename='main.log', level=ERROR,
+            format='%(asctime)s - %(levelname)s - %(filename)s - %(message)s')
 
 
 class App:

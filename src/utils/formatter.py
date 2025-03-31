@@ -1,6 +1,6 @@
 from re import search, sub, escape, IGNORECASE
-from abbreviations import abbreviations
-from municipalities import municipalities
+from src.utils.abbreviations import abbreviations
+from src.utils.municipalities import municipalities
 from fitz import open
 
 
