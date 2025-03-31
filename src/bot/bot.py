@@ -135,13 +135,13 @@ class Register:
 
                         # Realiza o cadastro usando o Robo
                         if 'F' in arquivo.upper().replace('.PDF', ''):
-                            self.code = response['data'][0]['COD_FOR']
+                            self.code = response['COD_FOR']
                             self.enrollment = inscricao_estadual
                             self.data = dados
                             self.start_registration()
 
                         elif 'C' in arquivo.upper().replace('.PDF', ''):
-                            self.code = response['data'][0]['COD_CLI']
+                            self.code = response['COD_CLI']
                             self.enrollment = inscricao_estadual
                             self.data = dados
                             self.start_registration()

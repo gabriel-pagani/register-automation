@@ -27,8 +27,6 @@ def close_connection():
 
 
 def server_request(query: str) -> dict:
-    response = dict()
-
     try:
         connection = get_connection()
         with connection.cursor() as cursor:
@@ -36,13 +34,11 @@ def server_request(query: str) -> dict:
             cursor.execute(query)
             columns = [column[0] for column in cursor.description]
             data = cursor.fetchall()
-            result = []
+            response = []
             for row in data:
-                result.append(dict(zip(columns, row)))
-
-            response['data'] = result
+                response.append(dict(zip(columns, row)))
 
     except Exception as e:
         print(f"Request error: {e}")
 
-    return response
+    return response[0]
