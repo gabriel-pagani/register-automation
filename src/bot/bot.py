@@ -20,7 +20,7 @@ class Register:
             smart_click(r'assets\images\botao_incluir_cadastro.png',
                         flag_path=r'assets\images\filtrar.png')
             smart_press(
-                r'assets\images\botao_clientes_fornecedores.png', 'tab')
+                r'assets\images\menu_aberto.png', 'tab')
             sleep(3)
 
             # Preencher o menu de cadastro

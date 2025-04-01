@@ -21,7 +21,7 @@ class App:
         self.page.window.maximizable = False
         self.page.theme_mode = ft.ThemeMode.LIGHT
         self.page.bgcolor = ft.Colors.WHITE
-        self.page.window.icon = r'\assets\icons\logoRM.ico'
+        self.page.window.icon = r'C:\Users\gabriel.souza\Documents\automacao-de-cadastro\assets\icons\gears.ico'
         self.page.update()
 
     def show_interface(self) -> None:
@@ -67,6 +67,7 @@ class App:
                 shape=ft.RoundedRectangleBorder(radius=5)
             ),
             disabled=True,
+            on_click=restart
         )
         container = ft.Container(
             content=ft.Column(
