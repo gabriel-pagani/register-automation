@@ -227,7 +227,7 @@ def Formatador_De_Dados(dados_extraidos):
     return dados_formatados
 
 
-def Robo(dados_formatados, Clifor, Insc_est, Is_running):
+def Robo(dados_formatados, Clifor, Insc_est):
 
     if dados_formatados['Situacao'] != 'ATIVA':
         return
@@ -236,7 +236,7 @@ def Robo(dados_formatados, Clifor, Insc_est, Is_running):
     PAUSE = 0.5
 
     # Espera a menu inicial do RM
-    while Is_running:
+    while True:
         try:
             if locateOnScreen(r'C:\Users\gabriel.souza\Documents\automacao-de-cadastro\assets\images\1.png', confidence=0.95):
                 sleep(0.3)
@@ -247,7 +247,7 @@ def Robo(dados_formatados, Clifor, Insc_est, Is_running):
             None
 
     # Espera a filtro abrir
-    while Is_running:
+    while True:
         try:
             if locateOnScreen(r'C:\Users\gabriel.souza\Documents\automacao-de-cadastro\assets\images\2.png', confidence=0.9):
                 sleep(0.3)
@@ -258,7 +258,7 @@ def Robo(dados_formatados, Clifor, Insc_est, Is_running):
             None
 
     # Espera a aba de clientes/fornecedores
-    while Is_running:
+    while True:
         try:
             if locateOnScreen(r'C:\Users\gabriel.souza\Documents\automacao-de-cadastro\assets\images\3.png', confidence=0.9):
                 sleep(0.3)
@@ -269,7 +269,7 @@ def Robo(dados_formatados, Clifor, Insc_est, Is_running):
             None
 
     # Espera abrir o menu de cadastro
-    while Is_running:
+    while True:
         try:
             if locateOnScreen(r'C:\Users\gabriel.souza\Documents\automacao-de-cadastro\assets\images\4.png', confidence=0.9):
                 sleep(0.3)
@@ -280,103 +280,102 @@ def Robo(dados_formatados, Clifor, Insc_est, Is_running):
         except ImageNotFoundException:
             None
 
-    if Is_running:
-        # Escreve o nome fantasia
-        press('tab', presses=2)
-        write(dados_formatados['Nome Fantasia'].strip())
+    # Escreve o nome fantasia
+    press('tab', presses=2)
+    write(dados_formatados['Nome Fantasia'].strip())
 
-        # Escreve o nome empresarial
-        press('tab')
-        write(dados_formatados['Nome Empresarial'].strip())
+    # Escreve o nome empresarial
+    press('tab')
+    write(dados_formatados['Nome Empresarial'].strip())
 
-        # Seleciona a clasificação e Categoria
-        if 'C' in Clifor.upper():
-            click(x=710, y=415)  # Cliente
+    # Seleciona a clasificação e Categoria
+    if 'C' in Clifor.upper():
+        click(x=710, y=415)  # Cliente
 
-        if 'F' in Clifor.upper():
-            click(x=709, y=427)  # Fornecedor
+    if 'F' in Clifor.upper():
+        click(x=709, y=427)  # Fornecedor
 
-        click(x=908, y=440)  # Jurídica
+    click(x=908, y=440)  # Jurídica
 
-        # Escreve o CPF/CNPJ
-        press('tab')
-        write(dados_formatados['Cnpj'])
+    # Escreve o CPF/CNPJ
+    press('tab')
+    write(dados_formatados['Cnpj'])
 
-        # Escreve a inscrição estadual se não for vazio
-        if Insc_est != '':
-            press('tab', presses=3)
-            if Insc_est.isdigit():
-                write(str(Insc_est))
-            click(x=542, y=483)
-            # click(x=543, y=456)  # Coligada 10
-            click(x=751, y=622)
-            if 'I' in Insc_est.upper():
-                click(x=750, y=651)
-            else:
-                click(x=750, y=637)
-            click(x=546, y=274)
-
-        # Escreve o CEP
-        click(x=712, y=631)
-        write(dados_formatados['Cep'])
-        press('tab')
-
-        # Espera o menu abrir
-        sleep(3)
-
-        # Fecha o menu
-        click(x=1373, y=736)
-
-        # Escreve o tipo e nome da rua
-        click(x=1373, y=736)
-        press('tab')
-        write(dados_formatados['Tipo Rua'])
-        press('tab', presses=2)
-        write(dados_formatados['Nome Rua'])
-        press('tab')
-
-        # Escreve o número
-        write(dados_formatados['Numero'])
+    # Escreve a inscrição estadual se não for vazio
+    if Insc_est != '':
         press('tab', presses=3)
-
-        # Escreve o complemento
-        write(dados_formatados['Complemento'])
-        press('tab')
-
-        # Escreve o tipo e nome do bairro
-        write(dados_formatados['Tipo Bairro'])
-        press('tab', presses=2)
-        write(dados_formatados['Nome Bairro'])
-
-        # Escreve a UF
-        press('tab', presses=4)
-        write(dados_formatados['Uf'])
-
-        # Escreve o município
-        if dados_formatados['Municipio'].isdigit():
-            click(x=955, y=711)
+        if Insc_est.isdigit():
+            write(str(Insc_est))
+        click(x=542, y=483)
+        # click(x=543, y=456)  # Coligada 10
+        click(x=751, y=622)
+        if 'I' in Insc_est.upper():
+            click(x=750, y=651)
         else:
-            click(x=1175, y=710)
-        copy(dados_formatados['Municipio'])
-        hotkey('ctrl', 'v')
+            click(x=750, y=637)
+        click(x=546, y=274)
 
-        # Escreve o telefone
-        click(x=807, y=768)
-        write(dados_formatados['Celular1'])
-        press('tab')
+    # Escreve o CEP
+    click(x=712, y=631)
+    write(dados_formatados['Cep'])
+    press('tab')
 
-        # Escreve o celular
-        write(dados_formatados['Celular2'])
-        press('tab', presses=3)
+    # Espera o menu abrir
+    sleep(3)
 
-        # Escreve o e-mail
-        write(dados_formatados['Email'])
+    # Fecha o menu
+    click(x=1373, y=736)
 
-        # Salva o cadastro
-        click(x=1230, y=884)
+    # Escreve o tipo e nome da rua
+    click(x=1373, y=736)
+    press('tab')
+    write(dados_formatados['Tipo Rua'])
+    press('tab', presses=2)
+    write(dados_formatados['Nome Rua'])
+    press('tab')
+
+    # Escreve o número
+    write(dados_formatados['Numero'])
+    press('tab', presses=3)
+
+    # Escreve o complemento
+    write(dados_formatados['Complemento'])
+    press('tab')
+
+    # Escreve o tipo e nome do bairro
+    write(dados_formatados['Tipo Bairro'])
+    press('tab', presses=2)
+    write(dados_formatados['Nome Bairro'])
+
+    # Escreve a UF
+    press('tab', presses=4)
+    write(dados_formatados['Uf'])
+
+    # Escreve o município
+    if dados_formatados['Municipio'].isdigit():
+        click(x=955, y=711)
+    else:
+        click(x=1175, y=710)
+    copy(dados_formatados['Municipio'])
+    hotkey('ctrl', 'v')
+
+    # Escreve o telefone
+    click(x=807, y=768)
+    write(dados_formatados['Celular1'])
+    press('tab')
+
+    # Escreve o celular
+    write(dados_formatados['Celular2'])
+    press('tab', presses=3)
+
+    # Escreve o e-mail
+    write(dados_formatados['Email'])
+
+    # Salva o cadastro
+    click(x=1230, y=884)
 
     # Espera o cadastro terminar
-    while Is_running:
+    while True:
         try:
             if locateOnScreen(r'C:\Users\gabriel.souza\Documents\automacao-de-cadastro\assets\images\5.png', confidence=0.9):
                 sleep(0.3)
@@ -386,14 +385,11 @@ def Robo(dados_formatados, Clifor, Insc_est, Is_running):
         except ImageNotFoundException as e:
             None
 
-    if not Is_running:
-        return  # Sai da função imediatamente se parar for solicitado
 
-
-def Verificar_Diretorio(Is_running):
+def Verificar_Diretorio():
 
     try:
-        while Is_running:
+        while True:
             response = server_request(
                 query="""
                     SELECT
@@ -409,7 +405,7 @@ def Verificar_Diretorio(Is_running):
             # Verifica se há arquivos PDF
             for arquivo in diretorio:
 
-                if arquivo.upper().endswith('.PDF') and (arquivo.upper().startswith('C') or arquivo.upper().startswith('F')) and Is_running == True:
+                if arquivo.upper().endswith('.PDF') and (arquivo.upper().startswith('C') or arquivo.upper().startswith('F')):
 
                     caminho_completo = path.join(caminho_pasta, arquivo)
 
@@ -424,16 +420,13 @@ def Verificar_Diretorio(Is_running):
                         inscricao_estadual = ''
 
                     # Realiza o cadastro usando o Robo
-                    if 'F' in arquivo.upper().replace('.PDF', '') and Is_running == True:
-                        Robo(dados, response['COD_FOR'],
-                             inscricao_estadual, Is_running)
-                    elif 'C' in arquivo.upper().replace('.PDF', '') and Is_running == True:
-                        Robo(dados, response['COD_CLI'],
-                             inscricao_estadual, Is_running)
+                    if 'F' in arquivo.upper().replace('.PDF', ''):
+                        Robo(dados, response['COD_FOR'], inscricao_estadual)
+                    elif 'C' in arquivo.upper().replace('.PDF', ''):
+                        Robo(dados, response['COD_CLI'], inscricao_estadual)
 
-                    if Is_running == True:
-                        # Remove o arquivo após o processamento
-                        remove(caminho_completo)
+                    # Remove o arquivo após o processamento
+                    remove(caminho_completo)
 
-    except RuntimeError:
-        print("Programa Fechado!")
+    except Exception as e:
+        print(e)
