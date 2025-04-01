@@ -413,6 +413,8 @@ def Verificar_Diretorio():
                     dados = Formatador_De_Dados(
                         Extrator_De_Dados(caminho_completo))
 
+                    close_connection()
+
                     # Recebe a inscrição estadual
                     inscricao_estadual = arquivo.replace(
                         '.pdf', '').replace('C', '').replace('F', '')
