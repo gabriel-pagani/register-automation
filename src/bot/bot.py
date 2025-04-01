@@ -107,20 +107,19 @@ class Register:
     def check_folder(self):
         try:
             while True:
-                response = server_request(
-                    query="""
-                            SELECT
-                                (SELECT TOP 1 CODCFO FROM FCFO WHERE CODCFO LIKE 'F%' and CODCOLIGADA = 5 ORDER BY DATACRIACAO DESC, CODCFO DESC) AS COD_FOR,
-                                (SELECT TOP 1 CODCFO FROM FCFO WHERE CODCFO LIKE 'C%' and CODCOLIGADA = 5 ORDER BY DATACRIACAO DESC, CODCFO DESC) AS COD_CLI;
-                        """
-                )
-
                 path_docs = r'C:\Users\gabriel.souza\Documents\automacao-de-cadastro\assets\docs'
                 diretorio = listdir(path_docs)
 
                 # Verifica se há arquivos PDF
                 for arquivo in diretorio:
                     if arquivo.lower().endswith('.pdf') and (arquivo.upper().startswith('C') or arquivo.upper().startswith('F')):
+                        response = server_request(
+                            query="""
+                            SELECT
+                                (SELECT TOP 1 CODCFO FROM FCFO WHERE CODCFO LIKE 'F%' and CODCOLIGADA = 5 ORDER BY DATACRIACAO DESC, CODCFO DESC) AS COD_FOR,
+                                (SELECT TOP 1 CODCFO FROM FCFO WHERE CODCFO LIKE 'C%' and CODCOLIGADA = 5 ORDER BY DATACRIACAO DESC, CODCFO DESC) AS COD_CLI;
+                        """
+                        )
 
                         caminho_completo = path.join(path_docs, arquivo)
 
