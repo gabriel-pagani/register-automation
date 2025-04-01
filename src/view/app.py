@@ -1,10 +1,4 @@
 import flet as ft
-from logging import basicConfig, ERROR
-from src.bot.bot import Register
-
-
-basicConfig(filename='main.log', level=ERROR,
-            format='%(asctime)s - %(levelname)s - %(filename)s - %(message)s')
 
 
 class App:
@@ -23,7 +17,6 @@ class App:
         self.page.window.maximizable = False
         self.page.theme_mode = ft.ThemeMode.LIGHT
         self.page.bgcolor = ft.Colors.WHITE
-        self.page.window.icon = r'C:\Users\gabriel.souza\Documents\automacao-de-cadastro\assets\icons\gears.ico'
         self.page.update()
 
     def show_interface(self) -> None:
@@ -35,8 +28,7 @@ class App:
             restart_button.disabled = False
             self.page.update()
 
-            register = Register({}, "", "")
-            register.check_folder()
+            # Adicionar a lógica para iniciar a automação aqui!
 
         def restart(e):
             start_button.bgcolor = ft.Colors.BLUE_900
@@ -46,7 +38,7 @@ class App:
             restart_button.disabled = True
             self.page.update()
 
-            # Adicionar a lógica para reiniciar aqui!
+            # Adicionar a lógica para reiniciar a automação aqui!
 
         # Components
         start_button = ft.ElevatedButton(
