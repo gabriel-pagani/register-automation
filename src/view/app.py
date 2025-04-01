@@ -1,5 +1,8 @@
 import flet as ft
 from logging import basicConfig, ERROR
+from threading import Thread
+from src.bot.bot import Register
+
 
 basicConfig(filename='main.log', level=ERROR,
             format='%(asctime)s - %(levelname)s - %(filename)s - %(message)s')
@@ -33,7 +36,10 @@ class App:
             restart_button.disabled = False
             self.page.update()
 
-            # Adicionar a automação aqui!
+            register = Register({}, "", "")
+            automation_thread = Thread(
+                target=register.check_folder, daemon=True)
+            automation_thread.start()
 
         def restart(e):
             start_button.bgcolor = ft.Colors.BLUE_900
