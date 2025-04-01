@@ -238,7 +238,7 @@ def Robo(dados_formatados, Clifor, Insc_est, Is_running):
     # Espera a menu inicial do RM
     while Is_running:
         try:
-            if locateOnScreen(r'C:\Users\gabriel.souza\AUTOMACAO\Imagens\1.png', confidence=0.95):
+            if locateOnScreen(r'C:\Users\gabriel.souza\Documents\automacao-de-cadastro\assets\images\1.png', confidence=0.95):
                 sleep(0.3)
                 # Abrir aba de clientes/fornecedores
                 click(x=797, y=71)
@@ -249,7 +249,7 @@ def Robo(dados_formatados, Clifor, Insc_est, Is_running):
     # Espera a filtro abrir
     while Is_running:
         try:
-            if locateOnScreen(r'C:\Users\gabriel.souza\AUTOMACAO\Imagens\2.png', confidence=0.9):
+            if locateOnScreen(r'C:\Users\gabriel.souza\Documents\automacao-de-cadastro\assets\images\2.png', confidence=0.9):
                 sleep(0.3)
                 # Fecha o filtro
                 click(x=1123, y=771)
@@ -260,7 +260,7 @@ def Robo(dados_formatados, Clifor, Insc_est, Is_running):
     # Espera a aba de clientes/fornecedores
     while Is_running:
         try:
-            if locateOnScreen(r'C:\Users\gabriel.souza\AUTOMACAO\Imagens\3.png', confidence=0.9):
+            if locateOnScreen(r'C:\Users\gabriel.souza\Documents\automacao-de-cadastro\assets\images\3.png', confidence=0.9):
                 sleep(0.3)
                 # Abrir cadastro
                 click(x=13, y=198)
@@ -271,7 +271,7 @@ def Robo(dados_formatados, Clifor, Insc_est, Is_running):
     # Espera abrir o menu de cadastro
     while Is_running:
         try:
-            if locateOnScreen(r'C:\Users\gabriel.souza\AUTOMACAO\Imagens\4.png', confidence=0.9):
+            if locateOnScreen(r'C:\Users\gabriel.souza\Documents\automacao-de-cadastro\assets\images\4.png', confidence=0.9):
                 sleep(0.3)
                 # Escreve o código fornecedor/cliente
                 press('tab')
@@ -378,7 +378,7 @@ def Robo(dados_formatados, Clifor, Insc_est, Is_running):
     # Espera o cadastro terminar
     while Is_running:
         try:
-            if locateOnScreen(r'C:\Users\gabriel.souza\AUTOMACAO\Imagens\5.png', confidence=0.9):
+            if locateOnScreen(r'C:\Users\gabriel.souza\Documents\automacao-de-cadastro\assets\images\5.png', confidence=0.9):
                 sleep(0.3)
                 # Fecha a aba de fornecedor/cliente
                 click(x=114, y=168)
@@ -397,14 +397,14 @@ def Verificar_Diretorio(Is_running):
             response = server_request(
                 query="""
                     SELECT
-                        (SELECT TOP 1 CODCFO FROM FCFO WHERE CODCFO LIKE 'F%' and CODCOLIGADA = 5 ORDER BY DATACRIACAO DESC, CODCFO DESC) AS COD_FOR,
-                        (SELECT TOP 1 CODCFO FROM FCFO WHERE CODCFO LIKE 'C%' and CODCOLIGADA = 5 ORDER BY DATACRIACAO DESC, CODCFO DESC) AS COD_CLI
+                        'F' + RIGHT('00000' + CAST((CAST(SUBSTRING((SELECT TOP 1 CODCFO FROM FCFO WHERE CODCFO LIKE 'F%' AND CODCOLIGADA = 5 ORDER BY DATACRIACAO DESC, CODCFO DESC), 2, 5) AS INT) + 1) AS VARCHAR), 5) AS COD_FOR,
+                        'C' + RIGHT('00000' + CAST((CAST(SUBSTRING((SELECT TOP 1 CODCFO FROM FCFO WHERE CODCFO LIKE 'C%' AND CODCOLIGADA = 5 ORDER BY DATACRIACAO DESC, CODCFO DESC), 2, 5) AS INT) + 1) AS VARCHAR), 5) AS COD_CLI
                 """
             )
 
             # Lista todos os arquivos no diretório
-            caminho_pasta = r'C:\Users\gabriel.souza\AUTOMACAO\Clifor'
-            diretorio = listdir(r'C:\Users\gabriel.souza\AUTOMACAO\Clifor')
+            caminho_pasta = r'C:\Users\gabriel.souza\Documents\automacao-de-cadastro\assets\docs'
+            diretorio = listdir(caminho_pasta)
 
             # Verifica se há arquivos PDF
             for arquivo in diretorio:
