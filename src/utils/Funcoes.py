@@ -3,8 +3,8 @@ from re import search, sub, escape, IGNORECASE
 from os import listdir, remove, path
 from time import sleep
 from fitz import open
-from Abreviacoes import abreviacoes
-from Municipios import municipios
+from src.utils.Abreviacoes import abreviacoes
+from src.utils.Municipios import municipios
 from pyperclip import copy
 from src.utils.connection import server_request, close_connection
 
@@ -236,7 +236,7 @@ def Robo(dados_formatados, Clifor, Insc_est, Is_running):
     PAUSE = 0.5
 
     # Espera a menu inicial do RM
-    while Is_running():
+    while Is_running:
         try:
             if locateOnScreen(r'C:\Users\gabriel.souza\AUTOMACAO\Imagens\1.png', confidence=0.95):
                 sleep(0.3)
@@ -247,7 +247,7 @@ def Robo(dados_formatados, Clifor, Insc_est, Is_running):
             None
 
     # Espera a filtro abrir
-    while Is_running():
+    while Is_running:
         try:
             if locateOnScreen(r'C:\Users\gabriel.souza\AUTOMACAO\Imagens\2.png', confidence=0.9):
                 sleep(0.3)
@@ -258,7 +258,7 @@ def Robo(dados_formatados, Clifor, Insc_est, Is_running):
             None
 
     # Espera a aba de clientes/fornecedores
-    while Is_running():
+    while Is_running:
         try:
             if locateOnScreen(r'C:\Users\gabriel.souza\AUTOMACAO\Imagens\3.png', confidence=0.9):
                 sleep(0.3)
@@ -269,7 +269,7 @@ def Robo(dados_formatados, Clifor, Insc_est, Is_running):
             None
 
     # Espera abrir o menu de cadastro
-    while Is_running():
+    while Is_running:
         try:
             if locateOnScreen(r'C:\Users\gabriel.souza\AUTOMACAO\Imagens\4.png', confidence=0.9):
                 sleep(0.3)
@@ -280,7 +280,7 @@ def Robo(dados_formatados, Clifor, Insc_est, Is_running):
         except ImageNotFoundException:
             None
 
-    if Is_running():
+    if Is_running:
         # Escreve o nome fantasia
         press('tab', presses=2)
         write(dados_formatados['Nome Fantasia'].strip())
@@ -376,7 +376,7 @@ def Robo(dados_formatados, Clifor, Insc_est, Is_running):
         click(x=1230, y=884)
 
     # Espera o cadastro terminar
-    while Is_running():
+    while Is_running:
         try:
             if locateOnScreen(r'C:\Users\gabriel.souza\AUTOMACAO\Imagens\5.png', confidence=0.9):
                 sleep(0.3)
@@ -386,14 +386,14 @@ def Robo(dados_formatados, Clifor, Insc_est, Is_running):
         except ImageNotFoundException as e:
             None
 
-    if not Is_running():
+    if not Is_running:
         return  # Sai da função imediatamente se parar for solicitado
 
 
 def Verificar_Diretorio(Is_running):
 
     try:
-        while Is_running():
+        while Is_running:
             response = server_request(
                 query="""
                     SELECT
@@ -409,7 +409,7 @@ def Verificar_Diretorio(Is_running):
             # Verifica se há arquivos PDF
             for arquivo in diretorio:
 
-                if arquivo.upper().endswith('.PDF') and (arquivo.upper().startswith('C') or arquivo.upper().startswith('F')) and Is_running() == True:
+                if arquivo.upper().endswith('.PDF') and (arquivo.upper().startswith('C') or arquivo.upper().startswith('F')) and Is_running == True:
 
                     caminho_completo = path.join(caminho_pasta, arquivo)
 
@@ -424,14 +424,14 @@ def Verificar_Diretorio(Is_running):
                         inscricao_estadual = ''
 
                     # Realiza o cadastro usando o Robo
-                    if 'F' in arquivo.upper().replace('.PDF', '') and Is_running() == True:
+                    if 'F' in arquivo.upper().replace('.PDF', '') and Is_running == True:
                         Robo(dados, response['COD_FOR'],
                              inscricao_estadual, Is_running)
-                    elif 'C' in arquivo.upper().replace('.PDF', '') and Is_running() == True:
+                    elif 'C' in arquivo.upper().replace('.PDF', '') and Is_running == True:
                         Robo(dados, response['COD_CLI'],
                              inscricao_estadual, Is_running)
 
-                    if Is_running() == True:
+                    if Is_running == True:
                         # Remove o arquivo após o processamento
                         remove(caminho_completo)
 

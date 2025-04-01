@@ -34,7 +34,7 @@ class App:
             running = True
 
             verificacao_thread = Thread(
-                target=Verificar_Diretorio, args=(lambda: running))
+                target=Verificar_Diretorio, args=(running,))
             verificacao_thread.start()
 
         def restart(e):
