@@ -1,5 +1,10 @@
 import flet as ft
 from src.utils.Funcoes import Verificar_Diretorio
+from logging import basicConfig, ERROR
+
+
+basicConfig(filename='main.log', level=ERROR,
+            format='%(asctime)s - %(levelname)s - %(filename)s - %(message)s')
 
 
 class App:
