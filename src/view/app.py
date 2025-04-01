@@ -1,6 +1,5 @@
 import flet as ft
 from logging import basicConfig, ERROR
-from threading import Thread
 from src.bot.bot import Register
 
 
@@ -37,9 +36,7 @@ class App:
             self.page.update()
 
             register = Register({}, "", "")
-            automation_thread = Thread(
-                target=register.check_folder, daemon=True)
-            automation_thread.start()
+            register.check_folder()
 
         def restart(e):
             start_button.bgcolor = ft.Colors.BLUE_900
