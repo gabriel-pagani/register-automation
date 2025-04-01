@@ -1,4 +1,6 @@
 import flet as ft
+from src.utils.Funcoes import Verificar_Diretorio
+from threading import Thread
 
 
 class App:
@@ -28,7 +30,12 @@ class App:
             restart_button.disabled = False
             self.page.update()
 
-            # Adicionar a lógica para iniciar a automação aqui!
+            global running, verificacao_thread
+            running = True
+
+            verificacao_thread = Thread(
+                target=Verificar_Diretorio, args=(lambda: running))
+            verificacao_thread.start()
 
         def restart(e):
             start_button.bgcolor = ft.Colors.BLUE_900
@@ -38,7 +45,11 @@ class App:
             restart_button.disabled = True
             self.page.update()
 
-            # Adicionar a lógica para reiniciar a automação aqui!
+            global running, verificacao_thread
+            running = False
+
+            if verificacao_thread is not None:
+                verificacao_thread.join()
 
         # Components
         start_button = ft.ElevatedButton(
