@@ -217,7 +217,6 @@ class RoboAutomacao:
 
     # Configuração da velocidade de execução
     PAUSA_PADRAO = 0.5
-    PAUSA_ESPERANDO = 0.3
 
     # Configurações de caminhos
     CAMINHO_IMAGENS = r'C:\Users\gabriel.souza\Documents\automacao-de-cadastro\assets\images'
@@ -232,7 +231,6 @@ class RoboAutomacao:
         while True:
             try:
                 if pyautogui.locateOnScreen(caminho_imagem, confidence=confianca):
-                    time.sleep(self.PAUSA_ESPERANDO)
                     return True
             except pyautogui.ImageNotFoundException:
                 pass
@@ -282,7 +280,7 @@ class RoboAutomacao:
             pyautogui.press('tab', presses=3)
             if insc_est.isdigit():
                 pyautogui.write(str(insc_est))
-            pyautogui.click(x=542, y=483)
+            pyautogui.click(x=542, y=522)
             pyautogui.click(x=751, y=622)
 
             if 'I' in insc_est.upper():
@@ -398,14 +396,14 @@ class ProcessadorDocumentos:
         """Monitora o diretório por novos arquivos PDF para processar."""
         try:
             while True:
-                # Obtém os próximos códigos disponíveis
-                codigos = self.obter_codigos()
-
                 # Lista todos os arquivos do diretório
                 arquivos = os.listdir(self.CAMINHO_PASTA)
 
                 # Processa cada arquivo PDF válido
                 for arquivo in arquivos:
+                    # Obtém os próximos códigos disponíveis
+                    codigos = self.obter_codigos()
+
                     if (arquivo.upper().endswith('.PDF') and
                             (arquivo.upper().startswith('C') or arquivo.upper().startswith('F'))):
 
