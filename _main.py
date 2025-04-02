@@ -216,7 +216,7 @@ class RoboAutomacao:
     """Classe para realizar automação de cadastro no sistema RM."""
 
     # Configuração da velocidade de execução
-    PAUSA_PADRAO = 0.5
+    PAUSA_PADRAO = 0.1
 
     # Configurações de caminhos
     CAMINHO_IMAGENS = r'C:\Users\gabriel.souza\Documents\automacao-de-cadastro\assets\images'
@@ -242,7 +242,7 @@ class RoboAutomacao:
             return
 
         # Abre o menu inicial do RM e navega até cadastro
-        self._aguardar_imagem('1.png', 0.95)
+        self._aguardar_imagem('1.png')
         pyautogui.click(x=797, y=71)  # Abrir aba de clientes/fornecedores
 
         self._aguardar_imagem('2.png')
