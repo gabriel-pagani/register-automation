@@ -390,13 +390,6 @@ def Verificar_Diretorio():
 
     try:
         while True:
-            response = server_request(
-                query="""
-                    SELECT
-                        'F' + RIGHT('00000' + CAST((CAST(SUBSTRING((SELECT TOP 1 CODCFO FROM FCFO WHERE CODCFO LIKE 'F%' AND CODCOLIGADA = 5 ORDER BY DATACRIACAO DESC, CODCFO DESC), 2, 5) AS INT) + 1) AS VARCHAR), 5) AS COD_FOR,
-                        'C' + RIGHT('00000' + CAST((CAST(SUBSTRING((SELECT TOP 1 CODCFO FROM FCFO WHERE CODCFO LIKE 'C%' AND CODCOLIGADA = 5 ORDER BY DATACRIACAO DESC, CODCFO DESC), 2, 5) AS INT) + 1) AS VARCHAR), 5) AS COD_CLI
-                """
-            )
 
             # Lista todos os arquivos no diretório
             caminho_pasta = r'C:\Users\gabriel.souza\Documents\automacao-de-cadastro\assets\docs'
@@ -406,6 +399,13 @@ def Verificar_Diretorio():
             for arquivo in diretorio:
 
                 if arquivo.upper().endswith('.PDF') and (arquivo.upper().startswith('C') or arquivo.upper().startswith('F')):
+                    response = server_request(
+                        query="""
+                            SELECT
+                                'F' + RIGHT('00000' + CAST((CAST(SUBSTRING((SELECT TOP 1 CODCFO FROM FCFO WHERE CODCFO LIKE 'F%' AND CODCOLIGADA = 5 ORDER BY DATACRIACAO DESC, CODCFO DESC), 2, 5) AS INT) + 1) AS VARCHAR), 5) AS COD_FOR,
+                                'C' + RIGHT('00000' + CAST((CAST(SUBSTRING((SELECT TOP 1 CODCFO FROM FCFO WHERE CODCFO LIKE 'C%' AND CODCOLIGADA = 5 ORDER BY DATACRIACAO DESC, CODCFO DESC), 2, 5) AS INT) + 1) AS VARCHAR), 5) AS COD_CLI
+                        """
+                    )
 
                     caminho_completo = path.join(caminho_pasta, arquivo)
 
