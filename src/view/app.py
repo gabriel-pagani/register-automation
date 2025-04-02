@@ -16,7 +16,7 @@ class App:
     def setup_page(self) -> None:
         self.page.title = 'Automação'
         self.page.window.width = 600
-        self.page.window.height = 250
+        self.page.window.height = 180
         self.page.window.center()
         self.page.window.to_front()
         self.page.window.resizable = False
@@ -30,8 +30,8 @@ class App:
             start_button.bgcolor = ft.Colors.GREY_300
             start_button.tooltip = 'Automação em Execução'
             start_button.disabled = True
-            restart_button.bgcolor = ft.Colors.BLUE_900
-            restart_button.disabled = False
+            # restart_button.bgcolor = ft.Colors.BLUE_900
+            # restart_button.disabled = False
             self.page.update()
 
             Verificar_Diretorio()
@@ -40,8 +40,8 @@ class App:
             start_button.bgcolor = ft.Colors.BLUE_900
             start_button.tooltip = ''
             start_button.disabled = False
-            restart_button.bgcolor = ft.Colors.GREY_300
-            restart_button.disabled = True
+            # restart_button.bgcolor = ft.Colors.GREY_300
+            # restart_button.disabled = True
             self.page.update()
 
             # Implementar a lógica para reiniciar a automação aqui
@@ -74,7 +74,7 @@ class App:
             content=ft.Column(
                 controls=[
                     start_button,
-                    restart_button,
+                    # restart_button,
                 ],
                 width=500,
                 alignment=ft.MainAxisAlignment.CENTER,
