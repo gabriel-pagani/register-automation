@@ -284,15 +284,15 @@ class RoboAutomacao:
 
         # Abre o menu inicial do RM e navega até cadastro
         self.smart_click(
-            image_path=r'C:\Users\gabriel.souza\Documents\automacao-de-cadastro\assets\images\clientes_fornecedores.png')
+            image_path=r'C:\Users\gabriel.souza\register-automation\assets\images\clientes_fornecedores.png')
 
         self.smart_click(
-            image_path=r'C:\Users\gabriel.souza\Documents\automacao-de-cadastro\assets\images\fechar.png')
+            image_path=r'C:\Users\gabriel.souza\register-automation\assets\images\fechar.png')
 
         pyautogui.hotkey('ctrl', 'insert')
 
         self.smart_press(
-            image_path=r'C:\Users\gabriel.souza\Documents\automacao-de-cadastro\assets\images\cadastro_aberto.png', key='tab')
+            image_path=r'C:\Users\gabriel.souza\register-automation\assets\images\cadastro_aberto.png', key='tab')
         pyautogui.write(clifor)  # Escreve o código fornecedor/cliente
 
         # Preenche os dados do cadastro
@@ -385,13 +385,13 @@ class RoboAutomacao:
 
         # Espera o cadastro terminar e fecha a aba
         self.smart_click_position(
-            flag_path=r'C:\Users\gabriel.souza\Documents\automacao-de-cadastro\assets\images\flag_filtro.png', x=114, y=168)
+            flag_path=r'C:\Users\gabriel.souza\register-automation\assets\images\flag_filtro.png', x=114, y=168)
 
 
 class ProcessadorDocumentos:
     """Classe para monitorar e processar documentos PDF."""
 
-    CAMINHO_PASTA = r'C:\Users\gabriel.souza\Documents\automacao-de-cadastro\assets\docs'
+    CAMINHO_PASTA = r'C:\Users\gabriel.souza\register-automation\assets\docs'
 
     def __init__(self):
         """Inicializa o processador com classes necessárias."""
