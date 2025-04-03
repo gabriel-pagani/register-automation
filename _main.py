@@ -243,7 +243,7 @@ class RoboAutomacao:
         while True:
             try:
                 if flag_path:
-                    if pyautogui.locateOnScreen(flag_path):
+                    if pyautogui.locateOnScreen(flag_path, confidence=0.95):
                         pyautogui.click(image_path)
                         break
                 else:
@@ -257,7 +257,7 @@ class RoboAutomacao:
     def smart_click_position(x: int, y: int, flag_path: str):
         while True:
             try:
-                if pyautogui.locateOnScreen(flag_path):
+                if pyautogui.locateOnScreen(flag_path, confidence=0.95):
                     pyautogui.click(x=x, y=y)
                     break
 
