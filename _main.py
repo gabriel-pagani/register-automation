@@ -12,6 +12,7 @@ import pyperclip
 from src.utils.Abreviacoes import abreviacoes
 from src.utils.Municipios import municipios
 from src.utils.connection import server_request, close_connection
+from src.utils.commands import smart_press, smart_click, smart_click_position
 
 
 class ExtratorDados:
@@ -216,7 +217,7 @@ class RoboAutomacao:
     """Classe para realizar automação de cadastro no sistema RM."""
 
     # Configuração da velocidade de execução
-    PAUSA_PADRAO = 0.1
+    PAUSA_PADRAO = 0.3
 
     # Configurações de caminhos
     CAMINHO_IMAGENS = r'C:\Users\gabriel.souza\Documents\automacao-de-cadastro\assets\images'
@@ -242,17 +243,16 @@ class RoboAutomacao:
             return
 
         # Abre o menu inicial do RM e navega até cadastro
-        self._aguardar_imagem('1.png')
-        pyautogui.click(x=797, y=71)  # Abrir aba de clientes/fornecedores
+        smart_click(
+            image_path=r'C:\Users\gabriel.souza\Documents\automacao-de-cadastro\assets\images\clientes_fornecedores.png')
 
-        self._aguardar_imagem('2.png')
-        pyautogui.click(x=1123, y=771)  # Fecha o filtro
+        smart_click(
+            image_path=r'C:\Users\gabriel.souza\Documents\automacao-de-cadastro\assets\images\fechar.png')
 
-        self._aguardar_imagem('3.png')
-        pyautogui.click(x=13, y=198)  # Abrir cadastro
+        pyautogui.hotkey('ctrl', 'insert')
 
-        self._aguardar_imagem('4.png')
-        pyautogui.press('tab')
+        smart_press(
+            image_path=r'C:\Users\gabriel.souza\Documents\automacao-de-cadastro\assets\images\cadastro_aberto.png', key='tab')
         pyautogui.write(clifor)  # Escreve o código fornecedor/cliente
 
         # Preenche os dados do cadastro
@@ -344,8 +344,8 @@ class RoboAutomacao:
         pyautogui.click(x=1230, y=884)
 
         # Espera o cadastro terminar e fecha a aba
-        self._aguardar_imagem('5.png')
-        pyautogui.click(x=114, y=168)  # Fecha a aba de fornecedor/cliente
+        smart_click_position(
+            flag_path=r'C:\Users\gabriel.souza\Documents\automacao-de-cadastro\assets\images\flag_filtro.png', x=114, y=168)
 
 
 class ProcessadorDocumentos:
