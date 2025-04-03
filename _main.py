@@ -12,7 +12,6 @@ import pyperclip
 from src.utils.Abreviacoes import abreviacoes
 from src.utils.Municipios import municipios
 from src.utils.connection import server_request, close_connection
-from src.utils.commands import smart_press, smart_click, smart_click_position
 
 
 class ExtratorDados:
@@ -219,22 +218,47 @@ class RoboAutomacao:
     # Configuração da velocidade de execução
     PAUSA_PADRAO = 0.3
 
-    # Configurações de caminhos
-    CAMINHO_IMAGENS = r'C:\Users\gabriel.souza\Documents\automacao-de-cadastro\assets\images'
-
     def __init__(self):
         """Inicializa o robô com configurações padrão."""
         pyautogui.PAUSE = self.PAUSA_PADRAO
 
-    def _aguardar_imagem(self, nome_imagem, confianca=0.9):
-        """Aguarda até que uma imagem específica seja encontrada na tela."""
-        caminho_imagem = os.path.join(self.CAMINHO_IMAGENS, nome_imagem)
+    @staticmethod
+    def smart_click(image_path: str, flag_path: str = None):
         while True:
             try:
-                if pyautogui.locateOnScreen(caminho_imagem, confidence=confianca):
-                    return True
+                if flag_path:
+                    if pyautogui.locateOnScreen(flag_path):
+                        pyautogui.click(image_path)
+                        break
+                else:
+                    pyautogui.click(image_path)
+                    break
             except pyautogui.ImageNotFoundException:
-                pass
+                print('Botão não foi encontrado!')
+            time.sleep(0.5)
+
+    @staticmethod
+    def smart_click_position(x: int, y: int, flag_path: str):
+        while True:
+            try:
+                if pyautogui.locateOnScreen(flag_path):
+                    pyautogui.click(x=x, y=y)
+                    break
+
+            except pyautogui.ImageNotFoundException:
+                print('Referência não foi encontrada!')
+            time.sleep(0.5)
+
+    @staticmethod
+    def smart_press(image_path: str, key: str):
+        while True:
+            try:
+                if pyautogui.locateOnScreen(image_path):
+                    pyautogui.press(key)
+                break
+            except pyautogui.ImageNotFoundException:
+                print('Referência não foi encontrada!')
+            time.sleep(0.5)
 
     def cadastrar(self, dados_formatados, clifor, insc_est):
         """Realiza o cadastro no sistema RM usando PyAutoGUI."""
@@ -243,15 +267,15 @@ class RoboAutomacao:
             return
 
         # Abre o menu inicial do RM e navega até cadastro
-        smart_click(
+        self.smart_click(
             image_path=r'C:\Users\gabriel.souza\Documents\automacao-de-cadastro\assets\images\clientes_fornecedores.png')
 
-        smart_click(
+        self.smart_click(
             image_path=r'C:\Users\gabriel.souza\Documents\automacao-de-cadastro\assets\images\fechar.png')
 
         pyautogui.hotkey('ctrl', 'insert')
 
-        smart_press(
+        self.smart_press(
             image_path=r'C:\Users\gabriel.souza\Documents\automacao-de-cadastro\assets\images\cadastro_aberto.png', key='tab')
         pyautogui.write(clifor)  # Escreve o código fornecedor/cliente
 
@@ -344,7 +368,7 @@ class RoboAutomacao:
         pyautogui.click(x=1230, y=884)
 
         # Espera o cadastro terminar e fecha a aba
-        smart_click_position(
+        self.smart_click_position(
             flag_path=r'C:\Users\gabriel.souza\Documents\automacao-de-cadastro\assets\images\flag_filtro.png', x=114, y=168)
 
 
