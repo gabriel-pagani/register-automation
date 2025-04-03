@@ -9,9 +9,13 @@ import time
 import fitz
 import pyautogui
 import pyperclip
+import base64
+from io import BytesIO
+from PIL import Image
 from src.utils.Abreviacoes import abreviacoes
 from src.utils.Municipios import municipios
 from src.utils.connection import server_request, close_connection
+from src.utils.images_base64 import imagens_base64
 
 
 class ExtratorDados:
@@ -221,6 +225,18 @@ class RoboAutomacao:
     def __init__(self):
         """Inicializa o robô com configurações padrão."""
         pyautogui.PAUSE = self.PAUSA_PADRAO
+
+    @staticmethod
+    def load_image(name_imagem):
+        # Obtém a string Base64 da imagem
+        base64_string = imagens_base64.get(name_imagem)
+        if base64_string:
+            # Decodifica a string Base64
+            image_data = base64.b64decode(base64_string)
+            # Cria uma imagem a partir dos dados decodificados
+            return Image.open(BytesIO(image_data))
+        else:
+            raise ValueError(f"Imagem '{name_imagem}' não encontrada.")
 
     @staticmethod
     def smart_click(image_path: str, flag_path: str = None):
