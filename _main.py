@@ -208,7 +208,7 @@ class ExtratorDados:
             dados_formatados['Celular2'] = ''
 
         # Email
-        dados_formatados['Email'] = '' if '@' not in dados_extraidos['Email'] else dados_extraidos['Email'].strip()
+        dados_formatados['Email'] = '' if '@' not in dados_extraidos['Email'] else dados_extraidos['Email'].strip().lower()
 
         # Situação
         dados_formatados['Situacao'] = dados_extraidos['Situacao'].strip()
