@@ -12,7 +12,8 @@ def smart_click(image_path: str, flag_path: str = None):
                 click(image_path)
                 break
         except ImageNotFoundException:
-            None
+            print('Botão não foi encontrado!')
+        sleep(0.5)
 
 
 def smart_press(image_path: str, key: str):
@@ -22,4 +23,5 @@ def smart_press(image_path: str, key: str):
                 press(key)
             break
         except ImageNotFoundException:
-            None
+            print('Referência não foi encontrada!')
+        sleep(0.5)
