@@ -396,8 +396,11 @@ class ProcessadorDocumentos:
         """Monitora o diretório por novos arquivos PDF para processar."""
         try:
             while True:
+                print('Monitorando Diretório...')
                 # Lista todos os arquivos do diretório
                 arquivos = os.listdir(self.CAMINHO_PASTA)
+                if arquivos:
+                    print('Arquivos Detectados!')
 
                 # Processa cada arquivo PDF válido
                 for arquivo in arquivos:
