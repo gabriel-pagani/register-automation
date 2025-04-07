@@ -10,7 +10,7 @@ _connection = None
 def get_connection() -> connect:
     global _connection
     if _connection is None or _connection.closed:
-        server_connection = f'DRIVER={{SQL Server}}; SERVER={getenv("SERVER")}; DATABASE={getenv("DATABASE")}; UID={getenv("USER")}; PWD={getenv("PASSWORD")}'
+        server_connection = f'DRIVER={{SQL Server}}; SERVER={getenv("A")}; DATABASE={getenv("B")}; UID={getenv("C")}; PWD={getenv("D")}'
         try:
             _connection = connect(server_connection)
         except Error as e:
