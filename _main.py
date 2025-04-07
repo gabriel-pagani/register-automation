@@ -377,11 +377,11 @@ class RoboAutomacao:
         print("\033[36m[AÇÃO]\033[m Abrindo menu inicial do RM")
         # Abre o menu inicial do RM e navega até cadastro
         self.smart_click(
-            image_path=r'C:\Users\gabriel.souza\register-automation\assets\images\clientes_fornecedores.png')
+            image_path=r'\\serverfile\users\Tecnologia\Softwares\Windows\register-automation\assets\images\clientes_fornecedores.png')
 
         print("\033[36m[AÇÃO]\033[m Fechando notificações se houver")
         self.smart_click(
-            image_path=r'C:\Users\gabriel.souza\register-automation\assets\images\fechar.png')
+            image_path=r'\\serverfile\users\Tecnologia\Softwares\Windows\register-automation\assets\images\fechar.png')
 
         print("\033[36m[AÇÃO]\033[m Pressionando Ctrl+Insert para novo cadastro")
         pyautogui.hotkey('ctrl', 'insert')
@@ -389,7 +389,7 @@ class RoboAutomacao:
 
         print("\033[36m[AÇÃO]\033[m Posicionando cursor no campo de código")
         self.smart_press(
-            image_path=r'C:\Users\gabriel.souza\register-automation\assets\images\cadastro_aberto.png', key='tab')
+            image_path=r'\\serverfile\users\Tecnologia\Softwares\Windows\register-automation\assets\images\cadastro_aberto.png', key='tab')
         print(f"\033[36m[AÇÃO]\033[m Digitando código: {clifor}")
         pyautogui.write(clifor)  # Escreve o código fornecedor/cliente
 
@@ -543,7 +543,7 @@ class RoboAutomacao:
         print(
             "\033[36m[AÇÃO]\033[m Aguardando finalização do cadastro e fechando aba")
         self.smart_click_position(
-            flag_path=r'C:\Users\gabriel.souza\register-automation\assets\images\flag_filtro.png', x=114, y=168)
+            flag_path=r'\\serverfile\users\Tecnologia\Softwares\Windows\register-automation\assets\images\flag_filtro.png', x=114, y=168)
         print(
             f"\033[32m[SUCESSO]\033[m Cadastro de {clifor} finalizado com sucesso!")
 
@@ -551,7 +551,7 @@ class RoboAutomacao:
 class ProcessadorDocumentos:
     """Classe para monitorar e processar documentos PDF."""
 
-    CAMINHO_PASTA = r'C:\Users\gabriel.souza\register-automation\assets\docs'
+    CAMINHO_PASTA = r'\\serverfile\users\Tecnologia\Softwares\Windows\register-automation\assets\docs'
 
     def __init__(self):
         """Inicializa o processador com classes necessárias."""
